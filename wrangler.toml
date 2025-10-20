@@ -5,7 +5,7 @@ compatibility_date = "2025-05-20" # Or your project's compatibility date
 workers_dev = true
 
 kv_namespaces = [
-  { binding = "DATA_KV", id = "kv数据库的ID" }
+  { binding = "ai-daily-kv", id = "b097029fdbbe4359bbfe32ed68b90e59" }
 ]
 
 [vars]
