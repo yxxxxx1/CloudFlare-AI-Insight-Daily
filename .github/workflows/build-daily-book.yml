@@ -8,7 +8,6 @@ on:
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
-    # 增加部署所需的权限
     permissions:
       contents: write
       pages: write
@@ -18,14 +17,11 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
         with:
-          # 确保检出的是包含源文件的分支
           ref: 'book' 
 
-      # 步骤 1: 归档旧笔记 (已修改路径为 src/daily)
       - name: Archive old notes
         run: |
           echo "开始检查并归档旧的日刊..."
-          # 确保源目录存在
           mkdir -p src/daily
           LATEST_DAILY_FILE=$(find src/daily -type f -name "*.md" | sort -r | head -n 1)
           if [ -z "$LATEST_DAILY_FILE" ]; then
@@ -46,9 +42,7 @@ jobs:
           fi
           echo "文件归档检查完成。"
 
-      # (可选) 如果您的触发和下载步骤是用来生成新的 .md 文件,
-      # 请确保它们将新文件保存到 `src/daily/` 目录下。
-      # 例如： wget -O src/daily/new-report.md ...
+      # (可选) 您的触发和下载步骤
       - name: Trigger RSS Data Write ...
         run: |
           # ... (您的触发脚本) ...
@@ -57,11 +51,9 @@ jobs:
         run: |
           # ... (您的下载脚本) ...
       
-      # 步骤 2: 【新增】自动生成 SUMMARY.md
       - name: Generate SUMMARY.md
         run: |
           echo "正在生成 SUMMARY.md..."
-          # 写入固定的标题和介绍页链接
           echo "# Summary" > src/SUMMARY.md
           echo "" >> src/SUMMARY.md
           echo "[Introduction](README.md)" >> src/SUMMARY.md
@@ -70,37 +62,30 @@ jobs:
           echo "" >> src/SUMMARY.md
           echo "## Daily Journals" >> src/SUMMARY.md
           
-          # 查找所有日报 .md 文件并按名称倒序排序，然后生成链接
           find src/daily -type f -name "*.md" | sort -r | while read file; do
-            # 从文件名 'src/daily/2025-10-21.md' 提取日期 '2025-10-21'
             TITLE=$(basename "$file" .md)
-            # 生成相对路径的链接 '[2025-10-21](daily/2025-10-21.md)'
             echo "- [$TITLE]($(echo $file | sed 's|src/||'))" >> src/SUMMARY.md
           done
           
           echo "SUMMARY.md 生成完毕:"
           cat src/SUMMARY.md
 
-      # 步骤 3: 构建网站
       - name: Build the book
         run: |
           mkdir mdbook
           curl -sSL https://github.com/rust-lang/mdBook/releases/download/v0.4.21/mdbook-v0.4.21-x86_64-unknown-linux-gnu.tar.gz | tar -xz --directory=./mdbook
-          echo "$PWD/mdbook" >> $GITHUB_PATH
-          mdbook build
+          # 使用修正后的命令
+          ./mdbook/mdbook build
 
-      # 步骤 4: 上传构建产物
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
           path: ./book
 
-      # 步骤 5: 提交源文件的变更 (包括自动生成的 SUMMARY.md)
       - name: Commit and push source changes
         run: |
           git config --local user.email "action@github.com"
           git config --local user.name "GitHub Action"
-          # 添加所有 src 目录和 rss.xml 的变更
           git add src/
           if [ -f "rss.xml" ]; then
             git add rss.xml
@@ -113,7 +98,8 @@ jobs:
             git push
           fi
 
-      # 步骤 6: 部署到 GitHub Pages
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
+
+     
