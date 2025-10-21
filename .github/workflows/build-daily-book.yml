@@ -42,7 +42,7 @@ jobs:
           fi
           echo "文件归档检查完成。"
 
-      # (可选) 您的触发和下载步骤
+      # 您的触发和下载步骤保持不变
       - name: Trigger RSS Data Write ...
         run: |
           # ... (您的触发脚本) ...
@@ -51,6 +51,38 @@ jobs:
         run: |
           # ... (您的下载脚本) ...
       
+      # ================================================================
+      # ▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼ 新增的关键步骤 ▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼
+      # ================================================================
+      - name: Create Today's Journal from Data
+        run: |
+          echo "正在创建今天的日报Markdown文件..."
+          # 获取今天的日期 (YYYY-MM-DD)
+          TODAY_DATE=$(TZ="Asia/Shanghai" date +%Y-%m-%d)
+          # 定义新文件的路径
+          NEW_FILE_PATH="src/daily/$TODAY_DATE.md"
+          
+          # --- 核心逻辑 ---
+          # 检查下载的 rss.xml 文件是否存在
+          if [ -f "rss.xml" ]; then
+            echo "找到 rss.xml 文件，正在处理..."
+            # 【重要】您需要在这里编写脚本来解析 rss.xml
+            # 并将内容写入到 NEW_FILE_PATH 中。
+            # 作为一个临时占位符，我们先写入一些示例内容：
+            
+            echo "# $TODAY_DATE 日报" > $NEW_FILE_PATH
+            echo "" >> $NEW_FILE_PATH
+            echo "这是今天自动生成的日报内容。" >> $NEW_FILE_PATH
+            echo "" >> $NEW_FILE_PATH
+            echo "--- 从 rss.xml 提取的内容如下 ---" >> $NEW_FILE_PATH
+            # 简单地将 rss.xml 内容追加进来作为示例
+            cat rss.xml >> $NEW_FILE_PATH
+            
+            echo "文件 $NEW_FILE_PATH 创建成功。"
+          else
+            echo "警告: 未找到 rss.xml 文件，无法创建今日日报。"
+          fi
+
       - name: Generate SUMMARY.md
         run: |
           echo "正在生成 SUMMARY.md..."
@@ -74,7 +106,6 @@ jobs:
         run: |
           mkdir mdbook
           curl -sSL https://github.com/rust-lang/mdBook/releases/download/v0.4.21/mdbook-v0.4.21-x86_64-unknown-linux-gnu.tar.gz | tar -xz --directory=./mdbook
-          # 使用修正后的命令
           ./mdbook/mdbook build
 
       - name: Upload artifact
