@@ -114,18 +114,16 @@ jobs:
         run: |
           git config --local user.email "action@github.com"
           git config --local user.name "GitHub Action"
-          
-          git add today/ daily/
+            if [ -d "daily/" ]; then
+          git add daily/
+            fi
           if [ -f "rss.xml" ]; then
-            git add rss.xml
-          else
-            echo "rss.xml 未找到，不添加到提交中。"
-          fi
-
+          git add rss.xml
+            fi
           if git diff --staged --quiet; then
-            echo "没有文件变更，无需提交。"
+          echo "没有文件变更，无需提交。"
           else
-            echo "检测到文件变更，正在提交..."
-            git commit -m "docs: 自动构建日刊并归档旧月份 (`date -u`)"
-            git push
+          echo "检测到文件变更，正在提交..."
+          git commit -m "docs: 自动构建日刊并归档旧月份 (`date -u`)"
+          git push
           fi
