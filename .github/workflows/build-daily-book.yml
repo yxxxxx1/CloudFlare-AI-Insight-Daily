@@ -105,6 +105,11 @@ jobs:
             fi
           fi
           
+      - name: Debug Workspace Files
+        run: |
+            echo "--- Current Directory Content ---"
+             ls -R
+  
       - name: Commit and push changes
         run: |
           git config --local user.email "action@github.com"
