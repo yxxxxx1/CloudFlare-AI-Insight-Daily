@@ -14,7 +14,9 @@ jobs:
       
     # 需要写入权限来提交生成的文件和归档的日刊
     permissions:
-      contents: write
+      contents: write # 用于提交代码变更
+      pages: write      # 新增：允许部署到 GitHub Pages
+      id-token: write   # 新增：允许 Actions 获取部署所需的令牌
 
     steps:
       - name: Checkout repository
@@ -53,6 +55,27 @@ jobs:
           done
           echo "文件归档检查完成。"
 
+      # ...紧跟在 "Archive old notes" 步骤之后
+
+      - name: Build the book
+        run: |
+          # 下载并安装 mdbook 工具
+          mkdir mdbook
+          curl -sSL https://github.com/rust-lang/mdBook/releases/download/v0.4.21/mdbook-v0.4.21-x86_64-unknown-linux-gnu.tar.gz | tar -xz --directory=./mdbook
+          echo "$PWD/mdbook" >> $GITHUB_PATH
+          
+          # 运行构建命令
+          # 它会读取 book.toml 和 src/ 目录下的文件，并将生成的 HTML 网站放入 ./book 目录
+          mdbook build
+
+      # ...紧跟在 "Build the book" 步骤之后
+
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          # 上传由 mdbook build 命令生成的 "book" 目录
+          path: ./book
+          
       - name: Trigger RSS Data Write (2 attempts, 3 retries each)
         run: |
           # 检查 `WRITE_RSS_URL` 变量是否已设置
@@ -105,10 +128,6 @@ jobs:
             fi
           fi
           
-      - name: Debug Workspace Files
-        run: |
-            echo "--- Current Directory Content ---"
-             ls -R
   
       - name: Commit and push changes
         run: |
@@ -127,3 +146,19 @@ jobs:
           git commit -m "docs: 自动构建日刊并归档旧月份 (`date -u`)"
           git push
           fi
+
+      # 新增一个专门用于部署的任务
+  deploy:
+    # 部署任务需要等待构建任务成功完成
+    needs: build-book
+    runs-on: ubuntu-latest
+    
+    # 定义部署环境（这是 GitHub Pages 的标准配置）
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
