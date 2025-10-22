@@ -46,19 +46,27 @@ jobs:
       - name: Trigger RSS Data Write (2 attempts, 3 retries each)
         run: |
           if [ -z "${{ vars.WRITE_RSS_URL }}" ]; then
-            echo "警告: WRITE_RSS_URL 仓库变量未设置或为空，跳过此步骤。"
-            echo "错误：必须设置 WRITE_RSS_URL 才能继续！"
+            echo "错误：WRITE_RSS_URL 变量未设置！"
             exit 1
           fi
-          TODAY_DATE=$(TZ="Asia/Shanghai" date +%Y-%m-%d)
-          FULL_URL="${{ vars.WRITE_RSS_URL }}?date=$TODAY_DATE"
-          echo "将向以下 URL 发送2次请求（每次请求若失败则重试3次）:"
+
+          # 注意：我们不再需要 ?date=... 参数，因为 writeData.js 会自动获取日期
+          FULL_URL="${{ vars.WRITE_RSS_URL }}"
+
+          echo "将向以下 URL 发送2次 POST 请求（每次请求若失败则重试3次）:"
           echo "$FULL_URL"
+
           for i in 1 2
           do
             echo "---"
-            echo "正在发送第 $i 次请求..."
-            if curl -fsS --retry 3 --retry-delay 5 --retry-connrefused "$FULL_URL"; then
+            echo "正在发送第 $i 次 POST 请求..."
+
+            # ▼▼▼ 这是修改的核心 ▼▼▼
+            # 使用 -X POST 发送POST请求
+            # 使用 -H 'Content-Type: application/json'
+            # 使用 -d '{}' 发送一个空的JSON体，以确保是有效的POST请求
+            if curl -fsS -X POST -H "Content-Type: application/json" -d "{}" \
+                 --retry 3 --retry-delay 5 --retry-connrefused "$FULL_URL"; then
               echo "第 $i 次请求成功。"
             else
               echo "错误：第 $i 次请求在3次重试后仍然失败。"
