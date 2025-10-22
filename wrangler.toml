@@ -1,7 +1,8 @@
 # wrangler.toml
-name = "ai-daily"
+name = "yxxxxx1-ai-daily"
 main = "src/index.js" # <-- Important: path to your main worker script
 compatibility_date = "2025-05-20" # Or your project's compatibility date
+account_id = "12b7c5707789572baf625dfdcbe35ce1"
 workers_dev = true
 
 kv_namespaces = [
