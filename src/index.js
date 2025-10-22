@@ -42,7 +42,9 @@ export default {
             return await handleLogin(request, env);
         } else if (path === '/logout') { // Handle logout path
             return await handleLogout(request, env);
-        } else if (path === '/getContent' && request.method === 'GET') {
+        } else if (path === '/writeData' && request.method === 'POST') {
+            return  await handleWriteData(request, env);
+        }   else if (path === '/getContent' && request.method === 'GET') {
             return await handleGetContent(request, env);
         } else if (path.startsWith('/rss') && request.method === 'GET') {
             return await handleRss(request, env);
@@ -61,10 +63,7 @@ export default {
 
         // Original routing logic for authenticated requests
         let response;
-        try {
-            if (path === '/writeData' && request.method === 'POST') {
-                response = await handleWriteData(request, env);
-            } else if (path === '/getContentHtml' && request.method === 'GET') {
+        if (path === '/getContentHtml' && request.method === 'GET') {
                 // Prepare dataCategories for the HTML generation
                 const dataCategories = Object.keys(dataSources).map(key => ({
                     id: key,
