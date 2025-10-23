@@ -96,20 +96,20 @@ export async function getDailyReportContent(env, filePath) {
     const GITHUB_BRANCH = env.GITHUB_BRANCH || 'main';
     const GITHUB_REPO_OWNER = env.GITHUB_REPO_OWNER;
     const GITHUB_REPO_NAME = env.GITHUB_REPO_NAME;
-
-    if (!GITHUB_REPO_OWNER || !GITHUB_REPO_NAME) {
-        console.error("GitHub environment variables (GITHUB_REPO_OWNER, GITHUB_REPO_NAME) are not configured.");
-        throw new Error("GitHub API configuration is missing in environment variables.");
-    }
+    const rawUrl = `https://raw.githubusercontent.com/${GITHUB_REPO_OWNER}/${GITHUB_REPO_NAME}/${GITHUB_BRANCH}/${filePath}`;
 
     try {
-        const data = await callGitHubApi(env, `/contents/${filePath}?ref=${GITHUB_BRANCH}`);
-        return b64DecodeUnicode(data.content);
+        const response = await fetch(rawUrl);
+        if (!response.ok) {
+            throw new Error(`Failed to fetch file content from GitHub: ${response.status} ${response.statusText}`);
+        }
+        return await response.text();
     } catch (error) {
         console.error(`Error fetching daily report content from ${rawUrl}:`, error);
         throw error;
     }
 }
+
 
 // Base64 encode (UTF-8 safe)
 function b64EncodeUnicode(str) {
