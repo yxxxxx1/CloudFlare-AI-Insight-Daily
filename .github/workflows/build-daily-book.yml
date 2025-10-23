@@ -43,6 +43,7 @@ jobs:
           echo "文件归档检查完成。"
 
       # 【已修复】恢复了“触发”脚本
+      # 【已修复】使用正确的 GET 方法和 ?date= 参数
       - name: Trigger RSS Data Write (2 attempts, 3 retries each)
         run: |
           if [ -z "${{ vars.WRITE_RSS_URL }}" ]; then
@@ -50,23 +51,22 @@ jobs:
             exit 1
           fi
 
-          # 注意：我们不再需要 ?date=... 参数，因为 writeData.js 会自动获取日期
-          FULL_URL="${{ vars.WRITE_RSS_URL }}"
-
-          echo "将向以下 URL 发送2次 POST 请求（每次请求若失败则重试3次）:"
+          # 设置时区为 Asia/Shanghai (东八区)，并获取 YYYY-MM-DD 格式的日期
+          # /writeRssData 路由需要这个 date 参数
+          TODAY_DATE=$(TZ="Asia/Shanghai" date +%Y-%m-%d)
+          FULL_URL="${{ vars.WRITE_RSS_URL }}?date=$TODAY_DATE"
+          
+          echo "将向以下 URL 发送2次 GET 请求（每次请求若失败则重试3次）:"
           echo "$FULL_URL"
-
+          
           for i in 1 2
           do
             echo "---"
-            echo "正在发送第 $i 次 POST 请求..."
-
+            echo "正在发送第 $i 次 GET 请求..."
+            
             # ▼▼▼ 这是修改的核心 ▼▼▼
-            # 使用 -X POST 发送POST请求
-            # 使用 -H 'Content-Type: application/json'
-            # 使用 -d '{}' 发送一个空的JSON体，以确保是有效的POST请求
-            if curl -fsS -X POST -H "Content-Type: application/json" -d "{}" \
-                 --retry 3 --retry-delay 5 --retry-connrefused "$FULL_URL"; then
+            # 使用最简单的 GET 请求 (移除了 -X POST 和 -d '{}')
+            if curl -fsS --retry 3 --retry-delay 5 --retry-connrefused "$FULL_URL"; then
               echo "第 $i 次请求成功。"
             else
               echo "错误：第 $i 次请求在3次重试后仍然失败。"
