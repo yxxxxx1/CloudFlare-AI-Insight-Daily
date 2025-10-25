@@ -29,9 +29,8 @@ jobs:
           TZ: Asia/Shanghai
         run: |
           node - <<'EOF'
-          // -------- helpers ----------
           const BASE = process.env.BASE_URL.replace(/\/+$/, '');
-          const DATE = new Date(Date.now() + 8*3600*1000).toISOString().slice(0,10); // GMT+8 yyyy-mm-dd
+          const DATE = new Date(Date.now() + 8*3600*1000).toISOString().slice(0,10);
           const MAX_PER_TYPE = Number(process.env.MAX_PER_TYPE || 6);
 
           let cookieJar = '';
@@ -40,13 +39,9 @@ jobs:
             if (set) {
               const one = set.split(',')[0];
               const m = one.match(/^[^;]+/);
-              if (m) {
-                cookieJar = cookieJar ? (cookieJar + '; ' + m[0]) : m[0];
-              }
+              if (m) cookieJar = cookieJar ? (cookieJar + '; ' + m[0]) : m[0];
             }
-            return cookieJar;
           };
-
           const fetchWithCookie = async (url, opts={}) => {
             const headers = Object.assign({}, opts.headers || {});
             if (cookieJar) headers['cookie'] = cookieJar;
@@ -54,162 +49,98 @@ jobs:
             keepCookie(res);
             return res;
           };
-
-          const ok = (res) => {
-            if (!res.ok) throw new Error(`HTTP ${res.status} ${res.statusText}`);
-          };
-
-          const form = (pairs) => {
-            const fd = new FormData();
-            for (const [k,v] of pairs) {
-              if (Array.isArray(v)) v.forEach(x=>fd.append(k, x));
-              else fd.append(k, v);
-            }
-            return fd;
-          };
+          const ok = (res) => { if (!res.ok) throw new Error(`HTTP ${res.status}`); };
+          const form = (pairs) => { const f = new FormData(); for (const [k,v] of pairs) f.append(k,v); return f; };
 
           console.log(`BASE: ${BASE}`);
           console.log(`DATE: ${DATE}`);
 
-          // 1) login 获取 cookie
+          // login
           console.log('🔐 Login ...');
-          {
-            const fd = new URLSearchParams();
-            fd.set('username', process.env.USERNAME);
-            fd.set('password', process.env.PASSWORD);
-            const res = await fetch(`${BASE}/login`, {
-              method: 'POST',
-              headers: { 'content-type': 'application/x-www-form-urlencoded' },
-              redirect: 'manual',
-              body: fd.toString()
-            });
-            if (res.status !== 200 && res.status !== 302) {
-              throw new Error(`Login failed: HTTP ${res.status}`);
-            }
-            keepCookie(res);
-            if (!cookieJar) throw new Error('No cookie returned from login');
-          }
+          const fd = new URLSearchParams();
+          fd.set('username', process.env.USERNAME);
+          fd.set('password', process.env.PASSWORD);
+          const loginRes = await fetch(`${BASE}/login`, {method:'POST', headers:{'content-type':'application/x-www-form-urlencoded'}, body:fd});
+          if (![200,302].includes(loginRes.status)) throw new Error('Login failed');
+          keepCookie(loginRes);
           console.log('✅ Login OK');
 
-          // 2) writeData
+          // writeData
           console.log('📝 writeData ...');
-          {
-            const res = await fetchWithCookie(`${BASE}/writeData`, {
-              method: 'POST',
-              headers: { 'content-type': 'application/json' },
-              body: JSON.stringify({})
-            });
-            ok(res);
-            const j = await res.json().catch(()=>({}));
-            console.log('writeData result:', j);
-          }
+          const wres = await fetchWithCookie(`${BASE}/writeData`, {method:'POST', headers:{'content-type':'application/json'}, body:JSON.stringify({})});
+          ok(wres);
+          console.log('writeData result:', await wres.json());
 
-          // 3) getContent
+          // getContent
           console.log('📥 getContent ...');
-          const all = {};
-          {
-            const res = await fetch(`${BASE}/getContent?date=${DATE}`);
-            ok(res);
-            const j = await res.json();
-            for (const [k,v] of Object.entries(j)) {
-              if (Array.isArray(v)) all[k] = v;
-            }
-            console.log('got categories:', Object.keys(all));
-          }
+          const cres = await fetchWithCookie(`${BASE}/getContent?date=${DATE}`);
+          ok(cres);
+          const content = await cres.json();
+          const categories = Object.entries(content).filter(([k,v]) => Array.isArray(v));
+          console.log('got categories:', categories.map(([k])=>k));
 
-          // 4) 构造 selectedItems
-          console.log('🧩 build selectedItems ...');
           const selectedItems = [];
-          for (const [type, arr] of Object.entries(all)) {
+          for (const [type, arr] of categories) {
             for (const it of (arr || []).slice(0, MAX_PER_TYPE)) {
-              if (it && (it.id !== undefined && it.id !== null)) {
-                selectedItems.push(`${type}:${it.id}`);
-              }
+              if (it && it.id != null) selectedItems.push(`${type}:${it.id}`);
             }
           }
-          if (selectedItems.length === 0) throw new Error('No items to select – writeData may have fetched nothing.');
+          if (!selectedItems.length) throw new Error('No items to select');
 
-          // 5) genAIContent（JSON 模式）
+          // genAIContent
           console.log('🤖 genAIContent (JSON mode)...');
-          let markdown = '';
-          {
-            const fd = form([
-              ['date', DATE],
-              ['selectedItems', selectedItems]
-            ]);
-
-            const res = await fetchWithCookie(`${BASE}/genAIContent?mode=json`, {
-              method: 'POST',
-              body: fd
-            });
-            ok(res);
-
-            const j = await res.json().catch(() => null);
-            if (!j || !j.markdown) {
-              console.error('Full response:', j);
-              throw new Error('genAIContent JSON response invalid or missing markdown field.');
-            }
-
-            markdown = j.markdown;
-            if (!markdown.trim()) throw new Error('Empty markdown in genAIContent JSON result.');
-          }
+          const fdAI = form([['date', DATE], ['selectedItems', selectedItems], ['mode', 'json']]);
+          const gres = await fetchWithCookie(`${BASE}/genAIContent`, {method:'POST', body:fdAI});
+          ok(gres);
+          const gjson = await gres.json().catch(()=>null);
+          if (!gjson || !gjson.markdown) throw new Error('genAIContent JSON response invalid or missing markdown field.');
+          const markdown = gjson.markdown;
           console.log(`✅ genAIContent OK (JSON mode, length=${markdown.length})`);
 
-          // 6) commitToGitHub
+          // commitToGitHub
           console.log('⬆️ commitToGitHub ...');
-          {
-            const fd = form([
-              ['date', DATE],
-              ['daily_summary_markdown', markdown]
-            ]);
-            const res = await fetchWithCookie(`${BASE}/commitToGitHub`, {
-              method: 'POST',
-              body: fd
-            });
-            ok(res);
-            const j = await res.json().catch(()=>({}));
-            console.log('commitToGitHub result:', j);
-          }
+          const fdCommit = form([['date', DATE], ['daily_summary_markdown', markdown]]);
+          const commitRes = await fetchWithCookie(`${BASE}/commitToGitHub`, {method:'POST', body:fdCommit});
+          ok(commitRes);
+          console.log('commitToGitHub result:', await commitRes.json());
 
-          // 7) writeRssData
+          // writeRssData
           console.log('🪄 writeRssData ...');
-          {
-            const res = await fetch(`${BASE}/writeRssData?date=${DATE}`, { redirect: 'follow' });
-            ok(res);
-            const j = await res.json().catch(()=>({}));
-            console.log('writeRssData result:', j.title || j.report_date || 'OK');
-          }
+          const rssRes = await fetchWithCookie(`${BASE}/writeRssData?date=${DATE}`);
+          ok(rssRes);
+          console.log('writeRssData result:', (await rssRes.json()).title || 'OK');
 
-          // 8) 下载 RSS 到本地
+          // download RSS
           console.log('⬇️ download RSS ...');
-          {
-            const res = await fetch(`${BASE}/rss?days=7`);
-            ok(res);
-            const xml = await res.text();
-            const fs = await import('node:fs/promises');
-            await fs.writeFile('rss.xml', xml, 'utf8');
-          }
+          const rssFile = await fetchWithCookie(`${BASE}/rss?days=7`);
+          ok(rssFile);
+          const xml = await rssFile.text();
+          const fs = await import('node:fs/promises');
+          await fs.writeFile('rss.xml', xml, 'utf8');
 
           console.log('🎉 All done for', DATE);
           EOF
 
-      - name: Commit and push changes (rss.xml)
+      - name: Prepare files for GitHub Pages
+        run: |
+          mkdir -p docs/daily
+          cp -r daily/* docs/daily/ || true
+          cp rss.xml docs/rss.xml || true
+          echo "<meta http-equiv='refresh' content='0; url=daily/$(date +%F).md'>" > docs/index.html
+
+      - name: Commit and push changes (rss + pages)
         run: |
           git config --local user.email "action@github.com"
           git config --local user.name "GitHub Action"
 
-          if [ -f "rss.xml" ]; then
-          git add rss.xml
-          fi
+          git add rss.xml || true
+          git add docs/ || true
 
           if git diff --staged --quiet; then
-          echo "No changes to commit."
+            echo "No changes to commit."
           else
-          git commit -m "docs: auto-build AI Daily ($(date -u))"
-
-          # 🔧 新增两行，确保同步远程变更
-          git pull --rebase origin main
-          git push origin main
+            git commit -m "docs: auto-build AI Daily ($(date -u))"
+            git pull --rebase origin main
+            git push origin main
           fi
-
 
