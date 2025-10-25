@@ -3,7 +3,8 @@ name: Auto Build AI Daily
 on:
   workflow_dispatch: {}
   schedule:
-    - cron: "10 0 * * *" # 北京时间 08:10
+    # 每天北京时间 08:10 运行（UTC 00:10）
+    - cron: "10 0 * * *"
 
 jobs:
   auto-daily:
@@ -28,8 +29,9 @@ jobs:
           TZ: Asia/Shanghai
         run: |
           node - <<'EOF'
+          // -------- helpers ----------
           const BASE = process.env.BASE_URL.replace(/\/+$/, '');
-          const DATE = new Date(Date.now() + 8*3600*1000).toISOString().slice(0,10);
+          const DATE = new Date(Date.now() + 8*3600*1000).toISOString().slice(0,10); // GMT+8 yyyy-mm-dd
           const MAX_PER_TYPE = Number(process.env.MAX_PER_TYPE || 6);
 
           let cookieJar = '';
@@ -38,9 +40,13 @@ jobs:
             if (set) {
               const one = set.split(',')[0];
               const m = one.match(/^[^;]+/);
-              if (m) cookieJar = cookieJar ? (cookieJar + '; ' + m[0]) : m[0];
+              if (m) {
+                cookieJar = cookieJar ? (cookieJar + '; ' + m[0]) : m[0];
+              }
             }
+            return cookieJar;
           };
+
           const fetchWithCookie = async (url, opts={}) => {
             const headers = Object.assign({}, opts.headers || {});
             if (cookieJar) headers['cookie'] = cookieJar;
@@ -48,103 +54,164 @@ jobs:
             keepCookie(res);
             return res;
           };
-          const ok = (res) => { if (!res.ok) throw new Error(`HTTP ${res.status}`); };
-          const form = (pairs) => { const f = new FormData(); for (const [k,v] of pairs) f.append(k,v); return f; };
+
+          const ok = (res) => {
+            if (!res.ok) throw new Error(`HTTP ${res.status} ${res.statusText}`);
+          };
+
+          const form = (pairs) => {
+            const fd = new FormData();
+            for (const [k,v] of pairs) {
+              if (Array.isArray(v)) v.forEach(x=>fd.append(k, x));
+              else fd.append(k, v);
+            }
+            return fd;
+          };
 
           console.log(`BASE: ${BASE}`);
           console.log(`DATE: ${DATE}`);
 
-          // Login
+          // 1) login 获取 cookie
           console.log('🔐 Login ...');
-          const fd = new URLSearchParams();
-          fd.set('username', process.env.USERNAME);
-          fd.set('password', process.env.PASSWORD);
-          const loginRes = await fetch(`${BASE}/login`, {method:'POST', headers:{'content-type':'application/x-www-form-urlencoded'}, body:fd});
-          if (![200,302].includes(loginRes.status)) throw new Error('Login failed');
-          keepCookie(loginRes);
+          {
+            const fd = new URLSearchParams();
+            fd.set('username', process.env.USERNAME);
+            fd.set('password', process.env.PASSWORD);
+            const res = await fetch(`${BASE}/login`, {
+              method: 'POST',
+              headers: { 'content-type': 'application/x-www-form-urlencoded' },
+              redirect: 'manual',
+              body: fd.toString()
+            });
+            if (res.status !== 200 && res.status !== 302) {
+              throw new Error(`Login failed: HTTP ${res.status}`);
+            }
+            keepCookie(res);
+            if (!cookieJar) throw new Error('No cookie returned from login');
+          }
           console.log('✅ Login OK');
 
-          // Write data
+          // 2) writeData
           console.log('📝 writeData ...');
-          const wres = await fetchWithCookie(`${BASE}/writeData`, {method:'POST', headers:{'content-type':'application/json'}, body:JSON.stringify({})});
-          ok(wres);
-          console.log('writeData result:', await wres.json());
+          {
+            const res = await fetchWithCookie(`${BASE}/writeData`, {
+              method: 'POST',
+              headers: { 'content-type': 'application/json' },
+              body: JSON.stringify({})
+            });
+            ok(res);
+            const j = await res.json().catch(()=>({}));
+            console.log('writeData result:', j);
+          }
 
-          // Get content
+          // 3) getContent
           console.log('📥 getContent ...');
-          const cres = await fetchWithCookie(`${BASE}/getContent?date=${DATE}`);
-          ok(cres);
-          const content = await cres.json();
-          const categories = Object.entries(content).filter(([k,v]) => Array.isArray(v));
-          console.log('got categories:', categories.map(([k])=>k));
+          const all = {};
+          {
+            const res = await fetch(`${BASE}/getContent?date=${DATE}`);
+            ok(res);
+            const j = await res.json();
+            for (const [k,v] of Object.entries(j)) {
+              if (Array.isArray(v)) all[k] = v;
+            }
+            console.log('got categories:', Object.keys(all));
+          }
 
+          // 4) 构造 selectedItems
+          console.log('🧩 build selectedItems ...');
           const selectedItems = [];
-          for (const [type, arr] of categories) {
+          for (const [type, arr] of Object.entries(all)) {
             for (const it of (arr || []).slice(0, MAX_PER_TYPE)) {
-              if (it && it.id != null) selectedItems.push(`${type}:${it.id}`);
+              if (it && (it.id !== undefined && it.id !== null)) {
+                selectedItems.push(`${type}:${it.id}`);
+              }
             }
           }
-          if (!selectedItems.length) throw new Error('No items to select');
+          if (selectedItems.length === 0) throw new Error('No items to select – writeData may have fetched nothing.');
 
-          // genAIContent (原作者 formData 模式)
-          console.log('🤖 genAIContent (form-data mode)...');
-          const fdAI = form([
-            ['date', DATE],
-            ...selectedItems.map(v => ['selectedItems', v])
-          ]);
-          const gres = await fetchWithCookie(`${BASE}/genAIContent`, {method:'POST', body:fdAI});
-          ok(gres);
-          const html = await gres.text();
-          const m = html.match(/<textarea[^>]*name=["']daily_summary_markdown["'][^>]*>([\s\S]*?)<\/textarea>/i);
-          if (!m) throw new Error('Cannot find daily_summary_markdown textarea in HTML.');
-          const markdown = m[1]
-            .replace(/&lt;/g,'<')
-            .replace(/&gt;/g,'>')
-            .replace(/&amp;/g,'&');
-          console.log(`✅ genAIContent OK (length=${markdown.length})`);
+          // 5) genAIContent（JSON 模式）
+          console.log('🤖 genAIContent (JSON mode)...');
+          let markdown = '';
+          {
+            const fd = form([
+              ['date', DATE],
+              ['selectedItems', selectedItems]
+            ]);
 
-          // Commit to GitHub
+            const res = await fetchWithCookie(`${BASE}/genAIContent?mode=json`, {
+              method: 'POST',
+              body: fd
+            });
+            ok(res);
+
+            const j = await res.json().catch(() => null);
+            if (!j || !j.markdown) {
+              console.error('Full response:', j);
+              throw new Error('genAIContent JSON response invalid or missing markdown field.');
+            }
+
+            markdown = j.markdown;
+            if (!markdown.trim()) throw new Error('Empty markdown in genAIContent JSON result.');
+          }
+          console.log(`✅ genAIContent OK (JSON mode, length=${markdown.length})`);
+
+          // 6) commitToGitHub
           console.log('⬆️ commitToGitHub ...');
-          const fdCommit = form([['date', DATE], ['daily_summary_markdown', markdown]]);
-          const commitRes = await fetchWithCookie(`${BASE}/commitToGitHub`, {method:'POST', body:fdCommit});
-          ok(commitRes);
-          console.log('commitToGitHub result:', await commitRes.json());
+          {
+            const fd = form([
+              ['date', DATE],
+              ['daily_summary_markdown', markdown]
+            ]);
+            const res = await fetchWithCookie(`${BASE}/commitToGitHub`, {
+              method: 'POST',
+              body: fd
+            });
+            ok(res);
+            const j = await res.json().catch(()=>({}));
+            console.log('commitToGitHub result:', j);
+          }
 
-          // Write RSS
+          // 7) writeRssData
           console.log('🪄 writeRssData ...');
-          const rssRes = await fetchWithCookie(`${BASE}/writeRssData?date=${DATE}`);
-          ok(rssRes);
-          console.log('writeRssData result:', (await rssRes.json()).title || 'OK');
+          {
+            const res = await fetch(`${BASE}/writeRssData?date=${DATE}`, { redirect: 'follow' });
+            ok(res);
+            const j = await res.json().catch(()=>({}));
+            console.log('writeRssData result:', j.title || j.report_date || 'OK');
+          }
 
-          // Download RSS
+          // 8) 下载 RSS 到本地
           console.log('⬇️ download RSS ...');
-          const rssFile = await fetchWithCookie(`${BASE}/rss?days=7`);
-          ok(rssFile);
-          const xml = await rssFile.text();
-          const fs = await import('node:fs/promises');
-          await fs.writeFile('rss.xml', xml, 'utf8');
+          {
+            const res = await fetch(`${BASE}/rss?days=7`);
+            ok(res);
+            const xml = await res.text();
+            const fs = await import('node:fs/promises');
+            await fs.writeFile('rss.xml', xml, 'utf8');
+          }
+
           console.log('🎉 All done for', DATE);
           EOF
 
-      - name: Prepare files for GitHub Pages
-        run: |
-          mkdir -p docs/daily
-          cp -r daily/* docs/daily/ || true
-          cp rss.xml docs/rss.xml || true
-          echo "<meta http-equiv='refresh' content='0; url=daily/$(date +%F).md'>" > docs/index.html
-
-      - name: Commit and push changes (rss + pages)
+      - name: Commit and push changes (rss.xml)
         run: |
           git config --local user.email "action@github.com"
           git config --local user.name "GitHub Action"
-          git add rss.xml || true
-          git add docs/ || true
-          if git diff --staged --quiet; then
-            echo "No changes to commit."
-          else
-            git commit -m "docs: auto-build AI Daily ($(date -u))"
-            git pull --rebase origin main
-            git push origin main
+
+          if [ -f "rss.xml" ]; then
+            git add rss.xml
+          git add rss.xml
           fi
 
+          if git diff --staged --quiet; then
+            echo "No changes to commit."
+          echo "No changes to commit."
+          else
+            git commit -m "docs: auto-build AI Daily ($(date -u))"
+            git push
+          git commit -m "docs: auto-build AI Daily ($(date -u))"
 
+          # 🔧 新增两行，确保同步远程变更
+          git pull --rebase origin main
+          git push origin main
+          fi
