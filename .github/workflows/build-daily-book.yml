@@ -200,18 +200,13 @@ jobs:
 
           if [ -f "rss.xml" ]; then
             git add rss.xml
-          git add rss.xml
           fi
 
           if git diff --staged --quiet; then
             echo "No changes to commit."
-          echo "No changes to commit."
           else
             git commit -m "docs: auto-build AI Daily ($(date -u))"
-            git push
-          git commit -m "docs: auto-build AI Daily ($(date -u))"
-
-          # 🔧 新增两行，确保同步远程变更
-          git pull --rebase origin main
-          git push origin main
+            # 先拉取远程更新再推送，防止 fetch first 冲突
+            git pull --rebase origin main || true
+            git push origin main
           fi
