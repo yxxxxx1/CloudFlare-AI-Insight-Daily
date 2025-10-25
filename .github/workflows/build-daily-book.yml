@@ -25,7 +25,7 @@ jobs:
           BASE_URL: ${{ vars.WORKER_BASE_URL }}
           USERNAME: ${{ secrets.WORKER_LOGIN_USERNAME }}
           PASSWORD: ${{ secrets.WORKER_LOGIN_PASSWORD }}
-          MAX_PER_TYPE: "6"             # 每个类别最多选取的条目数量，可按需调整
+          MAX_PER_TYPE: "6"
           TZ: Asia/Shanghai
         run: |
           node - <<'EOF'
@@ -38,7 +38,6 @@ jobs:
           const keepCookie = (res) => {
             const set = res.headers.get('set-cookie');
             if (set) {
-              // 取第一段 cookie；多段时简单拼上
               const one = set.split(',')[0];
               const m = one.match(/^[^;]+/);
               if (m) {
@@ -58,7 +57,7 @@ jobs:
 
           const ok = (res) => {
             if (!res.ok) throw new Error(`HTTP ${res.status} ${res.statusText}`);
-          }
+          };
 
           const form = (pairs) => {
             const fd = new FormData();
@@ -78,7 +77,6 @@ jobs:
             const fd = new URLSearchParams();
             fd.set('username', process.env.USERNAME);
             fd.set('password', process.env.PASSWORD);
-            // login 后会 302 到 redirect（workers 默认允许）
             const res = await fetch(`${BASE}/login`, {
               method: 'POST',
               headers: { 'content-type': 'application/x-www-form-urlencoded' },
@@ -93,34 +91,33 @@ jobs:
           }
           console.log('✅ Login OK');
 
-          // 2) writeData（抓取当天内容写入 KV）
+          // 2) writeData
           console.log('📝 writeData ...');
           {
             const res = await fetchWithCookie(`${BASE}/writeData`, {
               method: 'POST',
               headers: { 'content-type': 'application/json' },
-              body: JSON.stringify({})   // 不传 category = 抓取所有类别
+              body: JSON.stringify({})
             });
             ok(res);
             const j = await res.json().catch(()=>({}));
             console.log('writeData result:', j);
           }
 
-          // 3) getContent（拉出所有分类数据）
+          // 3) getContent
           console.log('📥 getContent ...');
           const all = {};
           {
             const res = await fetch(`${BASE}/getContent?date=${DATE}`);
             ok(res);
             const j = await res.json();
-            // 过滤出各个分类数组（忽略 message/date 字段）
             for (const [k,v] of Object.entries(j)) {
               if (Array.isArray(v)) all[k] = v;
             }
             console.log('got categories:', Object.keys(all));
           }
 
-          // 4) 构造 selectedItems（各类别最多取前 MAX_PER_TYPE 条）
+          // 4) 构造 selectedItems
           console.log('🧩 build selectedItems ...');
           const selectedItems = [];
           for (const [type, arr] of Object.entries(all)) {
@@ -132,37 +129,33 @@ jobs:
           }
           if (selectedItems.length === 0) throw new Error('No items to select – writeData may have fetched nothing.');
 
-          // 5) genAIContent（生成日报 HTML 页面，解析其中的 markdown）
-          console.log('🤖 genAIContent ...');
+          // 5) genAIContent（JSON 模式）
+          console.log('🤖 genAIContent (JSON mode)...');
           let markdown = '';
           {
             const fd = form([
               ['date', DATE],
-              ['selectedItems', selectedItems] // 重复字段
+              ['selectedItems', selectedItems]
             ]);
-            const res = await fetchWithCookie(`${BASE}/genAIContent`, {
+
+            const res = await fetchWithCookie(`${BASE}/genAIContent?mode=json`, {
               method: 'POST',
               body: fd
             });
             ok(res);
-            const html = await res.text();
 
-            // 从页面里提取 textarea name="daily_summary_markdown" 的内容
-            // （原作者 generateGenAiPageHtml 会带这个表单以便提交）
-            const m = html.match(/<textarea[^>]*name=["']daily_summary_markdown["'][^>]*>([\s\S]*?)<\/textarea>/i);
-            if (!m) {
-              // 兜底：提取 AI 日报 main 区域（可按需扩充）
-              throw new Error('Cannot find daily_summary_markdown textarea in genAIContent HTML.');
+            const j = await res.json().catch(() => null);
+            if (!j || !j.markdown) {
+              console.error('Full response:', j);
+              throw new Error('genAIContent JSON response invalid or missing markdown field.');
             }
-            markdown = m[1]
-              .replace(/&lt;/g,'<')
-              .replace(/&gt;/g,'>')
-              .replace(/&amp;/g,'&');
-            if (!markdown.trim()) throw new Error('Empty markdown extracted from genAIContent.');
-          }
-          console.log(`✅ genAIContent OK (length=${markdown.length})`);
 
-          // 6) commitToGitHub（把 markdown 写入 daily/DATE.md）
+            markdown = j.markdown;
+            if (!markdown.trim()) throw new Error('Empty markdown in genAIContent JSON result.');
+          }
+          console.log(`✅ genAIContent OK (JSON mode, length=${markdown.length})`);
+
+          // 6) commitToGitHub
           console.log('⬆️ commitToGitHub ...');
           {
             const fd = form([
@@ -178,7 +171,7 @@ jobs:
             console.log('commitToGitHub result:', j);
           }
 
-          // 7) writeRssData（将该日内容写入 KV，供 RSS 聚合）
+          // 7) writeRssData
           console.log('🪄 writeRssData ...');
           {
             const res = await fetch(`${BASE}/writeRssData?date=${DATE}`, { redirect: 'follow' });
@@ -187,7 +180,7 @@ jobs:
             console.log('writeRssData result:', j.title || j.report_date || 'OK');
           }
 
-          // 8) 下载 RSS 到本地文件
+          // 8) 下载 RSS 到本地
           console.log('⬇️ download RSS ...');
           {
             const res = await fetch(`${BASE}/rss?days=7`);
