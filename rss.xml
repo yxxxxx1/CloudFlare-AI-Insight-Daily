@@ -1,1 +1,27 @@
-沒有找到相關資料
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>AI洞察日报 RSS Feed</title>
+    <link></link>
+    <description> 近 7 天的AI日报</description>
+    <language>zh-cn</language>
+    <lastBuildDate>Sat, 25 Oct 2025 09:17:17 GMT</lastBuildDate>
+    <atom:link href="https://yxxxxx1-ai-daily.gunzhao59.workers.dev/rss" rel="self" type="application/rss+xml" />
+    
+        <item>
+          <title><![CDATA[2025-10-25日刊]]></title>
+          <link>/2025-10/2025-10-25/</link>
+          <guid>/2025-10/2025-10-25/</guid>
+          <pubDate>Sat, 25 Oct 2025 17:17:16 GMT</pubDate>
+          <content:encoded><![CDATA[<h2>AI洞察日报 2025/10/25</h2><blockquote><p><code>AI 日报</code></p></blockquote><h3>今日摘要</h3><p>【1】ladybird
+真正独立的网页浏览器</p><p>【2】blind_watermark
+盲水印和隐形水印，图片盲水印，提取水印无须原图！</p><p>【3】hoppscotch
+开源API开发生态系统 - <a href="https://hoppscotch.io">https://hoppscotch.io</a> (Postman和Insomnia的开源替代品)</p><p>【4】zephyr
+Zephyr项目的主Git仓库。Zephyr是一个面向多种硬件架构的新一代、可扩展、优化且安全的RTOS。</p><p>【5】minio
+MinIO是一个高性能、兼容S3的对象存储，在GNU AGPLv3许可下开源。</p><p>【6】parlant
+为控制而构建的LLM代理。专为实际应用设计。在几分钟内部署。</p>]]></content:encoded>
+          <description><![CDATA[AI洞察日报 2025/10/25 AI 日报 今日摘要 【1】ladybird 真正独立的网页浏览器 【2】blind_watermark 盲水印和隐形水印，图片盲水印，提取水印无须原图！ 【3】hoppscotch 开源API开发生态系统 - https://hoppscotch.io (Postman和Insomnia的开源替代品) 【4】zephyr Zephyr项目的主Git仓库。Zep]]></description>
+        </item>
+      
+  </channel>
+</rss>
