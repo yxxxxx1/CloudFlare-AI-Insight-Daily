@@ -215,25 +215,63 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          # 1️⃣ Build output files
+          echo "📦 Building website structure..."
+
+          # 1️⃣ 创建 public 目录
           mkdir -p public/daily
-          cp -r daily/* public/daily/ || true
+
+          # 2️⃣ 将 markdown 转成 HTML
+          for f in daily/*.md; do
+            [ -f "$f" ] || continue
+            name=$(basename "$f" .md)
+            html="public/daily/${name}.html"
+            echo "<html><head><meta charset='utf-8'><title>${name} - AI Insight Daily</title>
+            <style>
+              body{font-family:sans-serif;max-width:800px;margin:40px auto;line-height:1.6;}
+              h1,h2,h3{color:#333;}
+              a{color:#0366d6;text-decoration:none;}
+              a:hover{text-decoration:underline;}
+              pre{background:#f6f8fa;padding:10px;border-radius:6px;overflow:auto;}
+              code{background:#f6f8fa;padding:2px 4px;border-radius:4px;}
+            </style>
+            </head><body>
+            <h1>AI Insight Daily - ${name}</h1>
+            <p><a href='../index.html'>← 返回首页</a></p>
+            <hr>" > "$html"
+            # 转换 markdown -> html 简易版
+            cat "$f" | sed 's/^# \(.*\)$/<h2>\1<\/h2>/; s/^## \(.*\)$/<h3>\1<\/h3>/; s/^### \(.*\)$/<h4>\1<\/h4>/; s/^\(.*\)$/<p>\1<\/p>/' >> "$html"
+            echo "</body></html>" >> "$html"
+          done
+
+          # 3️⃣ 拷贝 RSS
           cp rss.xml public/rss.xml || true
 
-          # 2️⃣ Generate index.html
-          echo "<html><body><h2>AI Insight Daily</h2><ul>" > public/index.html
-          for f in $(ls daily | sort); do
-            echo "<li><a href='daily/$f'>$f</a></li>" >> public/index.html
-          done
-          echo "</ul></body></html>" >> public/index.html
+          # 4️⃣ 生成主页 index.html
+          echo "<html><head><meta charset='utf-8'><title>AI Insight Daily</title>
+          <style>
+            body{font-family:sans-serif;max-width:800px;margin:40px auto;line-height:1.6;}
+            h1{color:#222;}
+            a{color:#0366d6;text-decoration:none;}
+            a:hover{text-decoration:underline;}
+          </style>
+          </head><body>
+          <h1>AI Insight Daily 🧠</h1>
+          <p>最近更新的日报：</p><ul>" > public/index.html
 
-          # 3️⃣ Push to gh-pages (use GitHub token)
+          for f in $(ls -t daily/*.md | head -n 7); do
+            name=$(basename "$f" .md)
+            echo "<li><a href='daily/${name}.html'>${name}</a></li>" >> public/index.html
+          done
+
+          echo "</ul><hr><p><a href='rss.xml'>RSS Feed</a></p></body></html>" >> public/index.html
+
+          # 5️⃣ 推送到 gh-pages
           cd public
           git init
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
           git add .
-          git commit -m "Deploy $(date -u +'%Y-%m-%d %H:%M:%S')"
+          git commit -m "Deploy website $(date -u +'%Y-%m-%d %H:%M:%S')"
           git branch -M main
           git push --force "https://x-access-token:${GITHUB_TOKEN}@github.com/${GITHUB_REPOSITORY}.git" main:gh-pages
 
