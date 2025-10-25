@@ -212,6 +212,8 @@ jobs:
           fi
 
       - name: Deploy to GitHub Pages (gh-pages branch)
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           # 1️⃣ Build output files
           mkdir -p public/daily
@@ -225,7 +227,7 @@ jobs:
           done
           echo "</ul></body></html>" >> public/index.html
 
-          # 3️⃣ Push to gh-pages
+          # 3️⃣ Push to gh-pages (use GitHub token)
           cd public
           git init
           git config user.name "github-actions[bot]"
@@ -233,5 +235,6 @@ jobs:
           git add .
           git commit -m "Deploy $(date -u +'%Y-%m-%d %H:%M:%S')"
           git branch -M main
-          git push --force "https://github.com/${GITHUB_REPOSITORY}.git" main:gh-pages
+          git push --force "https://x-access-token:${GITHUB_TOKEN}@github.com/${GITHUB_REPOSITORY}.git" main:gh-pages
+
 
