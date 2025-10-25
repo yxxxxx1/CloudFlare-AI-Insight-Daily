@@ -3,8 +3,7 @@ name: Auto Build AI Daily
 on:
   workflow_dispatch: {}
   schedule:
-    # 每天北京时间 08:10 运行（UTC 00:10）
-    - cron: "10 0 * * *"
+    - cron: "10 0 * * *" # 北京时间 08:10
 
 jobs:
   auto-daily:
@@ -55,7 +54,7 @@ jobs:
           console.log(`BASE: ${BASE}`);
           console.log(`DATE: ${DATE}`);
 
-          // login
+          // Login
           console.log('🔐 Login ...');
           const fd = new URLSearchParams();
           fd.set('username', process.env.USERNAME);
@@ -65,13 +64,13 @@ jobs:
           keepCookie(loginRes);
           console.log('✅ Login OK');
 
-          // writeData
+          // Write data
           console.log('📝 writeData ...');
           const wres = await fetchWithCookie(`${BASE}/writeData`, {method:'POST', headers:{'content-type':'application/json'}, body:JSON.stringify({})});
           ok(wres);
           console.log('writeData result:', await wres.json());
 
-          // getContent
+          // Get content
           console.log('📥 getContent ...');
           const cres = await fetchWithCookie(`${BASE}/getContent?date=${DATE}`);
           ok(cres);
@@ -87,37 +86,43 @@ jobs:
           }
           if (!selectedItems.length) throw new Error('No items to select');
 
-          // genAIContent
-          console.log('🤖 genAIContent (JSON mode)...');
-          const fdAI = form([['date', DATE], ['selectedItems', selectedItems], ['mode', 'json']]);
+          // genAIContent (原作者 formData 模式)
+          console.log('🤖 genAIContent (form-data mode)...');
+          const fdAI = form([
+            ['date', DATE],
+            ...selectedItems.map(v => ['selectedItems', v])
+          ]);
           const gres = await fetchWithCookie(`${BASE}/genAIContent`, {method:'POST', body:fdAI});
           ok(gres);
-          const gjson = await gres.json().catch(()=>null);
-          if (!gjson || !gjson.markdown) throw new Error('genAIContent JSON response invalid or missing markdown field.');
-          const markdown = gjson.markdown;
-          console.log(`✅ genAIContent OK (JSON mode, length=${markdown.length})`);
+          const html = await gres.text();
+          const m = html.match(/<textarea[^>]*name=["']daily_summary_markdown["'][^>]*>([\s\S]*?)<\/textarea>/i);
+          if (!m) throw new Error('Cannot find daily_summary_markdown textarea in HTML.');
+          const markdown = m[1]
+            .replace(/&lt;/g,'<')
+            .replace(/&gt;/g,'>')
+            .replace(/&amp;/g,'&');
+          console.log(`✅ genAIContent OK (length=${markdown.length})`);
 
-          // commitToGitHub
+          // Commit to GitHub
           console.log('⬆️ commitToGitHub ...');
           const fdCommit = form([['date', DATE], ['daily_summary_markdown', markdown]]);
           const commitRes = await fetchWithCookie(`${BASE}/commitToGitHub`, {method:'POST', body:fdCommit});
           ok(commitRes);
           console.log('commitToGitHub result:', await commitRes.json());
 
-          // writeRssData
+          // Write RSS
           console.log('🪄 writeRssData ...');
           const rssRes = await fetchWithCookie(`${BASE}/writeRssData?date=${DATE}`);
           ok(rssRes);
           console.log('writeRssData result:', (await rssRes.json()).title || 'OK');
 
-          // download RSS
+          // Download RSS
           console.log('⬇️ download RSS ...');
           const rssFile = await fetchWithCookie(`${BASE}/rss?days=7`);
           ok(rssFile);
           const xml = await rssFile.text();
           const fs = await import('node:fs/promises');
           await fs.writeFile('rss.xml', xml, 'utf8');
-
           console.log('🎉 All done for', DATE);
           EOF
 
@@ -132,10 +137,8 @@ jobs:
         run: |
           git config --local user.email "action@github.com"
           git config --local user.name "GitHub Action"
-
           git add rss.xml || true
           git add docs/ || true
-
           if git diff --staged --quiet; then
             echo "No changes to commit."
           else
@@ -143,4 +146,5 @@ jobs:
             git pull --rebase origin main
             git push origin main
           fi
+
 
