@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>AI洞察日报 RSS Feed</title>
+    <link></link>
+    <description> 近 7 天的AI日报</description>
+    <language>zh-cn</language>
+    <lastBuildDate>Sat, 25 Oct 2025 08:27:38 GMT</lastBuildDate>
+    <atom:link href="http://yxxxxx1-ai-daily.gunzhao59.workers.dev/rss" rel="self" type="application/rss+xml" />
+    
+        <item>
+          <title><![CDATA[2025-10-25日刊]]></title>
+          <link>/2025-10/2025-10-25/</link>
+          <guid>/2025-10/2025-10-25/</guid>
+          <pubDate>Sat, 25 Oct 2025 16:27:38 GMT</pubDate>
+          <content:encoded><![CDATA[<h2>AI洞察日报 2025/10/25</h2><blockquote><p><code>AI 日报</code></p></blockquote><h3><strong>今日摘要</strong></h3><pre><code>今日AI资讯涵盖三款于2025年10月25日发布的创新项目。
+ladybird独立浏览器5万星；blind_watermark提供无原图图片盲水印，近万星；
+hoppscotch作为Postman开源替代，已获7万星API开发生态系统。
+</code></pre><h3><strong>今日AI资讯</strong></h3><ol><li><strong>ladybird</strong> 项目于 <strong>2025-10-25</strong> 发布，获得 <strong>51726 Stars</strong>，致力于开发一款<strong>真正独立的网页浏览器</strong>。</li><li><strong>blind_watermark</strong> 项目于 <strong>2025-10-25</strong> 发布，已积累 <strong>9854 Stars</strong>。该项目提供<strong>盲水印</strong>和<strong>隐形水印</strong>技术，其主要特点是支持<strong>图片盲水印</strong>，并且<strong>提取水印无须原图</strong>。</li><li><strong>hoppscotch</strong> 项目于 <strong>2025-10-25</strong> 发布，是一个拥有 <strong>75746 Stars</strong> 的<strong>开源API开发生态系统</strong>，旨在成为 <strong>Postman</strong> 和 <strong>Insomnia</strong> 的<strong>开源替代品</strong>。</li></ol>]]></content:encoded>
+          <description><![CDATA[AI洞察日报 2025/10/25 AI 日报 今日摘要 今日AI资讯涵盖三款于2025年10月25日发布的创新项目。 ladybird独立浏览器5万星；blind_watermark提供无原图图片盲水印，近万星； hoppscotch作为Postman开源替代，已获7万星API开发生态系统。 今日AI资讯 ladybird 项目于 2025-10-25 发布，获得 51726 Stars ，致力]]></description>
+        </item>
+      
+  </channel>
+</rss>
