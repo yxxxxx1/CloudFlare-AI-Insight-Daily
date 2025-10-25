@@ -210,3 +210,28 @@ jobs:
             git pull --rebase origin main || true
             git push origin main
           fi
+
+      - name: Deploy to GitHub Pages (gh-pages branch)
+        run: |
+          # 1️⃣ Build output files
+          mkdir -p public/daily
+          cp -r daily/* public/daily/ || true
+          cp rss.xml public/rss.xml || true
+
+          # 2️⃣ Generate index.html
+          echo "<html><body><h2>AI Insight Daily</h2><ul>" > public/index.html
+          for f in $(ls daily | sort); do
+            echo "<li><a href='daily/$f'>$f</a></li>" >> public/index.html
+          done
+          echo "</ul></body></html>" >> public/index.html
+
+          # 3️⃣ Push to gh-pages
+          cd public
+          git init
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add .
+          git commit -m "Deploy $(date -u +'%Y-%m-%d %H:%M:%S')"
+          git branch -M main
+          git push --force "https://github.com/${GITHUB_REPOSITORY}.git" main:gh-pages
+
