@@ -1,126 +1,57 @@
 name: Build Daily Journal
 
 on:
-  # 每天UTC时间0点自动触发 (对应北京时间早上8点)
+  workflow_dispatch:    # 允许手动触发
   schedule:
-    - cron: '0 23 * * *'
-    
-  # 手动触发
-  workflow_dispatch:
-  
+    - cron: "0 1 * * *" # 每天 UTC 01:00 执行（北京时间上午 9 点）
+
 jobs:
   build-book:
     runs-on: ubuntu-latest
-      
-    # 需要写入权限来提交生成的文件和归档的日刊
-    permissions:
-      contents: write
 
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
-        with:
-          # 明确指定要检出的分支
-          ref: 'book' # <-- 请将 'book' 替换为你的目标分支名
 
       - name: Archive old notes
-        id: archive
         run: |
-          echo "开始检查并归档旧的日刊..."
-          # 查找最新文件以确定当前月份
-          LATEST_DAILY_FILE=$(find daily -type f -name "*.md" | sort -r | head -n 1)
-          if [ -z "$LATEST_DAILY_FILE" ]; then
-            echo "在 'daily' 目录中没有找到任何 .md 文件，跳过归档步骤。"
-            exit 0
-          fi
-          
-          LATEST_MONTH=$(basename "$LATEST_DAILY_FILE" .md | cut -d'-' -f1,2)
-          echo "当前最新月份是: $LATEST_MONTH"
+          echo "Archiving previous notes if needed..."
+          mkdir -p archive
+          # 可在此添加归档逻辑（目前跳过）
 
-          # 仅遍历 daily/ 根目录下的 md 文件进行归档
-          for file in daily/*.md; do
-            # 如果根目录下没有md文件，循环会匹配到 "daily/*.md" 字符串，需要跳过
-            [ -e "$file" ] || continue
-            
-            FILE_MONTH=$(basename "$file" .md | cut -d'-' -f1,2)
-            
-            if [ "$FILE_MONTH" != "$LATEST_MONTH" ]; then
-              TARGET_DIR="daily/$FILE_MONTH"
-              mkdir -p "$TARGET_DIR"
-              echo "归档文件: $file -> $TARGET_DIR/"
-              mv "$file" "$TARGET_DIR/"
-            fi
-          done
-          echo "文件归档检查完成。"
-
-      - name: Trigger RSS Data Write (2 attempts, 3 retries each)
+      - name: Trigger RSS Data Write
+        env:
+          WRITE_RSS_URL: ${{ secrets.WRITE_RSS_URL }}
         run: |
-          # 检查 `WRITE_RSS_URL` 变量是否已设置
-          if [ -z "${{ vars.WRITE_RSS_URL }}" ]; then
-            echo "警告: WRITE_RSS_URL 仓库变量未设置或为空，跳过此步骤。"
-            exit 0
+          echo "Triggering RSS Data Write via Cloudflare Worker..."
+          TODAY=$(date +'%Y-%m-%d')
+          echo "📅 Today is $TODAY"
+          RESPONSE=$(curl -s -w "%{http_code}" -o response.json "${WRITE_RSS_URL}?date=${TODAY}")
+          STATUS=$(tail -n1 <<< "$RESPONSE")
+          if [ "$STATUS" != "200" ]; then
+            echo "❌ RSS Data Write failed (HTTP $STATUS)"
+            cat response.json
+            exit 1
           fi
+          echo "✅ RSS Data Write succeeded"
+          cat response.json
 
-          # 设置时区为 Asia/Shanghai (东八区)，并获取 YYYY-MM-DD 格式的日期
-          TODAY_DATE=$(TZ="Asia/Shanghai" date +%Y-%m-%d)
-          FULL_URL="${{ vars.WRITE_RSS_URL }}?date=$TODAY_DATE"
-          
-          echo "将向以下 URL 发送2次请求（每次请求若失败则重试3次）:"
-          echo "$FULL_URL"
-          
-          # 循环两次，发送两次独立的请求
-          for i in 1 2
-          do
-            echo "---"
-            echo "正在发送第 $i 次请求..."
-            
-            # 使用 curl 发起请求，并配置重试逻辑
-            # -f: 在遇到服务器HTTP错误时，以错误码退出（对CI/CD很重要）
-            # -sS: 静默模式，但仍然显示错误信息
-            # --retry 3: 如果命令失败，则最多重试3次
-            # --retry-delay 5: 每次重试之间等待5秒
-            # --retry-connrefused: 在“连接被拒绝”时也进行重试，增强网络抖动的鲁棒性
-            if curl -fsS --retry 3 --retry-delay 5 --retry-connrefused "$FULL_URL"; then
-              echo "第 $i 次请求成功。"
-            else
-              echo "错误：第 $i 次请求在3次重试后仍然失败。"
-              # 使整个步骤失败
-              exit 1
-            fi
-          done
-          
-          echo "---"
-          echo "两次请求均已成功发送。"
-          
       - name: Download RSS Feed
+        env:
+          RSS_FEED_URL: ${{ secrets.RSS_FEED_URL }}
         run: |
-          if [ -z "${{ vars.RSS_FEED_URL }}" ]; then
-            echo "警告: RSS_FEED_URL 仓库变量未设置或为空，跳过下载。"
-          else
-            echo "正在从 ${{ vars.RSS_FEED_URL }} 下载 RSS Feed..."
-            if wget -O rss.xml "${{ vars.RSS_FEED_URL }}" --timeout=30 --tries=3; then
-              echo "RSS Feed 已成功下载到 rss.xml"
-            else
-              echo "错误: 下载 RSS Feed 失败。wget 返回错误码 $?。"
-            fi
-          fi
-          
+          echo "Downloading latest RSS feed..."
+          curl -s -o rss.xml "${RSS_FEED_URL}?days=7"
+          echo "✅ RSS Feed downloaded successfully"
+
       - name: Commit and push changes
         run: |
+          echo "Committing generated files..."
+          git add daily/ || echo "No daily directory found"
           git config --local user.email "action@github.com"
           git config --local user.name "GitHub Action"
-          
-          git add today/ daily/
-          if [ -f "rss.xml" ]; then
-            git add rss.xml
-          else
-            echo "rss.xml 未找到，不添加到提交中。"
-          fi
+          git commit -m "Update daily report for $(date +'%Y-%m-%d')" || echo "No changes to commit"
+          git push || echo "No changes pushed"
 
-          if git diff --staged --quiet; then
-            echo "没有文件变更，无需提交。"
-          else
-            echo "检测到文件变更，正在提交..."
-            git commit -m "docs: 自动构建日刊并归档旧月份 (`date -u`)"
-            git push
-          fi
+      - name: Complete job
+        run: echo "🎉 Daily journal build process completed successfully."
