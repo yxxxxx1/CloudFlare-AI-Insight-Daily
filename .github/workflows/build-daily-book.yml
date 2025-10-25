@@ -107,9 +107,21 @@ jobs:
           
       - name: Commit and push changes
         run: |
-          git add daily/
+          echo "Committing generated files..."
           git config --local user.email "action@github.com"
           git config --local user.name "GitHub Action"
-          git commit -m "Update daily report for $(date +'%Y-%m-%d')" || echo "No changes to commit"
-          git push
+
+          if [ -f "rss.xml" ]; then
+            git add rss.xml
+          else
+            echo "rss.xml not found, skipping add"
+          fi
+
+          if git diff --staged --quiet; then
+            echo "No changes to commit."
+          else
+            git commit -m "docs: update RSS feed and daily data ($(date -u))"
+            git push
+          fi
+
 
