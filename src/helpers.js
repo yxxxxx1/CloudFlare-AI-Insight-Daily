@@ -4,7 +4,13 @@
  * 全域參數，用於指定資料抓取的日期。
  * 預設為當前日期，格式為 YYYY-MM-DD。
  */
-export let fetchDate = getISODate();
+export let fetchDate = null; // 不在模块加载时初始化
+
+export function getFetchDate() {
+    // 每次动态返回北京时间的当天日期
+    return fetchDate || getISODate(new Date(Date.now() + 8 * 60 * 60 * 1000));
+}
+
 
 export function setFetchDate(date) {
     fetchDate = date;
