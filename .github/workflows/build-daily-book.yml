@@ -273,6 +273,8 @@ jobs:
           git add .
           git commit -m "Deploy website $(date -u +'%Y-%m-%d %H:%M:%S')"
           git branch -M main
+          git pull --rebase origin main || true
+          git push origin main || true
           git push --force "https://x-access-token:${GITHUB_TOKEN}@github.com/${GITHUB_REPOSITORY}.git" main:gh-pages
 
 
