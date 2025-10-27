@@ -97,6 +97,7 @@ JSON Array of Chinese Translations:`;
                 });
             });
         }
+        console.log("✅ Transformed projects count:", unifiedProjects.length);
         return unifiedProjects;
     },
 
