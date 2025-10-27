@@ -5,9 +5,24 @@
     <link></link>
     <description> 近 7 天的AI日报</description>
     <language>zh-cn</language>
-    <lastBuildDate>Mon, 27 Oct 2025 15:45:32 GMT</lastBuildDate>
+    <lastBuildDate>Mon, 27 Oct 2025 16:21:33 GMT</lastBuildDate>
     <atom:link href="https://yxxxxx1-ai-daily.gunzhao59.workers.dev/rss" rel="self" type="application/rss+xml" />
     
+        <item>
+          <title><![CDATA[2025-10-28日刊]]></title>
+          <link>/2025-10/2025-10-28/</link>
+          <guid>/2025-10/2025-10-28/</guid>
+          <pubDate>Tue, 28 Oct 2025 00:21:32 GMT</pubDate>
+          <content:encoded><![CDATA[<h2>AI洞察日报 2025/10/28</h2><blockquote><p><code>AI 日报</code></p></blockquote><h3>今日摘要</h3><p>【1】AFFiNE
+不止Notion和Miro，AFFiNE（读作[ə‘fain]）是集规划、整理与创作于一体的下一代知识库。隐私优先、开源可定制、开箱即用。</p><p>【2】cursor-free-vip
+[支持0.49.x]（重置Cursor AI机器ID &amp; 突破更高令牌限制）Cursor Ai自动重置机器ID，免费升级使用Pro功能：您已达到试用请求上限/本机使用过多免费试用账户。请升级至专业版。我们设置此限制以防止滥用。若认为此系误判请告知我们。</p><p>【3】build-your-own-x
+通过从零重构你喜爱的技术来掌握编程</p><p>【4】agent-lightning
+点亮AI智能体的终极训练器</p><p>【5】ladybird
+真正独立的网页浏览器</p><p>【6】LLMs-from-scratch
+逐步使用PyTorch从零实现类ChatGPT大型语言模型</p>]]></content:encoded>
+          <description><![CDATA[AI洞察日报 2025/10/28 AI 日报 今日摘要 【1】AFFiNE 不止Notion和Miro，AFFiNE（读作[ə‘fain]）是集规划、整理与创作于一体的下一代知识库。隐私优先、开源可定制、开箱即用。 【2】cursor-free-vip [支持0.49.x]（重置Cursor AI机器ID &amp; 突破更高令牌限制）Cursor Ai自动重置机器ID，免费升级使用Pro功能：]]></description>
+        </item>
+      
         <item>
           <title><![CDATA[2025-10-27日刊]]></title>
           <link>/2025-10/2025-10-27/</link>
