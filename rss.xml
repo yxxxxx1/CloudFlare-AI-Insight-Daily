@@ -5,9 +5,24 @@
     <link></link>
     <description> 近 7 天的AI日报</description>
     <language>zh-cn</language>
-    <lastBuildDate>Tue, 28 Oct 2025 02:03:12 GMT</lastBuildDate>
+    <lastBuildDate>Wed, 29 Oct 2025 13:17:48 GMT</lastBuildDate>
     <atom:link href="https://yxxxxx1-ai-daily.gunzhao59.workers.dev/rss" rel="self" type="application/rss+xml" />
     
+        <item>
+          <title><![CDATA[2025-10-29日刊]]></title>
+          <link>/2025-10/2025-10-29/</link>
+          <guid>/2025-10/2025-10-29/</guid>
+          <pubDate>Wed, 29 Oct 2025 21:17:47 GMT</pubDate>
+          <content:encoded><![CDATA[<h2>AI洞察日报 2025/10/29</h2><blockquote><p><code>AI 日报</code></p></blockquote><h3>今日摘要</h3><p>【1】chainlink
+去中心化预言机网络节点，桥接链上与链下计算</p><p>【2】Handy
+完全离线的免费开源可扩展语音转文本应用程序</p><p>【3】social-analyzer
+用于分析和在1000个社交媒体\网站中查找个人资料的API、CLI和Web应用</p><p>【4】opentelemetry-collector
+OpenTelemetry收集器</p><p>【5】Web-Dev-For-Beginners
+24节课12周，开启Web开发之旅</p><p>【6】protobuf
+Protocol Buffers - 谷歌的数据交换格式</p>]]></content:encoded>
+          <description><![CDATA[AI洞察日报 2025/10/29 AI 日报 今日摘要 【1】chainlink 去中心化预言机网络节点，桥接链上与链下计算 【2】Handy 完全离线的免费开源可扩展语音转文本应用程序 【3】social-analyzer 用于分析和在1000个社交媒体\网站中查找个人资料的API、CLI和Web应用 【4】opentelemetry-collector OpenTelemetry收集器 【5]]></description>
+        </item>
+      
         <item>
           <title><![CDATA[2025-10-28日刊]]></title>
           <link>/2025-10/2025-10-28/</link>
