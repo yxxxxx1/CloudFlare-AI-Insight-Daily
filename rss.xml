@@ -5,22 +5,37 @@
     <link></link>
     <description> 近 7 天的AI日报</description>
     <language>zh-cn</language>
-    <lastBuildDate>Thu, 30 Oct 2025 15:46:19 GMT</lastBuildDate>
+    <lastBuildDate>Thu, 30 Oct 2025 16:19:08 GMT</lastBuildDate>
     <atom:link href="https://yxxxxx1-ai-daily.gunzhao59.workers.dev/rss" rel="self" type="application/rss+xml" />
     
+        <item>
+          <title><![CDATA[2025-10-31日刊]]></title>
+          <link>/2025-10/2025-10-31/</link>
+          <guid>/2025-10/2025-10-31/</guid>
+          <pubDate>Fri, 31 Oct 2025 00:19:08 GMT</pubDate>
+          <content:encoded><![CDATA[<h2>AI洞察日报 2025/10/31</h2><blockquote><p><code>AI 日报</code></p></blockquote><h3>今日摘要</h3><p>【1】helm
+Kubernetes 包管理器</p><p>【2】storybook
+Storybook 是业界标准的独立构建、文档化和测试 UI 组件的工坊</p><p>【3】opentelemetry-collector
+OpenTelemetry 收集器</p><p>【4】social-analyzer
+用于分析和在1000个社交媒体网站中查找个人资料的API、CLI和Web应用</p><p>【5】ai-engineering-hub
+关于大语言模型、检索增强生成和实际AI智能体应用的深度教程</p><p>【6】cpp-httplib
+C++ 头文件式 HTTP/HTTPS 服务器与客户端库</p>]]></content:encoded>
+          <description><![CDATA[AI洞察日报 2025/10/31 AI 日报 今日摘要 【1】helm Kubernetes 包管理器 【2】storybook Storybook 是业界标准的独立构建、文档化和测试 UI 组件的工坊 【3】opentelemetry-collector OpenTelemetry 收集器 【4】social-analyzer 用于分析和在1000个社交媒体网站中查找个人资料的API、CLI和]]></description>
+        </item>
+      
         <item>
           <title><![CDATA[2025-10-30日刊]]></title>
           <link>/2025-10/2025-10-30/</link>
           <guid>/2025-10/2025-10-30/</guid>
-          <pubDate>Thu, 30 Oct 2025 23:46:18 GMT</pubDate>
+          <pubDate>Thu, 30 Oct 2025 23:57:45 GMT</pubDate>
           <content:encoded><![CDATA[<h2>AI洞察日报 2025/10/30</h2><blockquote><p><code>AI 日报</code></p></blockquote><h3>今日摘要</h3><p>【1】helm
-Kubernetes包管理器</p><p>【2】storybook
-Storybook是业界标准的UI组件独立构建、文档编写和测试工作坊</p><p>【3】opentelemetry-collector
-OpenTelemetry收集器</p><p>【4】social-analyzer
-用于分析和在1000个社交媒体\网站中查找个人资料的API、CLI和Web应用</p><p>【5】ai-engineering-hub
+Kubernetes 包管理器</p><p>【2】storybook
+Storybook 是业界标准的独立构建、文档化和测试 UI 组件的开发工坊</p><p>【3】opentelemetry-collector
+OpenTelemetry 收集器</p><p>【4】social-analyzer
+用于在1000个社交媒体网站中分析和查找个人资料的API、命令行工具和Web应用</p><p>【5】ai-engineering-hub
 关于大语言模型、检索增强生成和实际AI智能体应用的深度教程</p><p>【6】cpp-httplib
-C++头文件式HTTP/HTTPS服务器与客户端库</p>]]></content:encoded>
-          <description><![CDATA[AI洞察日报 2025/10/30 AI 日报 今日摘要 【1】helm Kubernetes包管理器 【2】storybook Storybook是业界标准的UI组件独立构建、文档编写和测试工作坊 【3】opentelemetry-collector OpenTelemetry收集器 【4】social-analyzer 用于分析和在1000个社交媒体\网站中查找个人资料的API、CLI和Web]]></description>
+C++ 头文件式 HTTP/HTTPS 服务端与客户端库</p>]]></content:encoded>
+          <description><![CDATA[AI洞察日报 2025/10/30 AI 日报 今日摘要 【1】helm Kubernetes 包管理器 【2】storybook Storybook 是业界标准的独立构建、文档化和测试 UI 组件的开发工坊 【3】opentelemetry-collector OpenTelemetry 收集器 【4】social-analyzer 用于在1000个社交媒体网站中分析和查找个人资料的API、命令]]></description>
         </item>
       
         <item>
