@@ -1,3 +1,4 @@
+
 name: Auto Build AI Daily
 
 on:
@@ -208,8 +209,8 @@ jobs:
           else
             git commit -m "docs: auto-build AI Daily ($(date -u))"
             # 先拉取远程更新再推送，防止 fetch first 冲突
-            git pull --rebase origin main || true
             git push origin main
+            git push --force origin main
           fi
 
       - name: Deploy to GitHub Pages (gh-pages branch)
