@@ -25,6 +25,7 @@ jobs:
           BASE_URL: ${{ vars.WORKER_BASE_URL }}
           USERNAME: ${{ secrets.WORKER_LOGIN_USERNAME }}
           PASSWORD: ${{ secrets.WORKER_LOGIN_PASSWORD }}
+          FOLO_COOKIE_SECRET: ${{ secrets.CF_FOLO_COOKIE }}
           MAX_PER_TYPE: "6"
           TZ: Asia/Shanghai
         run: |
@@ -97,7 +98,7 @@ jobs:
             const res = await fetchWithCookie(`${BASE}/writeData`, {
               method: 'POST',
               headers: { 'content-type': 'application/json' },
-              body: JSON.stringify({})
+              body: JSON.stringify({ foloCookie: process.env.FOLO_COOKIE_SECRET })
             });
             ok(res);
             const j = await res.json().catch(()=>({}));
