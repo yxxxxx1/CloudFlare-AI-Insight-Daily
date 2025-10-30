@@ -209,7 +209,6 @@ jobs:
           else
             git commit -m "docs: auto-build AI Daily ($(date -u))"
             # 先拉取远程更新再推送，防止 fetch first 冲突
-            git push origin main
             git push --force origin main
           fi
 
