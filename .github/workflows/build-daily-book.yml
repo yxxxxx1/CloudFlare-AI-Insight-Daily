@@ -208,7 +208,6 @@ jobs:
             echo "No changes to commit."
           else
             git commit -m "docs: auto-build AI Daily ($(date -u))"
-            # 先拉取远程更新再推送，防止 fetch first 冲突
             git push --force origin main
           fi
 
@@ -274,7 +273,6 @@ jobs:
           git add .
           git commit -m "Deploy website $(date -u +'%Y-%m-%d %H:%M:%S')"
           git branch -M main
-          git push -f origin main 
           git push --force "https://x-access-token:${GITHUB_TOKEN}@github.com/${GITHUB_REPOSITORY}.git" main:gh-pages
 
 
