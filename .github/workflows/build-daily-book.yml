@@ -34,50 +34,53 @@ jobs:
           TZ: Asia/Shanghai
         run: |
           node - <<'EOF'
-          // [v16 逻辑修复] 将所有代码包裹在立即执行的 async 函数中
-          (async () => {
-            // -------- helpers ----------
-            const BASE = process.env.BASE_URL.replace(/\/+$/, '');
-            const DATE = new Date(Date.now() + 8*3600*1000).toISOString().slice(0,10); // GMT+8 yyy-mm-dd
-            // ... (你的完整 Node.js 脚本 - 省略) ...
-            const MAX_PER_TYPE = Number(process.env.MAX_PER_TYPE || 6);
-            const fs = await import('node:fs/promises'); // [修复] 确保 fs 在顶部导入
-            const path = await import('node:path'); // [修复] 导入 path
+          // [v18 逻辑修复] 切换到 async function main() 结构
+          
+          // -------- helpers ----------
+          // [修复] 使用 require 代替 await import
+          const fs = require('fs').promises;
+          const path = require('path');
+          
+          const BASE = process.env.BASE_URL.replace(/\/+$/, '');
+          const DATE = new Date(Date.now() + 8*3600*1000).toISOString().slice(0,10); // GMT+8 yyy-mm-dd
+          const MAX_PER_TYPE = Number(process.env.MAX_PER_TYPE || 6);
 
-            let cookieJar = '';
-            const keepCookie = (res) => {
-              const set = res.headers.get('set-cookie');
-              if (set) {
-                const one = set.split(',')[0];
-                const m = one.match(/^[^;]+/);
-                if (m) {
-                  cookieJar = cookieJar ? (cookieJar + '; ' + m[0]) : m[0];
-                }
+          let cookieJar = '';
+          const keepCookie = (res) => {
+            const set = res.headers.get('set-cookie');
+            if (set) {
+              const one = set.split(',')[0];
+              const m = one.match(/^[^;]+/);
+              if (m) {
+                cookieJar = cookieJar ? (cookieJar + '; ' + m[0]) : m[0];
               }
-              return cookieJar;
-            };
+            }
+            return cookieJar;
+          };
 
-            const fetchWithCookie = async (url, opts={}) => {
-              const headers = Object.assign({}, opts.headers || {});
-              if (cookieJar) headers['cookie'] = cookieJar;
-              const res = await fetch(url, {...opts, headers});
-              keepCookie(res);
-              return res;
-            };
+          const fetchWithCookie = async (url, opts={}) => {
+            const headers = Object.assign({}, opts.headers || {});
+            if (cookieJar) headers['cookie'] = cookieJar;
+            const res = await fetch(url, {...opts, headers});
+            keepCookie(res);
+            return res;
+          };
 
-            const ok = (res) => {
-              if (!res.ok) throw new Error(`HTTP ${res.status} ${res.statusText}`);
-            };
+          const ok = (res) => {
+            if (!res.ok) throw new Error(`HTTP ${res.status} ${res.statusText}`);
+          };
 
-            const form = (pairs) => {
-              const fd = new FormData();
-              for (const [k,v] of pairs) {
-                if (Array.isArray(v)) v.forEach(x=>fd.append(k, x));
-                else fd.append(k, v);
-              }
-              return fd;
-            };
-
+          const form = (pairs) => {
+            const fd = new FormData();
+            for (const [k,v] of pairs) {
+              if (Array.isArray(v)) v.forEach(x=>fd.append(k, x));
+              else fd.append(k, v);
+            }
+            return fd;
+          };
+          
+          // [v18 修复] 将所有逻辑放入 async main()
+          async function main() {
             console.log(`BASE: ${BASE}`);
             console.log(`DATE: ${DATE}`);
 
@@ -201,12 +204,18 @@ date: ${DATE}
               const res = await fetch(`${BASE}/rss?days=7`);
               ok(res);
               const xml = await res.text();
-              await fs.writeFile('rss.xml', xml, 'utf8');
+              await fs.writeFile('rss.xml', xml, 'utf8'); // 这是之前的 line 178
               console.log('✅ File written to rss.xml');
             }
 
             console.log('🎉 All done for', DATE);
-          })(); // [v16 逻辑修复] 立即执行 async 函数
+          }
+          
+          // [v18 修复] 执行 main 函数并处理错误
+          main().catch(e => {
+            console.error(e);
+            process.exit(1);
+          });
           EOF
 
       # --- [第 2 部分：提交 RSS 和 .md 文件 - 逻辑修复] ---
@@ -395,5 +404,6 @@ date: ${DATE}
           publish_branch: gh-pages
           # 每次都强制推送，覆盖旧的构建
           force_orphan: true
+
 
 
