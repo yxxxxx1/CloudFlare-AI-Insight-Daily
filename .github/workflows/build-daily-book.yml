@@ -37,6 +37,7 @@ jobs:
           // -------- helpers ----------
           const BASE = process.env.BASE_URL.replace(/\/+$/, '');
           const DATE = new Date(Date.now() + 8*3600*1000).toISOString().slice(0,10); // GMT+8 yyyy-mm-dd
+          // ... (你的完整 Node.js 脚本 - 省略) ...
           const MAX_PER_TYPE = Number(process.env.MAX_PER_TYPE || 6);
 
           let cookieJar = '';
@@ -199,7 +200,6 @@ jobs:
           EOF
 
       # --- [第 2 部分：提交 RSS 并拉取最新 MD - 你的原始代码，完全不变] ---
-      # (这个步骤会拉取 Worker 提交的 .md 文件，并提交 rss.xml)
       - name: Commit and push changes (rss.xml)
         run: |
           git config --local user.email "action@github.com"
@@ -244,6 +244,10 @@ jobs:
           title = "AI 资讯日报"
           theme = "hextra"
 
+          # [修改] 允许首页渲染 HTML 和模板逻辑
+          [outputs]
+            home = ["HTML", "RSS", "JSON"]
+
           # Hextra 主题的配置
           [params]
             [params.theme]
@@ -251,45 +255,104 @@ jobs:
               mode = "auto"
               toggle = true
           
-          # 配置菜单
+          # [修改] 配置菜单
           [menu]
+            [[menu.main]]
+              name = "首页"
+              url = "/"
+              weight = 1
+            [[menu.main]]
+              name = "日报"  # [新增] 日报目录链接
+              url = "/daily"
+              weight = 2
             [[menu.main]]
               name = "RSS"
               url = "/rss.xml"
-              weight = 1
+              weight = 3
             [[menu.main]]
               name = "GitHub"
               url = "https://github.com/yxxxxx1/CloudFlare-AI-Insight-Daily"
-              weight = 2
+              weight = 4
           EOF
 
           echo "Organizing content for Hugo..."
           # 1. 把所有日报 .md 移动到 Hugo 的 content 目录
-          # Hugo 会自动把 daily/ 当作一个“分区”
-          #（我们使用 cp -r 而不是 mv 来确保本地文件存在）
           mkdir -p content/daily
-          cp -r daily/*.md content/daily/
+          # [重要] 确保 daily 目录存在，否则 cp 会失败
+          if [ -d "daily" ]; then
+            cp -r daily/*.md content/daily/
+          else
+            echo "Warning: 'daily' directory not found. No posts to build."
+          fi
 
-          # 2. 把 rss.xml 移动到 static 目录，Hugo 会原样复制
+          # 2. 把 rss.xml 移动到 static 目录
           mkdir -p static
-          cp rss.xml static/
+          if [ -f "rss.xml" ]; then
+            cp rss.xml static/
+          fi
 
-          # 3. 创建一个首页
-          cat << EOF > content/_index.md
+          # 3. [修改] 创建一个动态首页 (从 .md 改为 .html 来执行模板)
+          #    这个页面现在会列出最新的 7 篇日报
+          cat << EOF > content/_index.html
           ---
           title: "AI 资讯日报"
           type: "page"
           ---
           
-          欢迎来到 AI 资讯日报。
-          
-          这里每日为您精选 AI 领域的最新动态，包括行业新闻、热门开源项目、前沿学术论文和科技大V社交媒体言论。
+          <div class="mt-6">
+            欢迎来到 AI 资讯日报。
+            <br>
+            这里每日为您精选 AI 领域的最新动态，包括行业新闻、热门开源项目、前沿学术论文和科技大V社交媒体言论。
+          </div>
+
+          <h2 class="mt-8">最近日报</h2>
+
+          {{< hextra/list-container >}}
+          {{/* 查询 daily 分区中的所有页面，按文件名（即日期）倒序，取前 7 篇 */}}
+          {{ range first 7 (where .Site.RegularPages "Section" "daily" | sort .File.Path ".md" "desc") }}
+            <a href="{{ .RelPermalink }}" class="flex !no-underline my-4">
+              <div class="flex-1">
+                {{/* Hextra 会自动从 .md 的第一个 H1 或 front matter 获取 .Title */}}
+                <div class="font-semibold">{{ .Title }}</div>
+                <div class="text-sm text-gray-500 dark:text-gray-400">
+                  {{/* Hugo 会从文件名 (e.g., 2025-01-01.md) 推断日期 */}}
+                  {{ .Date.Format "2006-01-02" }}
+                </div>
+              </div>
+            </a>
+          {{ end }}
+          {{< /hextra/list-container >}}
+
+          <a href="/daily" class="mt-4 inline-block">查看所有日报 →</a>
+          EOF
+
+          # 4. [新增] 为 /daily 列表页创建一个 _index.html
+          #    这会给 "日报" 页面一个动态列表
+          cat << EOF > content/daily/_index.html
+          ---
+          title: "所有日报"
+          type: "page"
+          ---
+
+          <h1>所有日报</h1>
+
+          {{< hextra/list-container >}}
+          {{/* 遍历 .Pages (即 daily 目录下的所有页面), 按日期倒序 */}}
+          {{ range .Pages.ByDate.Reverse }}
+            <a href="{{ .RelPermalink }}" class="flex !no-underline my-4">
+              <div class="flex-1">
+                <div class="font-semibold">{{ .Title }}</div>
+                <div class="text-sm text-gray-500 dark:text-gray-400">
+                  {{ .Date.Format "2006-01-02" }}
+                </div>
+              </div>
+            </a>
+          {{ end }}
+          {{< /hextra/list-container >}}
           EOF
           
           echo "Running Hugo build..."
-          # 4. 运行 Hugo 构建
-          # Hugo 会读取 content/daily/ 中的所有 .md 文件
-          # 应用 Hextra 主题，并生成网站到 'public' 目录
+          # 5. 运行 Hugo 构建
           hugo
 
       # --- [第 4 部分：部署到 gh-pages 分支] ---
@@ -303,4 +366,5 @@ jobs:
           publish_branch: gh-pages
           # 每次都强制推送，覆盖旧的构建
           force_orphan: true
+
 
