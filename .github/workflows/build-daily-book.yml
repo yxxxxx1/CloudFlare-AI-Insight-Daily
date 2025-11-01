@@ -245,8 +245,8 @@ jobs:
           title = "AI 资讯日报"
           # 'theme' 字段在 module 模式下不再需要
           
-          # [v12 修复] 添加 relativeURLs = true，这是解决 404 问题的关键
-          relativeURLs = true
+          # [v13 修复] 移除了 "relativeURLs = true"，因为它和 baseURL 冲突
+          # relativeURLs = true
 
           # [最终修复] 明确导入 Hextra 主题
           [module]
