@@ -23,8 +23,8 @@ jobs:
         with:
           node-version: 20
 
-      # --- [第 1 部分：核心日报生成 - 逻辑修复] ---
-      - name: Run end-to-end pipeline (login → writeData → genAI → writeFiles → rss)
+      # --- [第 1 部分：核心日报生成 - 你的原始代码，完全不变] ---
+      - name: Run end-to-end pipeline (login → writeData → genAI → commit → writeRssData → rss)
         env:
           BASE_URL: ${{ vars.WORKER_BASE_URL }}
           USERNAME: ${{ secrets.WORKER_LOGIN_USERNAME }}
@@ -34,15 +34,9 @@ jobs:
           TZ: Asia/Shanghai
         run: |
           node - <<'EOF'
-          // [v18 逻辑修复] 切换到 async function main() 结构
-          
           // -------- helpers ----------
-          // [修复] 使用 require 代替 await import
-          const fs = require('fs').promises;
-          const path = require('path');
-          
           const BASE = process.env.BASE_URL.replace(/\/+$/, '');
-          const DATE = new Date(Date.now() + 8*3600*1000).toISOString().slice(0,10); // GMT+8 yyy-mm-dd
+          const DATE = new Date(Date.now() + 8*3600*1000).toISOString().slice(0,10); // GMT+8 yyyy-mm-dd
           const MAX_PER_TYPE = Number(process.env.MAX_PER_TYPE || 6);
 
           let cookieJar = '';
@@ -78,181 +72,168 @@ jobs:
             }
             return fd;
           };
-          
-          // [v18 修复] 将所有逻辑放入 async main()
-          async function main() {
-            console.log(`BASE: ${BASE}`);
-            console.log(`DATE: ${DATE}`);
 
-            // 1) login 获取 cookie
-            console.log('🔐 Login ...');
-            {
-              const fd = new URLSearchParams();
-              fd.set('username', process.env.USERNAME);
-              fd.set('password', process.env.PASSWORD);
-              const res = await fetch(`${BASE}/login`, {
-                method: 'POST',
-                headers: { 'content-type': 'application/x-www-form-urlencoded' },
-                redirect: 'manual',
-                body: fd.toString()
-              });
-              if (res.status !== 200 && res.status !== 302) {
-                throw new Error(`Login failed: HTTP ${res.status}`);
-              }
-              keepCookie(res);
-              if (!cookieJar) throw new Error('No cookie returned from login');
+          console.log(`BASE: ${BASE}`);
+          console.log(`DATE: ${DATE}`);
+
+          // 1) login 获取 cookie
+          console.log('🔐 Login ...');
+          {
+            const fd = new URLSearchParams();
+            fd.set('username', process.env.USERNAME);
+            fd.set('password', process.env.PASSWORD);
+            const res = await fetch(`${BASE}/login`, {
+              method: 'POST',
+              headers: { 'content-type': 'application/x-www-form-urlencoded' },
+              redirect: 'manual',
+              body: fd.toString()
+            });
+            if (res.status !== 200 && res.status !== 302) {
+              throw new Error(`Login failed: HTTP ${res.status}`);
             }
-            console.log('✅ Login OK');
-
-            // 2) writeData
-            console.log('📝 writeData ...');
-            {
-              const res = await fetchWithCookie(`${BASE}/writeData`, {
-                method: 'POST',
-                headers: { 'content-type': 'application/json' },
-                body: JSON.stringify({ foloCookie: process.env.FOLO_COOKIE_SECRET })
-              });
-              ok(res);
-              const j = await res.json().catch(()=>({}));
-              console.log('writeData result:', j);
-            }
-
-            // 3) getContent
-            console.log('📥 getContent ...');
-            const all = {};
-            {
-              const res = await fetch(`${BASE}/getContent?date=${DATE}`);
-              ok(res);
-              const j = await res.json();
-              for (const [k,v] of Object.entries(j)) {
-                if (Array.isArray(v)) all[k] = v;
-              }
-              console.log('got categories:', Object.keys(all));
-            }
-
-            // 4) 构造 selectedItems
-            console.log('🧩 build selectedItems ...');
-            const selectedItems = [];
-            for (const [type, arr] of Object.entries(all)) {
-              for (const it of (arr || []).slice(0, MAX_PER_TYPE)) {
-                if (it && (it.id !== undefined && it.id !== null)) {
-                  selectedItems.push(`${type}:${it.id}`);
-                }
-              }
-            }
-            if (selectedItems.length === 0) throw new Error('No items to select – writeData may have fetched nothing.');
-
-            // 5) genAIContent（JSON 模式）
-            console.log('🤖 genAIContent (JSON mode)...');
-            let markdown = '';
-            {
-              const fd = form([
-                ['date', DATE],
-                ['selectedItems', selectedItems]
-              ]);
-
-              const res = await fetchWithCookie(`${BASE}/genAIContent?mode=json`, {
-                method: 'POST',
-                body: fd
-              });
-              ok(res);
-
-              const j = await res.json().catch(() => null);
-              if (!j || !j.markdown) {
-                console.error('Full response:', j);
-                throw new Error('genAIContent JSON response invalid or missing markdown field.');
-              }
-
-              markdown = j.markdown;
-              if (!markdown.trim()) throw new Error('Empty markdown in genAIContent JSON result.');
-            }
-            console.log(`✅ genAIContent OK (JSON mode, length=${markdown.length})`);
-
-            // 6) [v15 逻辑修复] 在本地写入 .md 文件 (并添加 Hugo Front Matter)
-            console.log('✍️ Writing .md file locally with Hugo Front Matter...');
-            {
-              // [修复] 构造 Hugo Front Matter
-              // 我们使用 DATE (e.g., "2025-01-01") 作为 title 和 date
-              const frontMatter = `---
-title: "AI 日报 ${DATE}"
-date: ${DATE}
----
-
-`;
-              
-              const fileContent = frontMatter + markdown; // 将 Front Matter 拼接到 Markdown 内容前
-
-              const dailyDir = path.resolve(process.cwd(), 'daily');
-              await fs.mkdir(dailyDir, { recursive: true }); // 确保 'daily' 目录存在
-              const filePath = path.join(dailyDir, `${DATE}.md`);
-              await fs.writeFile(filePath, fileContent, 'utf8'); // 写入包含 Front Matter 的完整内容
-              console.log(`✅ File written to ${filePath}`);
-            }
-
-            // 7) writeRssData (原第7步)
-            console.log('🪄 writeRssData ...');
-            {
-              const res = await fetch(`${BASE}/writeRssData?date=${DATE}`, { redirect: 'follow' });
-              ok(res);
-              const j = await res.json().catch(()=>({}));
-              console.log('writeRssData result:', j.title || j.report_date || 'OK');
-            }
-
-            // 8) 下载 RSS 到本地 (原第8步)
-            console.log('⬇️ download RSS ...');
-            {
-              const res = await fetch(`${BASE}/rss?days=7`);
-              ok(res);
-              const xml = await res.text();
-              await fs.writeFile('rss.xml', xml, 'utf8'); // 这是之前的 line 178
-              console.log('✅ File written to rss.xml');
-            }
-
-            console.log('🎉 All done for', DATE);
+            keepCookie(res);
+            if (!cookieJar) throw new Error('No cookie returned from login');
           }
-          
-          // [v18 修复] 执行 main 函数并处理错误
-          main().catch(e => {
-            console.error(e);
-            process.exit(1);
-          });
+          console.log('✅ Login OK');
+
+          // 2) writeData
+          console.log('📝 writeData ...');
+          {
+            const res = await fetchWithCookie(`${BASE}/writeData`, {
+              method: 'POST',
+              headers: { 'content-type': 'application/json' },
+              body: JSON.stringify({ foloCookie: process.env.FOLO_COOKIE_SECRET })
+            });
+            ok(res);
+            const j = await res.json().catch(()=>({}));
+            console.log('writeData result:', j);
+          }
+
+          // 3) getContent
+          console.log('📥 getContent ...');
+          const all = {};
+          {
+            const res = await fetch(`${BASE}/getContent?date=${DATE}`);
+            ok(res);
+            const j = await res.json();
+            for (const [k,v] of Object.entries(j)) {
+              if (Array.isArray(v)) all[k] = v;
+            }
+            console.log('got categories:', Object.keys(all));
+          }
+
+          // 4) 构造 selectedItems
+          console.log('🧩 build selectedItems ...');
+          const selectedItems = [];
+          for (const [type, arr] of Object.entries(all)) {
+            for (const it of (arr || []).slice(0, MAX_PER_TYPE)) {
+              if (it && (it.id !== undefined && it.id !== null)) {
+                selectedItems.push(`${type}:${it.id}`);
+              }
+            }
+          }
+          if (selectedItems.length === 0) throw new Error('No items to select – writeData may have fetched nothing.');
+
+          // 5) genAIContent（JSON 模式）
+          console.log('🤖 genAIContent (JSON mode)...');
+          let markdown = '';
+          {
+            const fd = form([
+              ['date', DATE],
+              ['selectedItems', selectedItems]
+            ]);
+
+            const res = await fetchWithCookie(`${BASE}/genAIContent?mode=json`, {
+              method: 'POST',
+              body: fd
+            });
+            ok(res);
+
+            const j = await res.json().catch(() => null);
+            if (!j || !j.markdown) {
+              console.error('Full response:', j);
+              throw new Error('genAIContent JSON response invalid or missing markdown field.');
+            }
+
+            markdown = j.markdown;
+            if (!markdown.trim()) throw new Error('Empty markdown in genAIContent JSON result.');
+          }
+          console.log(`✅ genAIContent OK (JSON mode, length=${markdown.length})`);
+
+          // 6) commitToGitHub
+          console.log('⬆️ commitToGitHub ...');
+          {
+            const fd = form([
+              ['date', DATE],
+              ['daily_summary_markdown', markdown]
+            ]);
+            const res = await fetchWithCookie(`${BASE}/commitToGitHub`, {
+              method: 'POST',
+              body: fd
+            });
+            ok(res);
+            const j = await res.json().catch(()=>({}));
+            console.log('commitToGitHub result:', j);
+          }
+
+          // 7) writeRssData
+          console.log('🪄 writeRssData ...');
+          {
+            const res = await fetch(`${BASE}/writeRssData?date=${DATE}`, { redirect: 'follow' });
+            ok(res);
+            const j = await res.json().catch(()=>({}));
+            console.log('writeRssData result:', j.title || j.report_date || 'OK');
+          }
+
+          // 8) 下载 RSS 到本地
+          console.log('⬇️ download RSS ...');
+          {
+            const res = await fetch(`${BASE}/rss?days=7`);
+            ok(res);
+            const xml = await res.text();
+            const fs = await import('node:fs/promises');
+            await fs.writeFile('rss.xml', xml, 'utf8');
+          }
+
+          console.log('🎉 All done for', DATE);
           EOF
 
-      # --- [第 2 部分：提交 RSS 和 .md 文件 - 逻辑修复] ---
-      - name: Commit and push changes (rss.xml and daily/*.md)
+      # --- [第 2 部分：提交 RSS 并拉取最新 MD - 你的原始代码，完全不变] ---
+      # (这个步骤会拉取 Worker 提交的 .md 文件，并提交 rss.xml)
+      - name: Commit and push changes (rss.xml)
         run: |
           git config --local user.email "action@github.com"
           git config --local user.name "GitHub Action"
 
-          # [修复] 添加所有新文件 (rss.xml 和 daily/YYYY-MM-DD.md)
-          git add rss.xml
-          git add daily/
+          if [ -f "rss.xml" ]; then
+            git add rss.xml
+          fi
 
           if git diff --staged --quiet; then
             echo "No changes to commit."
           else
             git commit -m "docs: auto-build AI Daily ($(date -u))"
-            # [修复] 拉取远程更新现在是安全的，因为它只合并 rss.xml 的冲突
+            # 先拉取远程更新再推送，防止 fetch first 冲突
+            # 这一步会拉取第 1 部分中 Worker 提交的 .md 文件
             git pull --rebase origin main || true
             git push origin main
           fi
 
-      # --- [第 3 部分：构建专业网站 - 你的原始代码，完全不变] ---
+      # --- [第 3 部分：构建专业网站 - 替换原有的部署步骤] ---
       - name: Install Hugo
         uses: peaceiris/actions-hugo@v3
         with:
           hugo-version: 'latest'
-          # [最终修复] 必须使用 extended 版
-          extended: true 
 
-      # --- [删除] "Setup Hugo Theme (Hextra)" 步骤已被删除 ---
+      - name: Setup Hugo Theme (Hextra)
+        run: |
+          echo "Cloning Hextra theme..."
+          mkdir -p themes
+          # 使用 Git Submodule 来安装主题
+          git submodule add -f https://github.com/imfing/hextra.git themes/hextra
 
       - name: Build Website with Hugo
         run: |
-          echo "Initializing Hugo Module..."
-          # 使用 GITHUB_REPOSITORY (例如 "yxxxxx1/CloudFlare-AI-Insight-Daily") 作为模块名
-          hugo mod init github.com/${{ github.REPOSITORY }}
-
           echo "Creating Hugo configuration..."
           # 动态创建 Hugo 配置文件
           
@@ -261,19 +242,7 @@ date: ${DATE}
           baseURL = "https://yxxxxx1.github.io/CloudFlare-AI-Insight-Daily/"
           languageCode = "zh-cn"
           title = "AI 资讯日报"
-          # 'theme' 字段在 module 模式下不再需要
-          
-          # [v13 修复] 移除了 "relativeURLs = true"，因为它和 baseURL 冲突
-          # relativeURLs = true
-
-          # [最终修复] 明确导入 Hextra 主题
-          [module]
-            [[module.imports]]
-              path = "github.com/imfing/hextra"
-
-          # 允许首页渲染 HTML 和模板逻辑
-          [outputs]
-            home = ["HTML", "RSS", "JSON"]
+          theme = "hextra"
 
           # Hextra 主题的配置
           [params]
@@ -285,115 +254,45 @@ date: ${DATE}
           # 配置菜单
           [menu]
             [[menu.main]]
-              name = "首页"
-              url = "/"
-              weight = 1
-            [[menu.main]]
-              name = "日报"  # 日报目录链接
-              url = "/daily"
-              weight = 2
-            [[menu.main]]
               name = "RSS"
               url = "/rss.xml"
-              weight = 3
+              weight = 1
             [[menu.main]]
               name = "GitHub"
               url = "https://github.com/yxxxxx1/CloudFlare-AI-Insight-Daily"
-              weight = 4
+              weight = 2
           EOF
-
-          echo "Configuring Git for Hugo Modules..."
-          # [最终修复] 解决 'terminal prompts disabled' 错误
-          # 强制 Git 对 github.com 使用 GITHUB_TOKEN，防止 Go 模块下载时被要求输入用户名
-          git config --global url."https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/".insteadOf "https://github.com/"
-
-          echo "Tidying Hugo modules (Hextra)..."
-          # 运行 'hugo mod tidy' 会自动下载 hextra 及其所有依赖（包括 shortcodes）
-          hugo mod tidy
 
           echo "Organizing content for Hugo..."
           # 1. 把所有日报 .md 移动到 Hugo 的 content 目录
+          # Hugo 会自动把 daily/ 当作一个“分区”
+          #（我们使用 cp -r 而不是 mv 来确保本地文件存在）
           mkdir -p content/daily
-          # [重要] 确保 daily 目录存在，否则 cp 会失败
-          if [ -d "daily" ]; then
-            cp -r daily/*.md content/daily/
-          else
-            echo "Warning: 'daily' directory not found. No posts to build."
-          fi
+          cp -r daily/*.md content/daily/
 
-          # 2. 把 rss.xml 移动到 static 目录
+          # 2. 把 rss.xml 移动到 static 目录，Hugo 会原样复制
           mkdir -p static
-          if [ -f "rss.xml" ]; then
-            cp rss.xml static/
-          fi
+          cp rss.xml static/
 
-          # 3. 创建一个动态首页 (从 .md 改为 .html 来执行模板)
-          #    这个页面现在会列出最新的 7 篇日报
-          # [v17 YAML 修复] 转义所有 {{ 和 }}
-          cat << EOF > content/_index.html
+          # 3. 创建一个首页
+          cat << EOF > content/_index.md
           ---
           title: "AI 资讯日报"
           type: "page"
           ---
           
-          <div class="mt-6">
-            欢迎来到 AI 资讯日报。
-            <br>
-            这里每日为您精选 AI 领域的最新动态，包括行业新闻、热门开源项目、前沿学术论文和科技大V社交媒体言论。
-          </div>
-
-          <h2 class="mt-8">最近日报</h2>
-
-          ${{ '{{' }}< list-container >}} <!-- [最终修复] 移除了 'hextra/' 前缀 -->
-          ${{ '{{' }}/* 查询 daily 分区中的所有页面，按文件名（即日期）倒序，取前 7 篇 */}}
-          ${{ '{{' }} range first 7 (where .Site.RegularPages "Section" "daily" | sort .File.Path ".md" "desc") }}
-            <a href="${{ '{{' }} .RelPermalink }}" class="flex !no-underline my-4">
-              <!-- [v12 修复] 修正了 HTML 拼写错误 "classs" -> "class" -->
-              <div class="flex-1">
-                ${{ '{{' }}/* Hextra 会自动从 .md 的第一个 H1 或 front matter 获取 .Title */}}
-                <div class="font-semibold">${{ '{{' }} .Title }}</div>
-                <div class="text-sm text-gray-500 dark:text-gray-400">
-                  ${{ '{{' }}/* Hugo 会从文件名 (e.g., 2025-01-01.md) 推断日期 */}}
-                  ${{ '{{' }} .Date.Format "2006-01-02" }}
-                </div>
-              </div>
-            </a>
-          ${{ '{{' }} end }}
-          ${{ '{{' }}< /list-container >}} <!-- [最终修复] 移除了 'hextra/' 前缀 -->
-
-          <a href="/daily" class="mt-4 inline-block">查看所有日报 →</a>
+          欢迎来到 AI 资讯日报。
+          
+          这里每日为您精选 AI 领域的最新动态，包括行业新闻、热门开源项目、前沿学术论文和科技大V社交媒体言论。
           EOF
-
-          # 4. 为 /daily 列表页创建一个 _index.html
-          #    这会给 "日报" 页面一个动态列表
-          # [v17 YAML 修复] 转义所有 {{ 和 }}
-          cat << EOF > content/daily/_index.html
-          ---
-          title: "所有日报"
-          type: "page"
-          ---
-
-          <h1>所有日报</h1>
-
-          ${{ '{{' }}< list-container >}} <!-- [最终修复] 移除了 'hextra/' 前缀 -->
-          ${{ '{{' }}/* 遍历 .Pages (即 daily 目录下的所有页面), 按日期倒序 */}}
-          ${{ '{{' }} range .Pages.ByDate.Reverse }}
-            <a href="${{ '{{' }} .RelPermalink }}" class="flex !no-underline my-4">
-              <div class="flex-1">
-                <div class="font-semibold">${{ '{{' }} .Title }}</div>
-                <div class="text-sm text-gray-500 dark:text-gray-400">
-                  ${{ '{{' }} .Date.Format "2006-01-02" }}
-                </div>
-              </div>
-            </a>
-          ${{ '{{' }} end }}
-          ${{ '{{' }}< /list-container >}} <!-- [最终修复] 移除了 'hextra/' 前缀 -->
           
           echo "Running Hugo build..."
-          # 5. 运行 Hugo 构建
+          # 4. 运行 Hugo 构建
+          # Hugo 会读取 content/daily/ 中的所有 .md 文件
+          # 应用 Hextra 主题，并生成网站到 'public' 目录
           hugo
 
-      # --- [第 4 部分：部署到 gh-pages 分支 - 你的原始代码，完全不变] ---
+      # --- [第 4 部分：部署到 gh-pages 分支] ---
       - name: Deploy to gh-pages
         uses: peaceiris/actions-gh-pages@v4
         with:
