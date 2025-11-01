@@ -16,9 +16,6 @@ export function setFetchDate(date) {
     fetchDate = date;
 }
 
-export function getFetchDate() {
-    return fetchDate;
-}
 
 /**
  * Gets the current date or a specified date in YYYY-MM-DD format.
@@ -175,23 +172,29 @@ export function getShanghaiTime() {
 }
 
 /**
- * Checks if a given date string is within the last specified number of days (inclusive of today).
- * @param {string} dateString - The date string to check (YYYY-MM-DD or ISO format).
- * @param {number} days - The number of days to look back (e.g., 3 for today and the past 2 days).
- * @returns {boolean} True if the date is within the last 'days', false otherwise.
- */
+ * Checks if a given date string is within the last specified number of days (inclusive of today).
+ * @param {string} dateString - The date string to check (YYYY-MM-DD or ISO format).
+ * @param {number} days - The number of days to look back (e.g., 3 for today and the past 2 days).
+ * @returns {boolean} True if the date is within the last 'days', false otherwise.
+ */
 export function isDateWithinLastDays(dateString, days) {
-    // Convert both dates to Shanghai time for consistent comparison
-    const itemDate = convertToShanghaiTime(dateString);
-    const today = new Date(fetchDate);
+    // 1. 获取物品日期（已在上海时区）
+    const itemDate = convertToShanghaiTime(dateString);
+    // 归一化物品日期到当天的0点
+    itemDate.setHours(0, 0, 0, 0);
 
-    // Normalize today to the start of its day in Shanghai time
-    today.setHours(0, 0, 0, 0);
+    // 2. 获取今天的日期（使用 getShanghaiTime()，而不是 new Date(fetchDate)）
+    const today = getShanghaiTime(); // <--- 关键修复
+    // 归一化今天到0点
+    today.setHours(0, 0, 0, 0);
 
-    const diffTime = today.getTime() - itemDate.getTime();
-    const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+    // 3. 计算天数差
+    const diffTime = today.getTime() - itemDate.getTime();
+    // 使用 Math.round() 来处理DST(夏令时)等边界情况，比 Math.ceil() 更安全
+    const diffDays = Math.round(diffTime / (1000 * 60 * 60 * 24)); 
 
-    return diffDays >= 0 && diffDays < days;
+    // 4. 检查日期是否在范围内 (diffDays >= 0 确保帖子不是未来的)
+    return diffDays >= 0 && diffDays < days;
 }
 
 /**
