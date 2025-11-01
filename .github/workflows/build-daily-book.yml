@@ -216,7 +216,7 @@ date: ${DATE}
             console.error(e);
             process.exit(1);
           });
-EOF
+  EOF
 
       # --- [第 2 部分：提交 RSS 和 .md 文件 - 逻辑修复] ---
       - name: Commit and push changes (rss.xml and daily/*.md)
