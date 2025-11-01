@@ -127,16 +127,22 @@ function b64EncodeUnicode(str) {
     }
 }
 
-// Base64 decode (UTF-8 safe)
-function b64DecodeUnicode(str) {
-    try {
-        // Standard Base64 decoding
-        return decodeURIComponent(atob(str).split('').map(function(c) {
-            return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
-        }).join(''));
-    } catch(e) {
-        console.error("Base64 Decoding Error:", e);
-        showStatus("Error: Could not decode file content from GitHub.", true);
-        return null; // Return null on error
-    }
+// Base64 encode (UTF-8 safe for Workers)
+function b64EncodeUnicode(str) {
+    try {
+        // 在 Cloudflare Worker 中，btoa() 可以处理 Uint8Array
+        // 1. 创建一个 TextEncoder
+        const encoder = new TextEncoder();
+        // 2. 将 UTF-8 字符串编码为 Uint8Array
+        const uint8Array = encoder.encode(str);
+        // 3. 将 Uint8Array 转换为 btoa() 可以处理的二进制定界符（binary string）
+        const binaryString = String.fromCharCode.apply(null, uint8Array);
+        // 4. Base64 编码
+        return btoa(binaryString);
+    } catch (e) {
+        console.error("Base64 Encoding Error:", e);
+        // 修复：将未定义的 showStatus() 替换为 console.error()
+        console.error("Error: Could not encode content for GitHub.", true); 
+        return null; // Return null on error
+    }
 }
