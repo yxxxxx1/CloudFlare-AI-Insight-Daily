@@ -227,10 +227,10 @@ jobs:
 
       - name: Setup Hugo Theme (Hextra)
         run: |
-          echo "Cloning Hextra theme..."
-          # [修复] 直接 clone 主题，而不是使用 submodule add
-          # 'submodule add' 是用来注册一个新模块的，我们只需要下载文件
-          git clone https://github.com/imfing/hextra.git themes/hextra
+          echo "Cloning Hextra theme and its submodules..."
+          # [修复 v2] 使用 --recursive 选项来拉取主题及其所有依赖项
+          # Hextra 主题自身可能依赖 git submodules 来管理其 shortcodes
+          git clone --recursive https://github.com/imfing/hextra.git themes/hextra
 
       - name: Build Website with Hugo
         run: |
@@ -366,6 +366,7 @@ jobs:
           publish_branch: gh-pages
           # 每次都强制推送，覆盖旧的构建
           force_orphan: true
+
 
 
 
