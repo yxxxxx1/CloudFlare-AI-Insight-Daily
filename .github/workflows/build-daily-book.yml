@@ -224,18 +224,18 @@ jobs:
         uses: peaceiris/actions-hugo@v3
         with:
           hugo-version: 'latest'
-          # [新增] 告诉 action 我们要使用 Hugo Modules
           extended: true 
 
-      # --- [删除] "Setup Hugo Theme (Hextra)" 步骤已被删除 ---
+      # [修复 v8] 使用 'git clone --recursive' 替换掉脆弱的 Hugo Modules
+      - name: Setup Hugo Theme (Hextra)
+        run: |
+          echo "Cloning Hextra theme and its submodules (shortcodes)..."
+          mkdir -p themes
+          git clone --recursive https://github.com/imfing/hextra.git themes/hextra
+          # --recursive 标志会确保 Hextra 依赖的 shortcodes 子模块被一同下载
 
       - name: Build Website with Hugo
         run: |
-          echo "Initializing Hugo Module..."
-          # [修复 v3] 使用 Hugo Modules 初始化项目
-          # 我们使用 GITHUB_REPOSITORY (例如 "yxxxxx1/CloudFlare-AI-Insight-Daily") 作为模块名
-          hugo mod init github.com/${{ github.REPOSITORY }}
-
           echo "Creating Hugo configuration..."
           # 动态创建 Hugo 配置文件
           
@@ -244,15 +244,10 @@ jobs:
           baseURL = "https://yxxxxx1.github.io/CloudFlare-AI-Insight-Daily/"
           languageCode = "zh-cn"
           title = "AI 资讯日报"
-          # [修复 v3] 'theme' 字段在 module 模式下不再需要
-          # theme = "hextra" 
+          # [修复 v8] 明确告诉 Hugo 我们要使用 "hextra" 主题（来自 'themes' 目录）
+          theme = "hextra"
 
-          # [修复 v5] 显式导入 Hextra 主题 和 Hextra Shortcodes
-          [module]
-            [[module.imports]]
-              path = "github.com/imfing/hextra"
-            [[module.imports]]
-              path = "github.com/imfing/hugo-hextra-shortcodes"
+          # [修复 v8] 删除了 Hugo Modules [module] 部分
 
           # [修改] 允许首页渲染 HTML 和模板逻辑
           [outputs]
@@ -285,14 +280,7 @@ jobs:
               weight = 4
           EOF
 
-          echo "Configuring Git for Hugo Modules..."
-          # [修复 v6] 解决 'terminal prompts disabled' 错误
-          # 强制 Git 对 github.com 使用 GITHUB_TOKEN，防止 Go 模块下载时被要求输入用户名
-          git config --global url."https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/".insteadOf "https://github.com/"
-
-          # [修复 v4] 按照 Hugo 日志的提示，使用 'hugo mod tidy'
-          echo "Tidying Hugo modules (Hextra)..."
-          hugo mod tidy
+          # [删除] 'git config' 和 'hugo mod tidy' 不再需要
 
           echo "Organizing content for Hugo..."
           # 1. 把所有日报 .md 移动到 Hugo 的 content 目录
@@ -372,6 +360,8 @@ jobs:
           
           echo "Running Hugo build..."
           # 5. 运行 Hugo 构建
+          # [修复 v8] 我们不再需要指定 --themeDir 或 --theme，
+          # 因为 'themes/hextra' 是 Hugo 的默认查找路径
           hugo
 
       # --- [第 4 部分：部署到 gh-pages 分支] ---
@@ -385,7 +375,6 @@ jobs:
           publish_branch: gh-pages
           # 每次都强制推送，覆盖旧的构建
           force_orphan: true
-
 
 
 
