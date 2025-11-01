@@ -212,68 +212,134 @@ jobs:
             git push origin main
           fi
 
-      - name: Deploy to GitHub Pages (gh-pages branch)
+      # ▼▼▼ [替换你原来的 "Deploy to GitHub Pages" 步骤] ▼▼▼
+      - name: Deploy to GitHub Pages (Optimized)
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          echo "📦 Building website structure..."
+          echo "📦 Installing build dependencies (marked)..."
+          # 1. 安装一个专业的 Markdown -> HTML 解析器
+          npm install marked
 
-          # 1️⃣ 创建 public 目录
-          mkdir -p public/daily
+          echo "🚀 Building optimized website..."
+          
+          # 2. 创建 Node.js 脚本来构建网站
+          # 我们不再使用 sed/echo，而是使用一个脚本来精细化地生成 HTML
+          node <<'EOF'
+          const fs = require('fs');
+          const path = require('path');
+          const { marked } = require('marked'); // 引入 Markdown 解析器
 
-          # 2️⃣ 将 markdown 转成 HTML
-          for f in daily/*.md; do
-            [ -f "$f" ] || continue
-            name=$(basename "$f" .md)
-            html="public/daily/${name}.html"
-            echo "<html><head><meta charset='utf-8'><title>${name} - AI Insight Daily</title>
+          // --- 1. 定义 HTML 模板 ---
+          // 我们使用 Pico.css (一个超轻量级、无需 class 的 CSS 框架) 来美化页面
+          const picoCDN = 'https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.min.css';
+
+          const layout = (title, content) => `<!DOCTYPE html>
+          <html lang="zh-CN" data-theme="light">
+          <head>
+            <meta charset="UTF-8">
+            <meta name="viewport" content="width=device-width, initial-scale=1.0">
+            <title>${title} - AI 资讯日报</title>
+            <link rel="stylesheet" href="${picoCDN}">
             <style>
-              body{font-family:sans-serif;max-width:800px;margin:40px auto;line-height:1.6;}
-              h1,h2,h3{color:#333;}
-              a{color:#0366d6;text-decoration:none;}
-              a:hover{text-decoration:underline;}
-              pre{background:#f6f8fa;padding:10px;border-radius:6px;overflow:auto;}
-              code{background:#f6f8fa;padding:2px 4px;border-radius:4px;}
+              body { padding-bottom: 3rem; }
+              main { max-width: 960px; margin: 0 auto; }
+              nav { display: flex; justify-content: space-between; align-items: center; }
+              .daily-summary {
+                border: 1px solid var(--pico-muted-border-color);
+                padding: 1rem;
+                border-radius: var(--pico-border-radius);
+                margin-bottom: 1.5rem;
+              }
+              .daily-summary h2 { margin-bottom: 0.5rem; }
+              .daily-summary p { margin-bottom: 0.5rem; }
+              img { max-width: 100%; height: auto; } /* 确保图片响应式 */
+              pre { background: #f6f8fa; padding: 10px; border-radius: 6px; overflow: auto; }
+              code { background: #f6f8fa; padding: 2px 4px; border-radius: 4px; }
             </style>
-            </head><body>
-            <h1>AI Insight Daily - ${name}</h1>
-            <p><a href='../index.html'>← 返回首页</a></p>
-            <hr>" > "$html"
-            # 转换 markdown -> html 简易版
-            cat "$f" | sed 's/^# \(.*\)$/<h2>\1<\/h2>/; s/^## \(.*\)$/<h3>\1<\/h3>/; s/^### \(.*\)$/<h4>\1<\/h4>/; s/^\(.*\)$/<p>\1<\/p>/' >> "$html"
-            echo "</body></html>" >> "$html"
-          done
+          </head>
+          <body>
+            <main class="container">
+              <nav>
+                <strong><a href="../index.html" style="text-decoration: none;">🧠 AI 资讯日报</a></strong>
+                <a href="../rss.xml" role="button" class="outline">RSS Feed</a>
+              </nav>
+              <hr>
+              <article>
+                <h1>${title}</h1>
+                ${content}
+              </article>
+              <hr>
+              <footer><small>Powered by AI Insight Daily</small></footer>
+            </main>
+          </body>
+          </html>`;
 
-          # 3️⃣ 拷贝 RSS
-          cp rss.xml public/rss.xml || true
+          // --- 2. 准备目录 ---
+          const dailyDir = 'daily';
+          const publicDir = 'public';
+          const publicDailyDir = path.join(publicDir, 'daily');
+          if (fs.existsSync(publicDir)) fs.rmSync(publicDir, { recursive: true });
+          fs.mkdirSync(publicDailyDir, { recursive: true });
 
-          # 4️⃣ 生成主页 index.html
-          echo "<html><head><meta charset='utf-8'><title>AI Insight Daily</title>
-          <style>
-            body{font-family:sans-serif;max-width:800px;margin:40px auto;line-height:1.6;}
-            h1{color:#222;}
-            a{color:#0366d6;text-decoration:none;}
-            a:hover{text-decoration:underline;}
-          </style>
-          </head><body>
-          <h1>AI Insight Daily 🧠</h1>
-          <p>最近更新的日报：</p><ul>" > public/index.html
+          // --- 3. 读取所有日报 ---
+          const files = fs.readdirSync(dailyDir)
+            .filter(f => f.endsWith('.md'))
+            .sort((a, b) => b.localeCompare(a)); // 按日期倒序
 
-          for f in $(ls -t daily/*.md | head -n 7); do
-            name=$(basename "$f" .md)
-            echo "<li><a href='daily/${name}.html'>${name}</a></li>" >> public/index.html
-          done
+          let indexContent = '<h2>最近的日报</h2>';
 
-          echo "</ul><hr><p><a href='rss.xml'>RSS Feed</a></p></body></html>" >> public/index.html
+          // --- 4. 遍历 Markdown 文件，生成详情页和首页摘要 ---
+          const maxIndexItems = 7; // 首页最多显示多少篇
+          for (let i = 0; i < files.length; i++) {
+            const file = files[i];
+            const date = file.replace('.md', '');
+            const mdPath = path.join(dailyDir, file);
+            const htmlPath = path.join(publicDailyDir, `${date}.html`);
+            
+            const markdownContent = fs.readFileSync(mdPath, 'utf8');
+            
+            // 4a. [专业解析] 使用 marked 将完整 MD 转换为 HTML
+            const htmlContent = marked.parse(markdownContent);
+            
+            // 4b. [生成详情页]
+            const fullHtmlPage = layout(date, htmlContent);
+            fs.writeFileSync(htmlPath, fullHtmlPage, 'utf8');
 
-          # 5️⃣ 推送到 gh-pages
+            // 4c. [生成首页条目] (仅限最近的几篇)
+            if (i < maxIndexItems) {
+              // 提取摘要 (这里简单用前 100 个字符，你可以用更复杂的方式)
+              const summary = markdownContent.split('\n').slice(0, 5).join('\n').substring(0, 150) + '...';
+              
+              indexContent += `
+              <section class="daily-summary">
+                <h2><a href="daily/${date}.html">${date}</a></h2>
+                <p>${marked.parse(summary)}</p>
+                <a href="daily/${date}.html" role="button" class="secondary outline">阅读全文</a>
+              </section>
+              `;
+            }
+          }
+          console.log(`✅ Generated ${files.length} daily pages.`);
+
+          // --- 5. 生成主页 index.html ---
+          const indexPage = layout('首页', indexContent);
+          fs.writeFileSync(path.join(publicDir, 'index.html'), indexPage, 'utf8');
+          
+          // --- 6. 拷贝 RSS 文件 ---
+          fs.copyFileSync('rss.xml', path.join(publicDir, 'rss.xml'));
+          console.log('✅ Generated index.html and copied rss.xml.');
+          
+          EOF
+
+          echo "📦 Deploying website to gh-pages..."
+
+          # --- [下面的 Git 部署逻辑保持不变] ---
           cd public
           git init
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
           git add .
-          git commit -m "Deploy website $(date -u +'%Y-%m-%d %H:%M:%S')"
+          git commit -m "Deploy optimized website $(date -u +'%Y-%m-%d %H:%M:%S')"
           git branch -M main
-          git pull --rebase origin main || true
-          git push origin main || true
           git push --force "https://x-access-token:${GITHUB_TOKEN}@github.com/${GITHUB_REPOSITORY}.git" main:gh-pages
