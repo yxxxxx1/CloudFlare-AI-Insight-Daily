@@ -34,176 +34,179 @@ jobs:
           TZ: Asia/Shanghai
         run: |
           node - <<'EOF'
-          // -------- helpers ----------
-          const BASE = process.env.BASE_URL.replace(/\/+$/, '');
-          const DATE = new Date(Date.now() + 8*3600*1000).toISOString().slice(0,10); // GMT+8 yyy-mm-dd
-          // ... (你的完整 Node.js 脚本 - 省略) ...
-          const MAX_PER_TYPE = Number(process.env.MAX_PER_TYPE || 6);
-          const fs = await import('node:fs/promises'); // [修复] 确保 fs 在顶部导入
-          const path = await import('node:path'); // [修复] 导入 path
+          // [v16 逻辑修复] 将所有代码包裹在立即执行的 async 函数中
+          (async () => {
+            // -------- helpers ----------
+            const BASE = process.env.BASE_URL.replace(/\/+$/, '');
+            const DATE = new Date(Date.now() + 8*3600*1000).toISOString().slice(0,10); // GMT+8 yyy-mm-dd
+            // ... (你的完整 Node.js 脚本 - 省略) ...
+            const MAX_PER_TYPE = Number(process.env.MAX_PER_TYPE || 6);
+            const fs = await import('node:fs/promises'); // [修复] 确保 fs 在顶部导入
+            const path = await import('node:path'); // [修复] 导入 path
 
-          let cookieJar = '';
-          const keepCookie = (res) => {
-            const set = res.headers.get('set-cookie');
-            if (set) {
-              const one = set.split(',')[0];
-              const m = one.match(/^[^;]+/);
-              if (m) {
-                cookieJar = cookieJar ? (cookieJar + '; ' + m[0]) : m[0];
+            let cookieJar = '';
+            const keepCookie = (res) => {
+              const set = res.headers.get('set-cookie');
+              if (set) {
+                const one = set.split(',')[0];
+                const m = one.match(/^[^;]+/);
+                if (m) {
+                  cookieJar = cookieJar ? (cookieJar + '; ' + m[0]) : m[0];
+                }
+              }
+              return cookieJar;
+            };
+
+            const fetchWithCookie = async (url, opts={}) => {
+              const headers = Object.assign({}, opts.headers || {});
+              if (cookieJar) headers['cookie'] = cookieJar;
+              const res = await fetch(url, {...opts, headers});
+              keepCookie(res);
+              return res;
+            };
+
+            const ok = (res) => {
+              if (!res.ok) throw new Error(`HTTP ${res.status} ${res.statusText}`);
+            };
+
+            const form = (pairs) => {
+              const fd = new FormData();
+              for (const [k,v] of pairs) {
+                if (Array.isArray(v)) v.forEach(x=>fd.append(k, x));
+                else fd.append(k, v);
+              }
+              return fd;
+            };
+
+            console.log(`BASE: ${BASE}`);
+            console.log(`DATE: ${DATE}`);
+
+            // 1) login 获取 cookie
+            console.log('🔐 Login ...');
+            {
+              const fd = new URLSearchParams();
+              fd.set('username', process.env.USERNAME);
+              fd.set('password', process.env.PASSWORD);
+              const res = await fetch(`${BASE}/login`, {
+                method: 'POST',
+                headers: { 'content-type': 'application/x-www-form-urlencoded' },
+                redirect: 'manual',
+                body: fd.toString()
+              });
+              if (res.status !== 200 && res.status !== 302) {
+                throw new Error(`Login failed: HTTP ${res.status}`);
+              }
+              keepCookie(res);
+              if (!cookieJar) throw new Error('No cookie returned from login');
+            }
+            console.log('✅ Login OK');
+
+            // 2) writeData
+            console.log('📝 writeData ...');
+            {
+              const res = await fetchWithCookie(`${BASE}/writeData`, {
+                method: 'POST',
+                headers: { 'content-type': 'application/json' },
+                body: JSON.stringify({ foloCookie: process.env.FOLO_COOKIE_SECRET })
+              });
+              ok(res);
+              const j = await res.json().catch(()=>({}));
+              console.log('writeData result:', j);
+            }
+
+            // 3) getContent
+            console.log('📥 getContent ...');
+            const all = {};
+            {
+              const res = await fetch(`${BASE}/getContent?date=${DATE}`);
+              ok(res);
+              const j = await res.json();
+              for (const [k,v] of Object.entries(j)) {
+                if (Array.isArray(v)) all[k] = v;
+              }
+              console.log('got categories:', Object.keys(all));
+            }
+
+            // 4) 构造 selectedItems
+            console.log('🧩 build selectedItems ...');
+            const selectedItems = [];
+            for (const [type, arr] of Object.entries(all)) {
+              for (const it of (arr || []).slice(0, MAX_PER_TYPE)) {
+                if (it && (it.id !== undefined && it.id !== null)) {
+                  selectedItems.push(`${type}:${it.id}`);
+                }
               }
             }
-            return cookieJar;
-          };
+            if (selectedItems.length === 0) throw new Error('No items to select – writeData may have fetched nothing.');
 
-          const fetchWithCookie = async (url, opts={}) => {
-            const headers = Object.assign({}, opts.headers || {});
-            if (cookieJar) headers['cookie'] = cookieJar;
-            const res = await fetch(url, {...opts, headers});
-            keepCookie(res);
-            return res;
-          };
+            // 5) genAIContent（JSON 模式）
+            console.log('🤖 genAIContent (JSON mode)...');
+            let markdown = '';
+            {
+              const fd = form([
+                ['date', DATE],
+                ['selectedItems', selectedItems]
+              ]);
 
-          const ok = (res) => {
-            if (!res.ok) throw new Error(`HTTP ${res.status} ${res.statusText}`);
-          };
+              const res = await fetchWithCookie(`${BASE}/genAIContent?mode=json`, {
+                method: 'POST',
+                body: fd
+              });
+              ok(res);
 
-          const form = (pairs) => {
-            const fd = new FormData();
-            for (const [k,v] of pairs) {
-              if (Array.isArray(v)) v.forEach(x=>fd.append(k, x));
-              else fd.append(k, v);
-            }
-            return fd;
-          };
-
-          console.log(`BASE: ${BASE}`);
-          console.log(`DATE: ${DATE}`);
-
-          // 1) login 获取 cookie
-          console.log('🔐 Login ...');
-          {
-            const fd = new URLSearchParams();
-            fd.set('username', process.env.USERNAME);
-            fd.set('password', process.env.PASSWORD);
-            const res = await fetch(`${BASE}/login`, {
-              method: 'POST',
-              headers: { 'content-type': 'application/x-www-form-urlencoded' },
-              redirect: 'manual',
-              body: fd.toString()
-            });
-            if (res.status !== 200 && res.status !== 302) {
-              throw new Error(`Login failed: HTTP ${res.status}`);
-            }
-            keepCookie(res);
-            if (!cookieJar) throw new Error('No cookie returned from login');
-          }
-          console.log('✅ Login OK');
-
-          // 2) writeData
-          console.log('📝 writeData ...');
-          {
-            const res = await fetchWithCookie(`${BASE}/writeData`, {
-              method: 'POST',
-              headers: { 'content-type': 'application/json' },
-              body: JSON.stringify({ foloCookie: process.env.FOLO_COOKIE_SECRET })
-            });
-            ok(res);
-            const j = await res.json().catch(()=>({}));
-            console.log('writeData result:', j);
-          }
-
-          // 3) getContent
-          console.log('📥 getContent ...');
-          const all = {};
-          {
-            const res = await fetch(`${BASE}/getContent?date=${DATE}`);
-            ok(res);
-            const j = await res.json();
-            for (const [k,v] of Object.entries(j)) {
-              if (Array.isArray(v)) all[k] = v;
-            }
-            console.log('got categories:', Object.keys(all));
-          }
-
-          // 4) 构造 selectedItems
-          console.log('🧩 build selectedItems ...');
-          const selectedItems = [];
-          for (const [type, arr] of Object.entries(all)) {
-            for (const it of (arr || []).slice(0, MAX_PER_TYPE)) {
-              if (it && (it.id !== undefined && it.id !== null)) {
-                selectedItems.push(`${type}:${it.id}`);
+              const j = await res.json().catch(() => null);
+              if (!j || !j.markdown) {
+                console.error('Full response:', j);
+                throw new Error('genAIContent JSON response invalid or missing markdown field.');
               }
+
+              markdown = j.markdown;
+              if (!markdown.trim()) throw new Error('Empty markdown in genAIContent JSON result.');
             }
-          }
-          if (selectedItems.length === 0) throw new Error('No items to select – writeData may have fetched nothing.');
+            console.log(`✅ genAIContent OK (JSON mode, length=${markdown.length})`);
 
-          // 5) genAIContent（JSON 模式）
-          console.log('🤖 genAIContent (JSON mode)...');
-          let markdown = '';
-          {
-            const fd = form([
-              ['date', DATE],
-              ['selectedItems', selectedItems]
-            ]);
-
-            const res = await fetchWithCookie(`${BASE}/genAIContent?mode=json`, {
-              method: 'POST',
-              body: fd
-            });
-            ok(res);
-
-            const j = await res.json().catch(() => null);
-            if (!j || !j.markdown) {
-              console.error('Full response:', j);
-              throw new Error('genAIContent JSON response invalid or missing markdown field.');
-            }
-
-            markdown = j.markdown;
-            if (!markdown.trim()) throw new Error('Empty markdown in genAIContent JSON result.');
-          }
-          console.log(`✅ genAIContent OK (JSON mode, length=${markdown.length})`);
-
-          // 6) [v15 逻辑修复] 在本地写入 .md 文件 (并添加 Hugo Front Matter)
-          console.log('✍️ Writing .md file locally with Hugo Front Matter...');
-          {
-            // [修复] 构造 Hugo Front Matter
-            // 我们使用 DATE (e.g., "2025-01-01") 作为 title 和 date
-            const frontMatter = `---
+            // 6) [v15 逻辑修复] 在本地写入 .md 文件 (并添加 Hugo Front Matter)
+            console.log('✍️ Writing .md file locally with Hugo Front Matter...');
+            {
+              // [修复] 构造 Hugo Front Matter
+              // 我们使用 DATE (e.g., "2025-01-01") 作为 title 和 date
+              const frontMatter = `---
 title: "AI 日报 ${DATE}"
 date: ${DATE}
 ---
 
 `;
-            
-            const fileContent = frontMatter + markdown; // 将 Front Matter 拼接到 Markdown 内容前
+              
+              const fileContent = frontMatter + markdown; // 将 Front Matter 拼接到 Markdown 内容前
 
-            const dailyDir = path.resolve(process.cwd(), 'daily');
-            await fs.mkdir(dailyDir, { recursive: true }); // 确保 'daily' 目录存在
-            const filePath = path.join(dailyDir, `${DATE}.md`);
-            await fs.writeFile(filePath, fileContent, 'utf8'); // 写入包含 Front Matter 的完整内容
-            console.log(`✅ File written to ${filePath}`);
-          }
+              const dailyDir = path.resolve(process.cwd(), 'daily');
+              await fs.mkdir(dailyDir, { recursive: true }); // 确保 'daily' 目录存在
+              const filePath = path.join(dailyDir, `${DATE}.md`);
+              await fs.writeFile(filePath, fileContent, 'utf8'); // 写入包含 Front Matter 的完整内容
+              console.log(`✅ File written to ${filePath}`);
+            }
 
-          // 7) writeRssData (原第7步)
-          console.log('🪄 writeRssData ...');
-          {
-            const res = await fetch(`${BASE}/writeRssData?date=${DATE}`, { redirect: 'follow' });
-            ok(res);
-            const j = await res.json().catch(()=>({}));
-            console.log('writeRssData result:', j.title || j.report_date || 'OK');
-          }
+            // 7) writeRssData (原第7步)
+            console.log('🪄 writeRssData ...');
+            {
+              const res = await fetch(`${BASE}/writeRssData?date=${DATE}`, { redirect: 'follow' });
+              ok(res);
+              const j = await res.json().catch(()=>({}));
+              console.log('writeRssData result:', j.title || j.report_date || 'OK');
+            }
 
-          // 8) 下载 RSS 到本地 (原第8步)
-          console.log('⬇️ download RSS ...');
-          {
-            const res = await fetch(`${BASE}/rss?days=7`);
-            ok(res);
-            const xml = await res.text();
-            await fs.writeFile('rss.xml', xml, 'utf8');
-            console.log('✅ File written to rss.xml');
-          }
+            // 8) 下载 RSS 到本地 (原第8步)
+            console.log('⬇️ download RSS ...');
+            {
+              const res = await fetch(`${BASE}/rss?days=7`);
+              ok(res);
+              const xml = await res.text();
+              await fs.writeFile('rss.xml', xml, 'utf8');
+              console.log('✅ File written to rss.xml');
+            }
 
-          console.log('🎉 All done for', DATE);
+            console.log('🎉 All done for', DATE);
+          })(); // [v16 逻辑修复] 立即执行 async 函数
           EOF
 
       # --- [第 2 部分：提交 RSS 和 .md 文件 - 逻辑修复] ---
