@@ -36,7 +36,7 @@ jobs:
           node - <<'EOF'
           // -------- helpers ----------
           const BASE = process.env.BASE_URL.replace(/\/+$/, '');
-          const DATE = new Date(Date.now() + 8*3600*1000).toISOString().slice(0,10); // GMT+8 yyyy-mm-dd
+          const DATE = new Date(Date.now() + 8*3600*1000).toISOString().slice(0,10); // GMT+8 yyy-mm-dd
           // ... (你的完整 Node.js 脚本 - 省略) ...
           const MAX_PER_TYPE = Number(process.env.MAX_PER_TYPE || 6);
 
@@ -283,9 +283,9 @@ jobs:
               weight = 4
           EOF
 
-          # [修复 v3] 自动下载 Hextra 主题及其依赖
-          echo "Downloading Hugo modules (Hextra)..."
-          hugo mod get
+          # [修复 v4] 按照 Hugo 日志的提示，使用 'hugo mod tidy'
+          echo "Tidying Hugo modules (Hextra)..."
+          hugo mod tidy
 
           echo "Organizing content for Hugo..."
           # 1. 把所有日报 .md 移动到 Hugo 的 content 目录
