@@ -1,4 +1,4 @@
-name: Auto Build AI Daily
+name: Auto Build AI Daily & Deploy Pro Website
 
 on:
   workflow_dispatch: {}
@@ -14,12 +14,16 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+        # [优化] 添加 fetch-depth: 0 以便 Hugo/Hextra 能获取所有 .md 历史
+        with:
+          fetch-depth: 0
 
       - name: Setup Node
         uses: actions/setup-node@v4
         with:
           node-version: 20
 
+      # --- [第 1 部分：核心日报生成 - 你的原始代码，完全不变] ---
       - name: Run end-to-end pipeline (login → writeData → genAI → commit → writeRssData → rss)
         env:
           BASE_URL: ${{ vars.WORKER_BASE_URL }}
@@ -194,6 +198,8 @@ jobs:
           console.log('🎉 All done for', DATE);
           EOF
 
+      # --- [第 2 部分：提交 RSS 并拉取最新 MD - 你的原始代码，完全不变] ---
+      # (这个步骤会拉取 Worker 提交的 .md 文件，并提交 rss.xml)
       - name: Commit and push changes (rss.xml)
         run: |
           git config --local user.email "action@github.com"
@@ -208,138 +214,93 @@ jobs:
           else
             git commit -m "docs: auto-build AI Daily ($(date -u))"
             # 先拉取远程更新再推送，防止 fetch first 冲突
+            # 这一步会拉取第 1 部分中 Worker 提交的 .md 文件
             git pull --rebase origin main || true
             git push origin main
           fi
 
-      # ▼▼▼ [替换你原来的 "Deploy to GitHub Pages" 步骤] ▼▼▼
-      - name: Deploy to GitHub Pages (Optimized)
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      # --- [第 3 部分：构建专业网站 - 替换原有的部署步骤] ---
+      - name: Install Hugo
+        uses: peaceiris/actions-hugo@v3
+        with:
+          hugo-version: 'latest'
+
+      - name: Setup Hugo Theme (Hextra)
         run: |
-          echo "📦 Installing build dependencies (marked)..."
-          # 1. 安装一个专业的 Markdown -> HTML 解析器
-          npm install marked
+          echo "Cloning Hextra theme..."
+          mkdir -p themes
+          # 使用 Git Submodule 来安装主题
+          git submodule add -f https://github.com/imfing/hextra.git themes/hextra
 
-          echo "🚀 Building optimized website..."
+      - name: Build Website with Hugo
+        run: |
+          echo "Creating Hugo configuration..."
+          # 动态创建 Hugo 配置文件
           
-          # 2. 创建 Node.js 脚本来构建网站
-          # 我们不再使用 sed/echo，而是使用一个脚本来精细化地生成 HTML
-          node <<'EOF'
-          const fs = require('fs');
-          const path = require('path');
-          const { marked } = require('marked'); // 引入 Markdown 解析器
+          # ▼▼▼ [重要] 请将 baseURL 修改为你的 GitHub Pages 网址 ▼▼▼
+          cat << EOF > hugo.toml
+          baseURL = "https://yxxxxx1.github.io/CloudFlare-AI-Insight-Daily/"
+          languageCode = "zh-cn"
+          title = "AI 资讯日报"
+          theme = "hextra"
 
-          // --- 1. 定义 HTML 模板 ---
-          // 我们使用 Pico.css (一个超轻量级、无需 class 的 CSS 框架) 来美化页面
-          const picoCDN = 'https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.min.css';
-
-          const layout = (title, content) => `<!DOCTYPE html>
-          <html lang="zh-CN" data-theme="light">
-          <head>
-            <meta charset="UTF-8">
-            <meta name="viewport" content="width=device-width, initial-scale=1.0">
-            <title>${title} - AI 资讯日报</title>
-            <link rel="stylesheet" href="${picoCDN}">
-            <style>
-              body { padding-bottom: 3rem; }
-              main { max-width: 960px; margin: 0 auto; }
-              nav { display: flex; justify-content: space-between; align-items: center; }
-              .daily-summary {
-                border: 1px solid var(--pico-muted-border-color);
-                padding: 1rem;
-                border-radius: var(--pico-border-radius);
-                margin-bottom: 1.5rem;
-              }
-              .daily-summary h2 { margin-bottom: 0.5rem; }
-              .daily-summary p { margin-bottom: 0.5rem; }
-              img { max-width: 100%; height: auto; } /* 确保图片响应式 */
-              pre { background: #f6f8fa; padding: 10px; border-radius: 6px; overflow: auto; }
-              code { background: #f6f8fa; padding: 2px 4px; border-radius: 4px; }
-            </style>
-          </head>
-          <body>
-            <main class="container">
-              <nav>
-                <strong><a href="../index.html" style="text-decoration: none;">🧠 AI 资讯日报</a></strong>
-                <a href="../rss.xml" role="button" class="outline">RSS Feed</a>
-              </nav>
-              <hr>
-              <article>
-                <h1>${title}</h1>
-                ${content}
-              </article>
-              <hr>
-              <footer><small>Powered by AI Insight Daily</small></footer>
-            </main>
-          </body>
-          </html>`;
-
-          // --- 2. 准备目录 ---
-          const dailyDir = 'daily';
-          const publicDir = 'public';
-          const publicDailyDir = path.join(publicDir, 'daily');
-          if (fs.existsSync(publicDir)) fs.rmSync(publicDir, { recursive: true });
-          fs.mkdirSync(publicDailyDir, { recursive: true });
-
-          // --- 3. 读取所有日报 ---
-          const files = fs.readdirSync(dailyDir)
-            .filter(f => f.endsWith('.md'))
-            .sort((a, b) => b.localeCompare(a)); // 按日期倒序
-
-          let indexContent = '<h2>最近的日报</h2>';
-
-          // --- 4. 遍历 Markdown 文件，生成详情页和首页摘要 ---
-          const maxIndexItems = 7; // 首页最多显示多少篇
-          for (let i = 0; i < files.length; i++) {
-            const file = files[i];
-            const date = file.replace('.md', '');
-            const mdPath = path.join(dailyDir, file);
-            const htmlPath = path.join(publicDailyDir, `${date}.html`);
-            
-            const markdownContent = fs.readFileSync(mdPath, 'utf8');
-            
-            // 4a. [专业解析] 使用 marked 将完整 MD 转换为 HTML
-            const htmlContent = marked.parse(markdownContent);
-            
-            // 4b. [生成详情页]
-            const fullHtmlPage = layout(date, htmlContent);
-            fs.writeFileSync(htmlPath, fullHtmlPage, 'utf8');
-
-            // 4c. [生成首页条目] (仅限最近的几篇)
-            if (i < maxIndexItems) {
-              // 提取摘要 (这里简单用前 100 个字符，你可以用更复杂的方式)
-              const summary = markdownContent.split('\n').slice(0, 5).join('\n').substring(0, 150) + '...';
-              
-              indexContent += `
-              <section class="daily-summary">
-                <h2><a href="daily/${date}.html">${date}</a></h2>
-                <p>${marked.parse(summary)}</p>
-                <a href="daily/${date}.html" role="button" class="secondary outline">阅读全文</a>
-              </section>
-              `;
-            }
-          }
-          console.log(`✅ Generated ${files.length} daily pages.`);
-
-          // --- 5. 生成主页 index.html ---
-          const indexPage = layout('首页', indexContent);
-          fs.writeFileSync(path.join(publicDir, 'index.html'), indexPage, 'utf8');
+          # Hextra 主题的配置
+          [params]
+            [params.theme]
+              # 开启暗黑/明亮模式自动切换
+              mode = "auto"
+              toggle = true
           
-          // --- 6. 拷贝 RSS 文件 ---
-          fs.copyFileSync('rss.xml', path.join(publicDir, 'rss.xml'));
-          console.log('✅ Generated index.html and copied rss.xml.');
-          
+          # 配置菜单
+          [menu]
+            [[menu.main]]
+              name = "RSS"
+              url = "/rss.xml"
+              weight = 1
+            [[menu.main]]
+              name = "GitHub"
+              url = "https://github.com/yxxxxx1/CloudFlare-AI-Insight-Daily"
+              weight = 2
           EOF
 
-          echo "📦 Deploying website to gh-pages..."
+          echo "Organizing content for Hugo..."
+          # 1. 把所有日报 .md 移动到 Hugo 的 content 目录
+          # Hugo 会自动把 daily/ 当作一个“分区”
+          #（我们使用 cp -r 而不是 mv 来确保本地文件存在）
+          mkdir -p content/daily
+          cp -r daily/*.md content/daily/
 
-          # --- [下面的 Git 部署逻辑保持不变] ---
-          cd public
-          git init
-          git config user.name "github-actions[bot]"
-          git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add .
-          git commit -m "Deploy optimized website $(date -u +'%Y-%m-%d %H:%M:%S')"
-          git branch -M main
-          git push --force "https://x-access-token:${GITHUB_TOKEN}@github.com/${GITHUB_REPOSITORY}.git" main:gh-pages
+          # 2. 把 rss.xml 移动到 static 目录，Hugo 会原样复制
+          mkdir -p static
+          cp rss.xml static/
+
+          # 3. 创建一个首页
+          cat << EOF > content/_index.md
+          ---
+          title: "AI 资讯日报"
+          type: "page"
+          ---
+          
+          欢迎来到 AI 资讯日报。
+          
+          这里每日为您精选 AI 领域的最新动态，包括行业新闻、热门开源项目、前沿学术论文和科技大V社交媒体言论。
+          EOF
+          
+          echo "Running Hugo build..."
+          # 4. 运行 Hugo 构建
+          # Hugo 会读取 content/daily/ 中的所有 .md 文件
+          # 应用 Hextra 主题，并生成网站到 'public' 目录
+          hugo
+
+      # --- [第 4 部分：部署到 gh-pages 分支] ---
+      - name: Deploy to gh-pages
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          # 指定 Hugo 的输出目录
+          publish_dir: ./public
+          # 确保推送到 gh-pages 分支
+          publish_branch: gh-pages
+          # 每次都强制推送，覆盖旧的构建
+          force_orphan: true
+
