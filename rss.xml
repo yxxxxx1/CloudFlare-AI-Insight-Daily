@@ -5,9 +5,24 @@
     <link></link>
     <description> 近 7 天的AI日报</description>
     <language>zh-cn</language>
-    <lastBuildDate>Fri, 31 Oct 2025 02:06:25 GMT</lastBuildDate>
+    <lastBuildDate>Sat, 01 Nov 2025 02:10:00 GMT</lastBuildDate>
     <atom:link href="https://yxxxxx1-ai-daily.gunzhao59.workers.dev/rss" rel="self" type="application/rss+xml" />
     
+        <item>
+          <title><![CDATA[2025-11-01日刊]]></title>
+          <link>/2025-11/2025-11-01/</link>
+          <guid>/2025-11/2025-11-01/</guid>
+          <pubDate>Sat, 01 Nov 2025 10:09:59 GMT</pubDate>
+          <content:encoded><![CDATA[<h2>AI洞察日报 2025/11/1</h2><blockquote><p><code>AI 日报</code></p></blockquote><h3>今日摘要</h3><p>【1】nvm
+Node版本管理器 - 符合POSIX标准的bash脚本，用于管理多个活跃的node.js版本</p><p>【2】claude-relay-service
+CRS-自建Claude代码镜像，一站式开源中转服务，支持Claude、OpenAI、Gemini、Droid订阅统一接入，拼车共享功能可高效分摊成本，原生工具无缝使用</p><p>【3】Ventoy
+全新的可启动USB解决方案</p><p>【4】nuclei-templates
+社区维护的nuclei引擎模板集合，用于发现安全漏洞</p><p>【5】fmt
+现代化格式化库</p><p>【6】social-analyzer
+用于分析和在1000个社交媒体网站中查找个人资料的API、CLI和Web应用程序</p>]]></content:encoded>
+          <description><![CDATA[AI洞察日报 2025/11/1 AI 日报 今日摘要 【1】nvm Node版本管理器 - 符合POSIX标准的bash脚本，用于管理多个活跃的node.js版本 【2】claude-relay-service CRS-自建Claude代码镜像，一站式开源中转服务，支持Claude、OpenAI、Gemini、Droid订阅统一接入，拼车共享功能可高效分摊成本，原生工具无缝使用 【3】Vento]]></description>
+        </item>
+      
         <item>
           <title><![CDATA[2025-10-31日刊]]></title>
           <link>/2025-10/2025-10-31/</link>
@@ -81,21 +96,6 @@ Protocol Buffers - 谷歌的数据交换格式</p>]]></content:encoded>
 真正独立的网页浏览器</p><p>【6】LLMs-from-scratch
 逐步使用PyTorch从零实现类ChatGPT大型语言模型</p>]]></content:encoded>
           <description><![CDATA[AI洞察日报 2025/10/27 AI 日报 今日摘要 【1】AFFiNE 不止Notion和Miro，AFFiNE（发音[ə‘fain]）是集规划、整理与创作为一体的次世代知识库。隐私优先、开源可定制、开箱即用。 【2】cursor-free-vip [支持0.49.x]（重置Cursor AI机器ID &amp; 突破更高令牌限制）Cursor Ai自动重置机器ID，免费升级使用Pro功能：]]></description>
-        </item>
-      
-        <item>
-          <title><![CDATA[2025-10-25日刊]]></title>
-          <link>/2025-10/2025-10-25/</link>
-          <guid>/2025-10/2025-10-25/</guid>
-          <pubDate>Sat, 25 Oct 2025 23:38:40 GMT</pubDate>
-          <content:encoded><![CDATA[<h2>AI洞察日报 2025/10/25</h2><blockquote><p><code>AI 日报</code></p></blockquote><h3>今日摘要</h3><p>【1】ladybird
-真正独立的网页浏览器</p><p>【2】blind_watermark
-盲水印和隐形水印，图片盲水印，提取水印无须原图！</p><p>【3】hoppscotch
-开源API开发生态系统 - <a href="https://hoppscotch.io">https://hoppscotch.io</a> (Postman和Insomnia的开源替代品)</p><p>【4】zephyr
-Zephyr项目的主Git仓库。Zephyr是一个面向多种硬件架构的新一代、可扩展、优化且安全的RTOS。</p><p>【5】minio
-MinIO是一个高性能、兼容S3的对象存储，在GNU AGPLv3许可下开源。</p><p>【6】parlant
-为控制而构建的LLM代理。专为实际应用设计。在几分钟内部署。</p>]]></content:encoded>
-          <description><![CDATA[AI洞察日报 2025/10/25 AI 日报 今日摘要 【1】ladybird 真正独立的网页浏览器 【2】blind_watermark 盲水印和隐形水印，图片盲水印，提取水印无须原图！ 【3】hoppscotch 开源API开发生态系统 - https://hoppscotch.io (Postman和Insomnia的开源替代品) 【4】zephyr Zephyr项目的主Git仓库。Zep]]></description>
         </item>
       
   </channel>
