@@ -244,6 +244,9 @@ jobs:
           languageCode = "zh-cn"
           title = "AI 资讯日报"
           # 'theme' 字段在 module 模式下不再需要
+          
+          # [v12 修复] 添加 relativeURLs = true，这是解决 404 问题的关键
+          relativeURLs = true
 
           # [最终修复] 明确导入 Hextra 主题
           [module]
@@ -326,7 +329,8 @@ jobs:
           {{/* 查询 daily 分区中的所有页面，按文件名（即日期）倒序，取前 7 篇 */}}
           {{ range first 7 (where .Site.RegularPages "Section" "daily" | sort .File.Path ".md" "desc") }}
             <a href="{{ .RelPermalink }}" class="flex !no-underline my-4">
-              <div classs="flex-1">
+              <!-- [v12 修复] 修正了 HTML 拼写错误 "classs" -> "class" -->
+              <div class="flex-1">
                 {{/* Hextra 会自动从 .md 的第一个 H1 或 front matter 获取 .Title */}}
                 <div class="font-semibold">{{ .Title }}</div>
                 <div class="text-sm text-gray-500 dark:text-gray-400">
@@ -380,6 +384,5 @@ jobs:
           publish_branch: gh-pages
           # 每次都强制推送，覆盖旧的构建
           force_orphan: true
-
 
 
