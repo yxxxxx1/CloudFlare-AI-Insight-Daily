@@ -1,0 +1,288 @@
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>AI 资讯日报 – Dailies</title>
+    <link>https://yxxxxx1.github.io/CloudFlare-AI-Insight-Daily/daily/</link>
+    <description>Recent content in Dailies on AI 资讯日报</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-cn</language>
+    
+	  <atom:link href="https://yxxxxx1.github.io/CloudFlare-AI-Insight-Daily/daily/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+      
+        
+      
+    
+    
+    <item>
+      <title></title>
+      <link>https://yxxxxx1.github.io/CloudFlare-AI-Insight-Daily/daily/2025-10-21/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://yxxxxx1.github.io/CloudFlare-AI-Insight-Daily/daily/2025-10-21/</guid>
+      <description>
+        
+        
+        &lt;h2&gt;AI洞察日报 2025/10/21&lt;span class=&#34;hx:absolute hx:-mt-20&#34; id=&#34;ai洞察日报-20251021&#34;&gt;&lt;/span&gt;
+    &lt;a href=&#34;#ai%e6%b4%9e%e5%af%9f%e6%97%a5%e6%8a%a5-20251021&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h2&gt;&lt;blockquote&gt;
+  &lt;p&gt;&lt;code&gt;AI 日报&lt;/code&gt;&lt;/p&gt;
+
+&lt;/blockquote&gt;
+&lt;h3&gt;&lt;strong&gt;今日摘要&lt;/strong&gt;&lt;span class=&#34;hx:absolute hx:-mt-20&#34; id=&#34;今日摘要&#34;&gt;&lt;/span&gt;
+    &lt;a href=&#34;#%e4%bb%8a%e6%97%a5%e6%91%98%e8%a6%81&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h3&gt;&lt;div class=&#34;hextra-code-block hx:relative hx:mt-6 hx:first:mt-0 hx:group/code&#34;&gt;
+
+&lt;div&gt;&lt;pre&gt;&lt;code&gt;今日AI资讯介绍yaak项目，它是一款桌面API客户端，发布日期为2025年10月21日。
+yaak旨在提供最直观的体验，支持REST、GraphQL、WebSockets等多种API类型。
+专为组织和执行API而设计，目前在GitHub上已获得9486颗星。&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&#34;hextra-code-copy-btn-container hx:opacity-0 hx:transition hx:group-hover/code:opacity-100 hx:flex hx:gap-1 hx:absolute hx:m-[11px] hx:right-0 hx:top-0&#34;&gt;
+  &lt;button
+    class=&#34;hextra-code-copy-btn hx:group/copybtn hx:cursor-pointer hx:transition-all hx:active:opacity-50 hx:bg-primary-700/5 hx:border hx:border-black/5 hx:text-gray-600 hx:hover:text-gray-900 hx:rounded-md hx:p-1.5 hx:dark:bg-primary-300/10 hx:dark:border-white/10 hx:dark:text-gray-400 hx:dark:hover:text-gray-50&#34;
+    title=&#34;Copy code&#34;
+  &gt;
+    &lt;div class=&#34;hextra-copy-icon hx:group-[.copied]/copybtn:hidden hx:pointer-events-none hx:h-4 hx:w-4&#34;&gt;&lt;/div&gt;
+&lt;div class=&#34;hextra-success-icon hx:hidden hx:group-[.copied]/copybtn:block hx:pointer-events-none hx:h-4 hx:w-4&#34;&gt;&lt;/div&gt;
+  &lt;/button&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;h3&gt;&lt;strong&gt;今日AI资讯&lt;/strong&gt;&lt;span class=&#34;hx:absolute hx:-mt-20&#34; id=&#34;今日ai资讯&#34;&gt;&lt;/span&gt;
+    &lt;a href=&#34;#%e4%bb%8a%e6%97%a5ai%e8%b5%84%e8%ae%af&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h3&gt;&lt;ol&gt;
+&lt;li&gt;&lt;strong&gt;项目名称&lt;/strong&gt;：&lt;strong&gt;yaak&lt;/strong&gt;。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;发布日期&lt;/strong&gt;：&lt;strong&gt;2025年10月21日&lt;/strong&gt;。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;项目链接&lt;/strong&gt;：可通过https://github.com/mountain-loop/yaak访问。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;项目描述&lt;/strong&gt;：这是一款&lt;strong&gt;最直观&lt;/strong&gt;的&lt;strong&gt;桌面API客户端&lt;/strong&gt;，专为组织和执行&lt;strong&gt;REST&lt;/strong&gt;、&lt;strong&gt;GraphQL&lt;/strong&gt;、&lt;strong&gt;WebSockets&lt;/strong&gt;、&lt;strong&gt;Server Sent Events&lt;/strong&gt;以及&lt;strong&gt;gRPC&lt;/strong&gt;等多种API类型而设计。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;星标数量&lt;/strong&gt;：该项目目前已获得&lt;strong&gt;9486颗星&lt;/strong&gt;。&lt;/li&gt;
+&lt;/ol&gt;
+
+      </description>
+    </item>
+    
+    <item>
+      <title></title>
+      <link>https://yxxxxx1.github.io/CloudFlare-AI-Insight-Daily/daily/2025-10-25/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://yxxxxx1.github.io/CloudFlare-AI-Insight-Daily/daily/2025-10-25/</guid>
+      <description>
+        
+        
+        &lt;h2&gt;AI洞察日报 2025/10/25&lt;span class=&#34;hx:absolute hx:-mt-20&#34; id=&#34;ai洞察日报-20251025&#34;&gt;&lt;/span&gt;
+    &lt;a href=&#34;#ai%e6%b4%9e%e5%af%9f%e6%97%a5%e6%8a%a5-20251025&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h2&gt;&lt;blockquote&gt;
+  &lt;p&gt;&lt;code&gt;AI 日报&lt;/code&gt;&lt;/p&gt;
+
+&lt;/blockquote&gt;
+&lt;h3&gt;今日摘要&lt;span class=&#34;hx:absolute hx:-mt-20&#34; id=&#34;今日摘要&#34;&gt;&lt;/span&gt;
+    &lt;a href=&#34;#%e4%bb%8a%e6%97%a5%e6%91%98%e8%a6%81&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h3&gt;&lt;p&gt;【1】ladybird
+真正独立的网页浏览器&lt;/p&gt;
+&lt;p&gt;【2】blind_watermark
+盲水印和隐形水印，图片盲水印，提取水印无须原图！&lt;/p&gt;
+&lt;p&gt;【3】hoppscotch
+开源API开发生态系统 - &lt;a href=&#34;https://hoppscotch.io&#34;target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://hoppscotch.io&lt;/a&gt; (Postman和Insomnia的开源替代品)&lt;/p&gt;
+&lt;p&gt;【4】zephyr
+Zephyr项目的主Git仓库。Zephyr是一个面向多种硬件架构的新一代、可扩展、优化且安全的RTOS。&lt;/p&gt;
+&lt;p&gt;【5】minio
+MinIO是一个高性能、兼容S3的对象存储，在GNU AGPLv3许可下开源。&lt;/p&gt;
+&lt;p&gt;【6】parlant
+为控制而构建的LLM代理。专为实际应用设计。在几分钟内部署。&lt;/p&gt;
+
+      </description>
+    </item>
+    
+    <item>
+      <title></title>
+      <link>https://yxxxxx1.github.io/CloudFlare-AI-Insight-Daily/daily/2025-10-27/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://yxxxxx1.github.io/CloudFlare-AI-Insight-Daily/daily/2025-10-27/</guid>
+      <description>
+        
+        
+        &lt;h2&gt;AI洞察日报 2025/10/27&lt;span class=&#34;hx:absolute hx:-mt-20&#34; id=&#34;ai洞察日报-20251027&#34;&gt;&lt;/span&gt;
+    &lt;a href=&#34;#ai%e6%b4%9e%e5%af%9f%e6%97%a5%e6%8a%a5-20251027&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h2&gt;&lt;blockquote&gt;
+  &lt;p&gt;&lt;code&gt;AI 日报&lt;/code&gt;&lt;/p&gt;
+
+&lt;/blockquote&gt;
+&lt;h3&gt;今日摘要&lt;span class=&#34;hx:absolute hx:-mt-20&#34; id=&#34;今日摘要&#34;&gt;&lt;/span&gt;
+    &lt;a href=&#34;#%e4%bb%8a%e6%97%a5%e6%91%98%e8%a6%81&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h3&gt;&lt;p&gt;【1】AFFiNE
+不止Notion和Miro，AFFiNE（发音[ə‘fain]）是集规划、整理与创作为一体的次世代知识库。隐私优先、开源可定制、开箱即用。&lt;/p&gt;
+&lt;p&gt;【2】cursor-free-vip
+[支持0.49.x]（重置Cursor AI机器ID &amp;amp; 突破更高令牌限制）Cursor Ai自动重置机器ID，免费升级使用Pro功能：您已达到试用请求上限/本机已使用过多免费试用账户。请升级至专业版。我们设置此限制以防止滥用。若认为此系误判请告知我们。&lt;/p&gt;
+&lt;p&gt;【3】build-your-own-x
+通过从零重构你喜爱的技术来掌握编程&lt;/p&gt;
+&lt;p&gt;【4】agent-lightning
+点亮AI智能体的终极训练器&lt;/p&gt;
+&lt;p&gt;【5】ladybird
+真正独立的网页浏览器&lt;/p&gt;
+&lt;p&gt;【6】LLMs-from-scratch
+逐步使用PyTorch从零实现类ChatGPT大型语言模型&lt;/p&gt;
+
+      </description>
+    </item>
+    
+    <item>
+      <title></title>
+      <link>https://yxxxxx1.github.io/CloudFlare-AI-Insight-Daily/daily/2025-10-28/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://yxxxxx1.github.io/CloudFlare-AI-Insight-Daily/daily/2025-10-28/</guid>
+      <description>
+        
+        
+        &lt;h2&gt;AI洞察日报 2025/10/28&lt;span class=&#34;hx:absolute hx:-mt-20&#34; id=&#34;ai洞察日报-20251028&#34;&gt;&lt;/span&gt;
+    &lt;a href=&#34;#ai%e6%b4%9e%e5%af%9f%e6%97%a5%e6%8a%a5-20251028&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h2&gt;&lt;blockquote&gt;
+  &lt;p&gt;&lt;code&gt;AI 日报&lt;/code&gt;&lt;/p&gt;
+
+&lt;/blockquote&gt;
+&lt;h3&gt;今日摘要&lt;span class=&#34;hx:absolute hx:-mt-20&#34; id=&#34;今日摘要&#34;&gt;&lt;/span&gt;
+    &lt;a href=&#34;#%e4%bb%8a%e6%97%a5%e6%91%98%e8%a6%81&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h3&gt;&lt;p&gt;【1】AFFiNE
+不止Notion和Miro，还有更多选择。AFFiNE（读作[ə‘fain]）是次世代知识库，集规划、整理与创作于一体。隐私优先、开源可定制、开箱即用。&lt;/p&gt;
+&lt;p&gt;【2】cursor-free-vip
+[支持0.49.x]（重置Cursor AI机器ID &amp;amp; 突破更高令牌限制）Cursor Ai自动重置机器ID，免费升级使用Pro功能：您已达到试用请求限制/本机已使用过多免费试用账户。请升级至专业版。我们设置此限制以防止滥用。若认为此系错误请告知我们。&lt;/p&gt;
+&lt;p&gt;【3】build-your-own-x
+通过从零重建你喜爱的技术来掌握编程&lt;/p&gt;
+&lt;p&gt;【4】agent-lightning
+点亮AI智能体的终极训练器&lt;/p&gt;
+&lt;p&gt;【5】ladybird
+真正独立的网页浏览器&lt;/p&gt;
+&lt;p&gt;【6】SO-ARM100
+标准开放式机械臂100&lt;/p&gt;
+
+      </description>
+    </item>
+    
+    <item>
+      <title></title>
+      <link>https://yxxxxx1.github.io/CloudFlare-AI-Insight-Daily/daily/2025-10-29/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://yxxxxx1.github.io/CloudFlare-AI-Insight-Daily/daily/2025-10-29/</guid>
+      <description>
+        
+        
+        &lt;h2&gt;AI洞察日报 2025/10/29&lt;span class=&#34;hx:absolute hx:-mt-20&#34; id=&#34;ai洞察日报-20251029&#34;&gt;&lt;/span&gt;
+    &lt;a href=&#34;#ai%e6%b4%9e%e5%af%9f%e6%97%a5%e6%8a%a5-20251029&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h2&gt;&lt;blockquote&gt;
+  &lt;p&gt;&lt;code&gt;AI 日报&lt;/code&gt;&lt;/p&gt;
+
+&lt;/blockquote&gt;
+&lt;h3&gt;今日摘要&lt;span class=&#34;hx:absolute hx:-mt-20&#34; id=&#34;今日摘要&#34;&gt;&lt;/span&gt;
+    &lt;a href=&#34;#%e4%bb%8a%e6%97%a5%e6%91%98%e8%a6%81&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h3&gt;&lt;p&gt;【1】chainlink
+去中心化预言机网络的节点，桥接链上与链下计算&lt;/p&gt;
+&lt;p&gt;【2】Handy
+完全离线运行的免费开源可扩展语音转文本应用&lt;/p&gt;
+&lt;p&gt;【3】social-analyzer
+用于分析和查找个人在1000个社交媒体网站资料的API、CLI和Web应用&lt;/p&gt;
+&lt;p&gt;【4】opentelemetry-collector
+OpenTelemetry收集器&lt;/p&gt;
+&lt;p&gt;【5】Web-Dev-For-Beginners
+24节课程12周训练，零基础成为网页开发者&lt;/p&gt;
+&lt;p&gt;【6】protobuf
+Protocol Buffers - 谷歌的数据交换格式&lt;/p&gt;
+
+      </description>
+    </item>
+    
+    <item>
+      <title></title>
+      <link>https://yxxxxx1.github.io/CloudFlare-AI-Insight-Daily/daily/2025-10-30/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://yxxxxx1.github.io/CloudFlare-AI-Insight-Daily/daily/2025-10-30/</guid>
+      <description>
+        
+        
+        &lt;h2&gt;AI洞察日报 2025/10/30&lt;span class=&#34;hx:absolute hx:-mt-20&#34; id=&#34;ai洞察日报-20251030&#34;&gt;&lt;/span&gt;
+    &lt;a href=&#34;#ai%e6%b4%9e%e5%af%9f%e6%97%a5%e6%8a%a5-20251030&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h2&gt;&lt;blockquote&gt;
+  &lt;p&gt;&lt;code&gt;AI 日报&lt;/code&gt;&lt;/p&gt;
+
+&lt;/blockquote&gt;
+&lt;h3&gt;今日摘要&lt;span class=&#34;hx:absolute hx:-mt-20&#34; id=&#34;今日摘要&#34;&gt;&lt;/span&gt;
+    &lt;a href=&#34;#%e4%bb%8a%e6%97%a5%e6%91%98%e8%a6%81&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h3&gt;&lt;p&gt;【1】helm
+Kubernetes 包管理器&lt;/p&gt;
+&lt;p&gt;【2】storybook
+Storybook 是业界标准的独立构建、文档化和测试 UI 组件的开发工坊&lt;/p&gt;
+&lt;p&gt;【3】opentelemetry-collector
+OpenTelemetry 收集器&lt;/p&gt;
+&lt;p&gt;【4】social-analyzer
+用于在1000个社交媒体网站中分析和查找个人资料的API、命令行工具和Web应用&lt;/p&gt;
+&lt;p&gt;【5】ai-engineering-hub
+关于大语言模型、检索增强生成和实际AI智能体应用的深度教程&lt;/p&gt;
+&lt;p&gt;【6】cpp-httplib
+C++ 头文件式 HTTP/HTTPS 服务端与客户端库&lt;/p&gt;
+
+      </description>
+    </item>
+    
+    <item>
+      <title></title>
+      <link>https://yxxxxx1.github.io/CloudFlare-AI-Insight-Daily/daily/2025-10-31/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://yxxxxx1.github.io/CloudFlare-AI-Insight-Daily/daily/2025-10-31/</guid>
+      <description>
+        
+        
+        &lt;h2&gt;AI洞察日报 2025/10/31&lt;span class=&#34;hx:absolute hx:-mt-20&#34; id=&#34;ai洞察日报-20251031&#34;&gt;&lt;/span&gt;
+    &lt;a href=&#34;#ai%e6%b4%9e%e5%af%9f%e6%97%a5%e6%8a%a5-20251031&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h2&gt;&lt;blockquote&gt;
+  &lt;p&gt;&lt;code&gt;AI 日报&lt;/code&gt;&lt;/p&gt;
+
+&lt;/blockquote&gt;
+&lt;h3&gt;今日摘要&lt;span class=&#34;hx:absolute hx:-mt-20&#34; id=&#34;今日摘要&#34;&gt;&lt;/span&gt;
+    &lt;a href=&#34;#%e4%bb%8a%e6%97%a5%e6%91%98%e8%a6%81&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h3&gt;&lt;p&gt;【1】helm
+Kubernetes 包管理器&lt;/p&gt;
+&lt;p&gt;【2】storybook
+Storybook 是业界领先的独立构建、文档化和测试 UI 组件的开发工坊&lt;/p&gt;
+&lt;p&gt;【3】opentelemetry-collector
+OpenTelemetry 收集器&lt;/p&gt;
+&lt;p&gt;【4】social-analyzer
+用于在1000个社交媒体网站中分析和查找个人资料的API、CLI和Web应用程序&lt;/p&gt;
+&lt;p&gt;【5】ai-engineering-hub
+关于大语言模型、检索增强生成和实际AI智能体应用的深度教程&lt;/p&gt;
+&lt;p&gt;【6】cpp-httplib
+C++ 头文件式 HTTP/HTTPS 服务端与客户端库&lt;/p&gt;
+
+      </description>
+    </item>
+    
+    <item>
+      <title></title>
+      <link>https://yxxxxx1.github.io/CloudFlare-AI-Insight-Daily/daily/2025-11-01/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://yxxxxx1.github.io/CloudFlare-AI-Insight-Daily/daily/2025-11-01/</guid>
+      <description>
+        
+        
+        &lt;h2&gt;AI洞察日报 2025/11/1&lt;span class=&#34;hx:absolute hx:-mt-20&#34; id=&#34;ai洞察日报-2025111&#34;&gt;&lt;/span&gt;
+    &lt;a href=&#34;#ai%e6%b4%9e%e5%af%9f%e6%97%a5%e6%8a%a5-2025111&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h2&gt;&lt;blockquote&gt;
+  &lt;p&gt;&lt;code&gt;AI 日报&lt;/code&gt;&lt;/p&gt;
+
+&lt;/blockquote&gt;
+&lt;h3&gt;今日摘要&lt;span class=&#34;hx:absolute hx:-mt-20&#34; id=&#34;今日摘要&#34;&gt;&lt;/span&gt;
+    &lt;a href=&#34;#%e4%bb%8a%e6%97%a5%e6%91%98%e8%a6%81&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h3&gt;&lt;p&gt;【1】chef
+唯一懂后端的AI应用构建工具&lt;/p&gt;
+&lt;p&gt;【2】docs
+可扩展的协作式笔记、维基和文档平台，基于Django和React构建&lt;/p&gt;
+&lt;p&gt;【3】WeKnora
+基于RAG范式的LLM驱动框架，实现深度文档理解、语义检索和上下文感知应答&lt;/p&gt;
+&lt;p&gt;【4】jan
+Jan是ChatGPT的开源替代品，可在计算机上100%离线运行&lt;/p&gt;
+&lt;p&gt;【5】Web-Dev-For-Beginners
+24节课，12周时间，开启你的Web开发者之旅&lt;/p&gt;
+&lt;p&gt;【6】Deep-Live-Cam
+仅需单张图像即可实现实时换脸和一键视频深度伪造&lt;/p&gt;
+&lt;p&gt;【7】很多东西是个循环。 曾经很长一段时间，不使用外键，在业务层做约束考虑，几乎成了我的必定的起手式。 又拖性能又不方便改，何苦呢。 数据库的金科玉律在当年的&amp;hellip;
+很多东西是个循环。 曾经很长一段时间，不使用外键，在业务层做约束考虑，几乎成了我的必定的起手式。 又拖性能又不方便改，何苦呢。 数据库的金科玉律在当年的我看来，是要为了现实业务让步的。 但这一年来，我的外键用的越来越多了。 当然肯定还是看具体场景，只是我越来越不介意了，也享受到了外键带来的好处。 我不展开讲细节，这个确实具体情况具体看。就是在人生中能看到这种螺旋一样的发展，还是会有一些感慨。 人的认知和理解也是螺旋式的。AI 介入的辅助过程，帮助我更快的体会到了这一点。 再说一次，不是为了争论哪个更好。&lt;/p&gt;
+&lt;p&gt;【8】&amp;ldquo;AIGC 让软件变成数字快消品” 这句话的含金量还在上升～
+&amp;ldquo;AIGC 让软件变成数字快消品” 这句话的含金量还在上升～ [图片: https://pbs.twimg.com/media/G4rOO91aoAAKV3a?format=jpg&amp;amp;name=orig] 吕立青_JimmyLv (🐣, 🐣) 2𐃏25 | building bibigpt.co: @oran_ge 是的啊，我今天感触特别特别深， 程序员做&amp;quot;功能”这件事情根本毫无价值了。。。 或者说，AI 能够 one-shot prompt 就把事情做得很好，让&amp;quot;编程”技能门槛无限降为 0。 因为我看到 Zara 做的 &lt;a href=&#34;http://tldw.us&#34;target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;http://tldw.us&lt;/a&gt; 的高光片段特别好，我之前也有类似的想法。 昨晚上睡前截图让 Codex 在 [视频: https://video.twimg.com/tweet_video/G4rMkY4bQAcvxrw.mp4]&lt;/p&gt;
+&lt;p&gt;【9】最后三场球都是点球，过于刺激，但精彩不足😁
+最后三场球都是点球，过于刺激，但精彩不足😁 ginobefun: 和娃一起看苏超决赛 [图片: https://pbs.twimg.com/media/G4quCvDbQAECZKj?format=jpg&amp;amp;name=orig]&lt;/p&gt;
+&lt;p&gt;【10】AI资讯日报，11月1日：https://gorden-sun.notion.site/11-1-AI-29e594247325802e8093d7c7b68d2f14?source=copy_link
+AI资讯日报，11月1日：https://gorden-sun.notion.site/11-1-AI-29e594247325802e8093d7c7b68d2f14?source=copy_link [图片: https://pbs.twimg.com/media/G4rBqcKbQAAWy0q?format=jpg&amp;amp;name=orig]&lt;/p&gt;
+&lt;p&gt;【11】替群友来拉个线，招一个 USRP 的讲师, 2万： 1/ 必备：熟悉 OAI（OpenAirInterface） 2/ 了解一点 USRP 和 UHD 驱动 更好（会用更加分） 3/ 有 GSM 或 LTE 信号&amp;hellip;
+替群友来拉个线，招一个 USRP 的讲师, 2万： 1/ 必备：熟悉 OAI（OpenAirInterface） 2/ 了解一点 USRP 和 UHD 驱动 更好（会用更加分） 3/ 有 GSM 或 LTE 信号相关经验更好（哪怕只是入门/玩过） 3/ 硬件不死板：只要你熟悉 OAI，不用非得是 USRP，用别的射频硬件也可以 来的兄弟，滴滴 [图片: https://pbs.twimg.com/media/G4q7-gobYAAh7rv?format=jpg&amp;amp;name=orig]&lt;/p&gt;
+&lt;p&gt;【12】AI漫剧 PMF 太强了 现在成了大趋势
+AI漫剧 PMF 太强了 现在成了大趋势 Coco.AI: 最近红果、知乎、爱奇艺、腾讯 分别出了AI漫剧的相关扶持政策 刚刚和邻居公司的分镜师聊了一下 普通人如果现在沉下来进入圈子 系统性的学习AI漫剧的内容 3个月出短剧集作品问题不大 当然现在也是垃圾内容频出的阶段 一年后AI漫剧一定会迎来精品阶段&lt;/p&gt;
+
+      </description>
+    </item>
+    
+  </channel>
+</rss>
