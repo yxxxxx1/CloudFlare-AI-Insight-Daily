@@ -5,34 +5,28 @@
     <link></link>
     <description> 近 7 天的AI日报</description>
     <language>zh-cn</language>
-    <lastBuildDate>Sat, 01 Nov 2025 10:14:45 GMT</lastBuildDate>
+    <lastBuildDate>Sat, 01 Nov 2025 11:08:52 GMT</lastBuildDate>
     <atom:link href="https://yxxxxx1-ai-daily.gunzhao59.workers.dev/rss" rel="self" type="application/rss+xml" />
     
         <item>
           <title><![CDATA[2025-11-01日刊]]></title>
           <link>/2025-11/2025-11-01/</link>
           <guid>/2025-11/2025-11-01/</guid>
-          <pubDate>Sat, 01 Nov 2025 18:14:45 GMT</pubDate>
+          <pubDate>Sat, 01 Nov 2025 19:08:51 GMT</pubDate>
           <content:encoded><![CDATA[<h2>AI洞察日报 2025/11/1</h2><blockquote><p><code>AI 日报</code></p></blockquote><h3>今日摘要</h3><p>【1】nvm
 Node版本管理器 - 符合POSIX标准的bash脚本，用于管理多个活跃的node.js版本</p><p>【2】claude-relay-service
-CRS-自建Claude Code镜像，一站式开源中转服务，让Claude、OpenAI、Gemini、Droid订阅统一接入，支持拼车共享，更高效分摊成本，原生工具无缝使用。</p><p>【3】Ventoy
+CRS-自建Claude代码镜像，一站式开源中转服务，支持Claude、OpenAI、Gemini、Droid订阅统一接入，拼车共享功能可高效分摊成本，原生工具无缝使用</p><p>【3】Ventoy
 全新的可启动USB解决方案</p><p>【4】nuclei-templates
-社区精选的nuclei引擎模板列表，用于发现安全漏洞</p><p>【5】fmt
+社区维护的nuclei引擎模板集合，用于发现安全漏洞</p><p>【5】fmt
 现代化格式化库</p><p>【6】social-analyzer
-用于分析和在1000个社交媒体\网站中查找个人资料的API、CLI和Web应用程序</p><p>【7】去山里湖边住一天
-去山里湖边住一天 [图片: <a href="https://pbs.twimg.com/media/G4qLByjbQAkO2kJ?format=jpg&#x26;name=orig%5D">https://pbs.twimg.com/media/G4qLByjbQAkO2kJ?format=jpg&#x26;name=orig]</a></p><p>【8】10 月份产品更新，已收官！ 11 月份准备好好搞点儿营销😂 <a href="https://mp.weixin.qq.com/s/gN3UxUXbwGbIzO4Da9uRIQ">https://mp.weixin.qq.com/s/gN3UxUXbwGbIzO4Da9uRIQ</a>
-10 月份产品更新，已收官！ 11 月份准备好好搞点儿营销😂 <a href="https://mp.weixin.qq.com/s/gN3UxUXbwGbIzO4Da9uRIQ">https://mp.weixin.qq.com/s/gN3UxUXbwGbIzO4Da9uRIQ</a></p><p>【9】真的是搞不懂，这种到底是什么原因啊？点了解详情和查看详情也不说明具体原因，完全不知道该怎么调整。
-真的是搞不懂，这种到底是什么原因啊？点了解详情和查看详情也不说明具体原因，完全不知道该怎么调整。 [图片: <a href="https://pbs.twimg.com/media/G4puEvCbkAAMWkC?format=jpg&#x26;name=orig%5D">https://pbs.twimg.com/media/G4puEvCbkAAMWkC?format=jpg&#x26;name=orig]</a></p><p>【10】越来越喜欢推特，就像小时候的农村，走两步，互相道个早安，你家有事我家出力，我家有事你来搭把手 关键是，大家抬头不见低头见，都在表达自己说实话，不像国内...
-越来越喜欢推特，就像小时候的农村，走两步，互相道个早安，你家有事我家出力，我家有事你来搭把手 关键是，大家抬头不见低头见，都在表达自己说实话，不像国内平台，说个小红书，非得打码成小某书，说个视频号，还得遮遮掩掩成&quot;蝴蝶号” 偶尔小打小闹，互相 block, 都成了一道开心的风景线</p><p>【11】OpenAI 创始人 Ilya 在证词中爆料：曾与 Anthropic 密谈合并，内部纷争不断 本周，一份公开的法律文件（即‘宣誓证词’，deposition，指在法庭外、宣誓后提供的...
-OpenAI 创始人 Ilya 在证词中爆料：曾与 Anthropic 密谈合并，内部纷争不断 本周，一份公开的法律文件（即‘宣誓证词’，deposition，指在法庭外、宣誓后提供的证言，具有法律效力）揭露了一段陈年往事。 OpenAI 的联合创始人兼前首席科学家伊尔亚·苏茨克维（Ilya Sutskever）在证词中透露，早在两年前，也就是 OpenAI 董事会戏剧性地解雇 CEO 萨姆·阿尔特曼（Sam Altman）之后，其竞争对手 Anthropic 公司曾对与 OpenAI 合并的前景表示过&quot;兴奋”。 如果这笔交易当时真的达成了，那么 Anthropic 的 CEO 达里奥·阿莫迪（Dario Amodei）当时很有可能会反过来执掌 OpenAI。他和他的妹妹丹妮拉·阿莫迪（Daniela Amodei）... Amir Efrati: New: Ilya speaks!* *to @elonmusk lawyers. [图片: <a href="https://pbs.twimg.com/media/G4pOhvmbYAElO3H?format=jpg&#x26;name=orig%5D">https://pbs.twimg.com/media/G4pOhvmbYAElO3H?format=jpg&#x26;name=orig]</a></p><p>【12】One-Minute Daily AI News 10/31/2025
-NVIDIA , South Korea Government and Industrial Giants Build AI Infrastructure and Ecosystem to Fuel Korea Innovation, Industries and Jobs.[1] Airbnb says it’s deploying AI technology to stop Halloween parties.[2] Google AI Unveils Supervised Reinforcement Learning (SRL): A Step Wise Framework with Expert Trajectories to Teach Small Language Models to Reason through Hard Problems.[3] ElevenLabs CEO says AI audio models will be ‘commoditized’ over time.[4] Sources: [1] <a href="https://nvidianews.nvidia.com/news/south-korea-ai-infrastructure">https://nvidianews.nvidia.com/news/south-korea-ai-infrastructure</a> [2] <a href="https://abcnews.go.com/US/airbnb-deploying-ai-technology-stop-halloween-parties/story?id=127062942">https://abcnews.go.com/US/airbnb-deploying-ai-technology-stop-halloween-parties/story?id=127062942</a> [3] <a href="https://www.marktechpost.com/2025/10/31/google-ai-unveils-supervised-reinforcement-learning-srl-a-step-wise-framework-with-expert-trajectories-to-teach-small-language-models-to-reason-through-hard-problems/">https://www.marktechpost.com/2025/10/31/google-ai-unveils-supervised-reinforcement-learning-srl-a-step-wise-framework-with-expert-trajectories-to-teach-small-language-models-to-reason-through-hard-problems/</a> [4] <a href="https://techcrunch.com/2025/10/29/elevenlabs-ceo-says-ai-audio-models-will-be-commoditized-over-time/">https://techcrunch.com/2025/10/29/elevenlabs-ceo-says-ai-audio-models-will-be-commoditized-over-time/</a> submitted by /u/Excellent-Target-847 [link] [comments]</p><p>【13】Apple 公布第四季度业绩（得分：1 天内 150+） <a href="https://readhacker.news/s/6EBrU">https://readhacker.news/s/6EBrU</a>
-Apple 公布第四季度业绩（得分：1 天内 150+） <a href="https://readhacker.news/s/6EBrU">https://readhacker.news/s/6EBrU</a></p><p>【14】蒂姆·布雷 (Tim Bray) 在 Grokipedia 上的评分（得分：10 小时内超过 150） <a href="https://readhacker.news/s/6E">https://readhacker.news/s/6E</a>...
-蒂姆·布雷 (Tim Bray) 在 Grokipedia 上的评分（得分：10 小时内超过 150） <a href="https://readhacker.news/s/6EFgH">https://readhacker.news/s/6EFgH</a></p><p>【15】Hard Rust requirements from May onward for all Debian ports
-Article URL: <a href="https://lists.debian.org/debian-devel/2025/10/msg00285.html">https://lists.debian.org/debian-devel/2025/10/msg00285.html</a> Comments URL: <a href="https://news.ycombinator.com/item?id=45779860">https://news.ycombinator.com/item?id=45779860</a> Points: 44 # Comments: 11</p><p>【16】Nim 2.2.6（得分：16小时内150+） <a href="https://readhacker.news/s/6EDKa">https://readhacker.news/s/6EDKa</a>
-Nim 2.2.6（得分：16小时内150+） <a href="https://readhacker.news/s/6EDKa">https://readhacker.news/s/6EDKa</a></p><p>【17】Ask HN: Do you have an aversion to recent TLDs?
-I noticed recently that I tend to subconsciously avoid websites visiting websites using more recent TLDs, like .space, .app, etc. After some introspection I realized that they feel dodgy and &quot;fake&quot; to me. I was wondering if this was a personal eccentricity or something other people experience. Comments URL: <a href="https://news.ycombinator.com/item?id=45779720">https://news.ycombinator.com/item?id=45779720</a> Points: 5 # Comments: 7</p><p>【18】电子护照背后的密码学（得分：18 小时内 151+） <a href="https://readhacker.news/s/6EDj5">https://readhacker.news/s/6EDj5</a>
-电子护照背后的密码学（得分：18 小时内 151+） <a href="https://readhacker.news/s/6EDj5">https://readhacker.news/s/6EDj5</a></p>]]></content:encoded>
-          <description><![CDATA[AI洞察日报 2025/11/1 AI 日报 今日摘要 【1】nvm Node版本管理器 - 符合POSIX标准的bash脚本，用于管理多个活跃的node.js版本 【2】claude-relay-service CRS-自建Claude Code镜像，一站式开源中转服务，让Claude、OpenAI、Gemini、Droid订阅统一接入，支持拼车共享，更高效分摊成本，原生工具无缝使用。 【3】V]]></description>
+用于分析和在1000个社交媒体网站中查找个人资料的API、CLI和Web应用程序</p><p>【7】fig的期权大单，在10-31做了对冲，然后就是11-7的做多，fig在11-6发布财报。现在的价格确实是史低了，能跟吗🤔
+fig的期权大单，在10-31做了对冲，然后就是11-7的做多，fig在11-6发布财报。现在的价格确实是史低了，能跟吗🤔 [图片: <a href="https://pbs.twimg.com/media/G4qNTz3aIAAFpRC?format=jpg&#x26;name=orig%5D">https://pbs.twimg.com/media/G4qNTz3aIAAFpRC?format=jpg&#x26;name=orig]</a></p><p>【8】去山里湖边住一天
+去山里湖边住一天 [图片: <a href="https://pbs.twimg.com/media/G4qLByjbQAkO2kJ?format=jpg&#x26;name=orig%5D">https://pbs.twimg.com/media/G4qLByjbQAkO2kJ?format=jpg&#x26;name=orig]</a></p><p>【9】非常牛逼，AI + Figma 设计赛博名片，要火 !! 拼手速，看谁吃到第一波订阅，哪怕 9块9 呢，兄弟们
+非常牛逼，AI + Figma 设计赛博名片，要火 !! 拼手速，看谁吃到第一波订阅，哪怕 9块9 呢，兄弟们 Warren: 跟个风，试了一些 Ai ，发现 Ai 生成的效果并不好。😂 👉 然后我就半 Ai + Figma 自己做了个科幻风名片 ( 设计了 2小时 🥲)，背景是我自己的电脑桌面，更有身临其境的感觉。😎 同时放上了二维码，可以扫码找到我。😘 有想要 Figma 设计稿的吗？ [图片: <a href="https://pbs.twimg.com/media/G4pyg9HbMAAy3Q8?format=jpg&#x26;name=orig%5D">https://pbs.twimg.com/media/G4pyg9HbMAAy3Q8?format=jpg&#x26;name=orig]</a> [图片: <a href="https://pbs.twimg.com/media/G4pyg9JbEAA7CWp?format=jpg&#x26;name=orig%5D">https://pbs.twimg.com/media/G4pyg9JbEAA7CWp?format=jpg&#x26;name=orig]</a></p><p>【10】体验了 Dayflow 一两个小时，记录的内容基本准确，能够记录一段时间使用电脑的情况，作为回顾功能不错。 看左侧的一些进阶功能比如对话和统计还在开发过程和内测...
+体验了 Dayflow 一两个小时，记录的内容基本准确，能够记录一段时间使用电脑的情况，作为回顾功能不错。 看左侧的一些进阶功能比如对话和统计还在开发过程和内测中，期待~ [图片: <a href="https://pbs.twimg.com/media/G4qGhgvbcAAmA2k?format=jpg&#x26;name=orig%5D">https://pbs.twimg.com/media/G4qGhgvbcAAmA2k?format=jpg&#x26;name=orig]</a> ginobefun: 阮一峰（@ruanyf）老师今天的周刊推荐的 Dayflow 挺有创意，一个 macOS 时间轴自动生成工具。它通过 1 FPS 录屏 + AI 分析，自动生成你一天的工作流。 作者认为屏幕才是我们最真实的日常记录。Dayflow [视频: <a href="https://video.twimg.com/tweet_video/G4jTm2oa8AA14ID.mp4%5D">https://video.twimg.com/tweet_video/G4jTm2oa8AA14ID.mp4]</a></p><p>【11】10 月份产品更新，已收官！ 11 月份准备好好搞点儿营销😂 <a href="https://mp.weixin.qq.com/s/gN3UxUXbwGbIzO4Da9uRIQ">https://mp.weixin.qq.com/s/gN3UxUXbwGbIzO4Da9uRIQ</a>
+10 月份产品更新，已收官！ 11 月份准备好好搞点儿营销😂 <a href="https://mp.weixin.qq.com/s/gN3UxUXbwGbIzO4Da9uRIQ">https://mp.weixin.qq.com/s/gN3UxUXbwGbIzO4Da9uRIQ</a></p><p>【12】真的是搞不懂，这种到底是什么原因啊？点了解详情和查看详情也不说明具体原因，完全不知道该怎么调整。
+真的是搞不懂，这种到底是什么原因啊？点了解详情和查看详情也不说明具体原因，完全不知道该怎么调整。 [图片: <a href="https://pbs.twimg.com/media/G4puEvCbkAAMWkC?format=jpg&#x26;name=orig%5D">https://pbs.twimg.com/media/G4puEvCbkAAMWkC?format=jpg&#x26;name=orig]</a></p>]]></content:encoded>
+          <description><![CDATA[AI洞察日报 2025/11/1 AI 日报 今日摘要 【1】nvm Node版本管理器 - 符合POSIX标准的bash脚本，用于管理多个活跃的node.js版本 【2】claude-relay-service CRS-自建Claude代码镜像，一站式开源中转服务，支持Claude、OpenAI、Gemini、Droid订阅统一接入，拼车共享功能可高效分摊成本，原生工具无缝使用 【3】Vento]]></description>
         </item>
       
         <item>
