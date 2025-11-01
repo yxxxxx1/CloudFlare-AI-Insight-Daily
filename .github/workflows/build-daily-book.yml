@@ -285,6 +285,11 @@ jobs:
               weight = 4
           EOF
 
+          echo "Configuring Git for Hugo Modules..."
+          # [修复 v6] 解决 'terminal prompts disabled' 错误
+          # 强制 Git 对 github.com 使用 GITHUB_TOKEN，防止 Go 模块下载时被要求输入用户名
+          git config --global url."https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/".insteadOf "https://github.com/"
+
           # [修复 v4] 按照 Hugo 日志的提示，使用 'hugo mod tidy'
           echo "Tidying Hugo modules (Hextra)..."
           hugo mod tidy
@@ -380,7 +385,6 @@ jobs:
           publish_branch: gh-pages
           # 每次都强制推送，覆盖旧的构建
           force_orphan: true
-
 
 
 
