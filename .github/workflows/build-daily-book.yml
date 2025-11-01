@@ -34,7 +34,7 @@ jobs:
           TZ: Asia/Shanghai
         run: |
           node - <<'EOF'
-          // [FINAL v22 修复] 切换到 async function main() 结构
+          // [FINAL v25 修复] 切换到 async function main() 结构
           
           // -------- helpers ----------
           // [修复] 使用 require 代替 await import
@@ -79,7 +79,7 @@ jobs:
             return fd;
           };
           
-          // [FINAL v22 修复] 将所有逻辑放入 async main()
+          // [FINAL v25 修复] 将所有逻辑放入 async main()
           async function main() {
             console.log(`BASE: ${BASE}`);
             console.log(`DATE: ${DATE}`);
@@ -168,7 +168,7 @@ jobs:
             }
             console.log(`✅ genAIContent OK (JSON mode, length=${markdown.length})`);
 
-            // 6) [FINAL v19 逻辑修复] 在本地写入 .md 文件 (并添加 Hugo Front Matter)
+            // 6) [FINAL v25 逻辑修复] 在本地写入 .md 文件 (并添加 Hugo Front Matter)
             console.log('✍️ Writing .md file locally with Hugo Front Matter...');
             {
               // [修复] 构造 Hugo Front Matter
@@ -211,7 +211,7 @@ date: ${DATE}
             console.log('🎉 All done for', DATE);
           }
           
-          // [FINAL v22 修复] 执行 main 函数并处理错误
+          // [FINAL v25 修复] 执行 main 函数并处理错误
           main().catch(e => {
             console.error(e);
             process.exit(1);
@@ -224,7 +224,7 @@ date: ${DATE}
           git config --local user.email "action@github.com"
           git config --local user.name "GitHub Action"
 
-          # [FINAL v19 修复] 添加所有新文件 (rss.xml 和 daily/YYYY-MM-DD.md)
+          # [FINAL v25 修复] 添加所有新文件 (rss.xml 和 daily/YYYY-MM-DD.md)
           git add rss.xml
           git add daily/
 
@@ -232,8 +232,7 @@ date: ${DATE}
             echo "No changes to commit."
           else
             git commit -m "docs: auto-build AI Daily ($(date -u))"
-            # [修复] 拉取远程更新现在是安全的
-            git pull --rebase origin main || true
+            # [FINAL v25 修复] 删除了竞态条件的 git pull
             git push origin main
           fi
 
@@ -245,8 +244,9 @@ date: ${DATE}
           # [最终修复] 必须使用 extended 版
           extended: true 
 
-      # --- [FINAL v19 修复] 删除了你 baseline 中无效的 "Setup Hugo Theme" 步骤 ---
+      # --- [FINAL v25 修复] 删除了你 baseline 中无效的 "Setup Hugo Theme" 步骤 ---
       
+      # --- [FINAL v25 修复] 替换为你 baseline 中无效的 "Build Website with Hugo" 步骤 ---
       - name: Build Website with Hugo
         run: |
           echo "Initializing Hugo Module..."
@@ -323,7 +323,7 @@ date: ${DATE}
           fi
 
           # 3. 创建一个动态首页 (从 .md 改为 .html 来执行模板)
-          # [v17 YAML 修复] 转义所有 {{ 和 }}
+          # [FINAL v25 YAML 修复] 转义所有 {{ 和 }}
           cat << EOF > content/_index.html
           ---
           title: "AI 资讯日报"
@@ -356,7 +356,7 @@ date: ${DATE}
           EOF
 
           # 4. 为 /daily 列表页创建一个 _index.html
-          # [v17 YAML 修复] 转义所有 {{ 和 }}
+          # [FINAL v25 YAML 修复] 转义所有 {{ 和 }}
           cat << EOF > content/daily/_index.html
           ---
           title: "所有日报"
