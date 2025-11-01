@@ -215,7 +215,9 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
+          git pull origin main 
           echo "📦 Building website structure..."
+          
 
           # 1️⃣ 创建 public 目录
           mkdir -p public/daily
