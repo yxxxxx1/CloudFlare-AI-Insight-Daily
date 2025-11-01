@@ -70,6 +70,13 @@ const TwitterDataSource = {
                 const data = await response.json();
                 if (data && data.data && data.data.length > 0) {
                     const filteredItems = data.data.filter(entry => isDateWithinLastDays(entry.entries.publishedAt, filterDays));
+                    // --- VVVV ！！！新的 DEBUG 日志在这里！！！ VVVV ---
+                    console.log(`[DEBUG Twitter] API returned ${data.data.length} items.`);
+                    if (data.data[0] && data.data[0].entries) {
+                    console.log(`[DEBUG Twitter] Date of first item: "${data.data[0].entries.publishedAt}"`);
+                          }
+                    console.log(`[DEBUG Twitter] Filtering with filterDays: ${filterDays}`);
+                    // --- ^^^^ ！！！新的 DEBUG 日志在这里！！！ ^^^^ ---
                     allTwitterItems.push(...filteredItems.map(entry => ({
                         id: entry.entries.id,
                         url: entry.entries.url,
