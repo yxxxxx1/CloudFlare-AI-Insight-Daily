@@ -320,6 +320,7 @@ date: ${DATE}
 
           # 3. 创建一个动态首页 (从 .md 改为 .html 来执行模板)
           #    这个页面现在会列出最新的 7 篇日报
+          # [v17 YAML 修复] 转义所有 {{ 和 }}
           cat << EOF > content/_index.html
           ---
           title: "AI 资讯日报"
@@ -334,28 +335,29 @@ date: ${DATE}
 
           <h2 class="mt-8">最近日报</h2>
 
-          {{< list-container >}} <!-- [最终修复] 移除了 'hextra/' 前缀 -->
-          {{/* 查询 daily 分区中的所有页面，按文件名（即日期）倒序，取前 7 篇 */}}
-          {{ range first 7 (where .Site.RegularPages "Section" "daily" | sort .File.Path ".md" "desc") }}
-            <a href="{{ .RelPermalink }}" class="flex !no-underline my-4">
+          ${{ '{{' }}< list-container >}} <!-- [最终修复] 移除了 'hextra/' 前缀 -->
+          ${{ '{{' }}/* 查询 daily 分区中的所有页面，按文件名（即日期）倒序，取前 7 篇 */}}
+          ${{ '{{' }} range first 7 (where .Site.RegularPages "Section" "daily" | sort .File.Path ".md" "desc") }}
+            <a href="${{ '{{' }} .RelPermalink }}" class="flex !no-underline my-4">
               <!-- [v12 修复] 修正了 HTML 拼写错误 "classs" -> "class" -->
               <div class="flex-1">
-                {{/* Hextra 会自动从 .md 的第一个 H1 或 front matter 获取 .Title */}}
-                <div class="font-semibold">{{ .Title }}</div>
+                ${{ '{{' }}/* Hextra 会自动从 .md 的第一个 H1 或 front matter 获取 .Title */}}
+                <div class="font-semibold">${{ '{{' }} .Title }}</div>
                 <div class="text-sm text-gray-500 dark:text-gray-400">
-                  {{/* Hugo 会从文件名 (e.g., 2025-01-01.md) 推断日期 */}}
-                  {{ .Date.Format "2006-01-02" }}
+                  ${{ '{{' }}/* Hugo 会从文件名 (e.g., 2025-01-01.md) 推断日期 */}}
+                  ${{ '{{' }} .Date.Format "2006-01-02" }}
                 </div>
               </div>
             </a>
-          {{ end }}
-          {{< /list-container >}} <!-- [最终修复] 移除了 'hextra/' 前缀 -->
+          ${{ '{{' }} end }}
+          ${{ '{{' }}< /list-container >}} <!-- [最终修复] 移除了 'hextra/' 前缀 -->
 
           <a href="/daily" class="mt-4 inline-block">查看所有日报 →</a>
           EOF
 
           # 4. 为 /daily 列表页创建一个 _index.html
           #    这会给 "日报" 页面一个动态列表
+          # [v17 YAML 修复] 转义所有 {{ 和 }}
           cat << EOF > content/daily/_index.html
           ---
           title: "所有日报"
@@ -364,19 +366,19 @@ date: ${DATE}
 
           <h1>所有日报</h1>
 
-          {{< list-container >}} <!-- [最终修复] 移除了 'hextra/' 前缀 -->
-          {{/* 遍历 .Pages (即 daily 目录下的所有页面), 按日期倒序 */}}
-          {{ range .Pages.ByDate.Reverse }}
-            <a href="{{ .RelPermalink }}" class="flex !no-underline my-4">
+          ${{ '{{' }}< list-container >}} <!-- [最终修复] 移除了 'hextra/' 前缀 -->
+          ${{ '{{' }}/* 遍历 .Pages (即 daily 目录下的所有页面), 按日期倒序 */}}
+          ${{ '{{' }} range .Pages.ByDate.Reverse }}
+            <a href="${{ '{{' }} .RelPermalink }}" class="flex !no-underline my-4">
               <div class="flex-1">
-                <div class="font-semibold">{{ .Title }}</div>
+                <div class="font-semibold">${{ '{{' }} .Title }}</div>
                 <div class="text-sm text-gray-500 dark:text-gray-400">
-                  {{ .Date.Format "2006-01-02" }}
+                  ${{ '{{' }} .Date.Format "2006-01-02" }}
                 </div>
               </div>
             </a>
-          {{ end }}
-          {{< /list-container >}} <!-- [最终修复] 移除了 'hextra/' 前缀 -->
+          ${{ '{{' }} end }}
+          ${{ '{{' }}< /list-container >}} <!-- [最终修复] 移除了 'hextra/' 前缀 -->
           
           echo "Running Hugo build..."
           # 5. 运行 Hugo 构建
