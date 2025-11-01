@@ -214,7 +214,7 @@ jobs:
           else
             git commit -m "docs: auto-build AI Daily ($(date -u))"
             # 先拉取远程更新再推送，防止 fetch first 冲突
-            # 这一步会拉取第 1 部分中 Worker 提交的 .md 文件
+            # S 这一步会拉取第 1 部分中 Worker 提交的 .md 文件
             git pull --rebase origin main || true
             git push origin main
           fi
@@ -224,16 +224,18 @@ jobs:
         uses: peaceiris/actions-hugo@v3
         with:
           hugo-version: 'latest'
+          # [新增] 告诉 action 我们要使用 Hugo Modules
+          extended: true 
 
-      - name: Setup Hugo Theme (Hextra)
-        run: |
-          echo "Cloning Hextra theme and its submodules..."
-          # [修复 v2] 使用 --recursive 选项来拉取主题及其所有依赖项
-          # Hextra 主题自身可能依赖 git submodules 来管理其 shortcodes
-          git clone --recursive https://github.com/imfing/hextra.git themes/hextra
+      # --- [删除] "Setup Hugo Theme (Hextra)" 步骤已被删除 ---
 
       - name: Build Website with Hugo
         run: |
+          echo "Initializing Hugo Module..."
+          # [修复 v3] 使用 Hugo Modules 初始化项目
+          # 我们使用 GITHUB_REPOSITORY (例如 "yxxxxx1/CloudFlare-AI-Insight-Daily") 作为模块名
+          hugo mod init github.com/${{ github.REPOSITORY }}
+
           echo "Creating Hugo configuration..."
           # 动态创建 Hugo 配置文件
           
@@ -242,7 +244,13 @@ jobs:
           baseURL = "https://yxxxxx1.github.io/CloudFlare-AI-Insight-Daily/"
           languageCode = "zh-cn"
           title = "AI 资讯日报"
-          theme = "hextra"
+          # [修复 v3] 'theme' 字段在 module 模式下不再需要
+          # theme = "hextra" 
+
+          # [修复 v3] 告诉 Hugo 从哪里导入 Hextra 主题
+          [module]
+            [[module.imports]]
+              path = "github.com/imfing/hextra"
 
           # [修改] 允许首页渲染 HTML 和模板逻辑
           [outputs]
@@ -274,6 +282,10 @@ jobs:
               url = "https://github.com/yxxxxx1/CloudFlare-AI-Insight-Daily"
               weight = 4
           EOF
+
+          # [修复 v3] 自动下载 Hextra 主题及其依赖
+          echo "Downloading Hugo modules (Hextra)..."
+          hugo mod get
 
           echo "Organizing content for Hugo..."
           # 1. 把所有日报 .md 移动到 Hugo 的 content 目录
@@ -366,6 +378,7 @@ jobs:
           publish_branch: gh-pages
           # 每次都强制推送，覆盖旧的构建
           force_orphan: true
+
 
 
 
