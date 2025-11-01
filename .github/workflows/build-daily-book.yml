@@ -224,18 +224,17 @@ jobs:
         uses: peaceiris/actions-hugo@v3
         with:
           hugo-version: 'latest'
+          # [最终修复] 必须使用 extended 版
           extended: true 
 
-      # [修复 v8] 使用 'git clone --recursive' 替换掉脆弱的 Hugo Modules
-      - name: Setup Hugo Theme (Hextra)
-        run: |
-          echo "Cloning Hextra theme and its submodules (shortcodes)..."
-          mkdir -p themes
-          git clone --recursive https://github.com/imfing/hextra.git themes/hextra
-          # --recursive 标志会确保 Hextra 依赖的 shortcodes 子模块被一同下载
+      # --- [删除] "Setup Hugo Theme (Hextra)" 步骤已被删除 ---
 
       - name: Build Website with Hugo
         run: |
+          echo "Initializing Hugo Module..."
+          # 使用 GITHUB_REPOSITORY (例如 "yxxxxx1/CloudFlare-AI-Insight-Daily") 作为模块名
+          hugo mod init github.com/${{ github.REPOSITORY }}
+
           echo "Creating Hugo configuration..."
           # 动态创建 Hugo 配置文件
           
@@ -244,12 +243,14 @@ jobs:
           baseURL = "https://yxxxxx1.github.io/CloudFlare-AI-Insight-Daily/"
           languageCode = "zh-cn"
           title = "AI 资讯日报"
-          # [修复 v8] 明确告诉 Hugo 我们要使用 "hextra" 主题（来自 'themes' 目录）
-          theme = "hextra"
+          # 'theme' 字段在 module 模式下不再需要
 
-          # [修复 v8] 删除了 Hugo Modules [module] 部分
+          # [最终修复] 明确导入 Hextra 主题
+          [module]
+            [[module.imports]]
+              path = "github.com/imfing/hextra"
 
-          # [修改] 允许首页渲染 HTML 和模板逻辑
+          # 允许首页渲染 HTML 和模板逻辑
           [outputs]
             home = ["HTML", "RSS", "JSON"]
 
@@ -260,14 +261,14 @@ jobs:
               mode = "auto"
               toggle = true
           
-          # [修改] 配置菜单
+          # 配置菜单
           [menu]
             [[menu.main]]
               name = "首页"
               url = "/"
               weight = 1
             [[menu.main]]
-              name = "日报"  # [新增] 日报目录链接
+              name = "日报"  # 日报目录链接
               url = "/daily"
               weight = 2
             [[menu.main]]
@@ -280,7 +281,14 @@ jobs:
               weight = 4
           EOF
 
-          # [删除] 'git config' 和 'hugo mod tidy' 不再需要
+          echo "Configuring Git for Hugo Modules..."
+          # [最终修复] 解决 'terminal prompts disabled' 错误
+          # 强制 Git 对 github.com 使用 GITHUB_TOKEN，防止 Go 模块下载时被要求输入用户名
+          git config --global url."https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/".insteadOf "https://github.com/"
+
+          echo "Tidying Hugo modules (Hextra)..."
+          # 运行 'hugo mod tidy' 会自动下载 hextra 及其所有依赖（包括 shortcodes）
+          hugo mod tidy
 
           echo "Organizing content for Hugo..."
           # 1. 把所有日报 .md 移动到 Hugo 的 content 目录
@@ -298,7 +306,7 @@ jobs:
             cp rss.xml static/
           fi
 
-          # 3. [修改] 创建一个动态首页 (从 .md 改为 .html 来执行模板)
+          # 3. 创建一个动态首页 (从 .md 改为 .html 来执行模板)
           #    这个页面现在会列出最新的 7 篇日报
           cat << EOF > content/_index.html
           ---
@@ -314,7 +322,7 @@ jobs:
 
           <h2 class="mt-8">最近日报</h2>
 
-          {{< hextra/list-container >}}
+          {{< list-container >}} <!-- [最终修复] 移除了 'hextra/' 前缀 -->
           {{/* 查询 daily 分区中的所有页面，按文件名（即日期）倒序，取前 7 篇 */}}
           {{ range first 7 (where .Site.RegularPages "Section" "daily" | sort .File.Path ".md" "desc") }}
             <a href="{{ .RelPermalink }}" class="flex !no-underline my-4">
@@ -328,12 +336,12 @@ jobs:
               </div>
             </a>
           {{ end }}
-          {{< /hextra/list-container >}}
+          {{< /list-container >}} <!-- [最终修复] 移除了 'hextra/' 前缀 -->
 
           <a href="/daily" class="mt-4 inline-block">查看所有日报 →</a>
           EOF
 
-          # 4. [新增] 为 /daily 列表页创建一个 _index.html
+          # 4. 为 /daily 列表页创建一个 _index.html
           #    这会给 "日报" 页面一个动态列表
           cat << EOF > content/daily/_index.html
           ---
@@ -343,7 +351,7 @@ jobs:
 
           <h1>所有日报</h1>
 
-          {{< hextra/list-container >}}
+          {{< list-container >}} <!-- [最终修复] 移除了 'hextra/' 前缀 -->
           {{/* 遍历 .Pages (即 daily 目录下的所有页面), 按日期倒序 */}}
           {{ range .Pages.ByDate.Reverse }}
             <a href="{{ .RelPermalink }}" class="flex !no-underline my-4">
@@ -355,13 +363,10 @@ jobs:
               </div>
             </a>
           {{ end }}
-          {{< /hextra/list-container >}}
-          EOF
+          {{< /list-container >}} <!-- [最终修复] 移除了 'hextra/' 前缀 -->
           
           echo "Running Hugo build..."
           # 5. 运行 Hugo 构建
-          # [修复 v8] 我们不再需要指定 --themeDir 或 --theme，
-          # 因为 'themes/hextra' 是 Hugo 的默认查找路径
           hugo
 
       # --- [第 4 部分：部署到 gh-pages 分支] ---
