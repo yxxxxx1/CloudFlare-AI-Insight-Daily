@@ -289,17 +289,18 @@ jobs:
           EOF
 
 
-          # --- ▼▼▼【更新后的修复脚本】▼▼▼ ---
+          # --- ▼▼▼【最终修复脚本】▼▼▼ ---
           echo "Fixing missing Front Matter for Hugo..."
           for file in content/daily/*.md; do
             if [ "$(head -n 1 "$file")" != "---" ]; then
               echo "Adding Front Matter to $file"
               
+              # 从文件名提取日期，并从文件第一行提取标题（移除 ## 和末尾的换行符）
               date_from_file=$(basename "$file" .md)
-              title_from_file=$(head -n 1 "$file" | sed 's/^## //')
+              title_from_file=$(head -n 1 "$file" | sed 's/^## //' | sed 's/[[:space:]]*$//')
               original_content=$(cat "$file")
               
-              # 使用 ( ) 和 echo 来重写文件，避免 heredoc 缩进问题
+              # 使用 ( ) 和 echo 来重写文件
               (
                 echo "---"
                 echo "title: \"$title_from_file\""
@@ -312,11 +313,10 @@ jobs:
               echo "Skipping $file, Front Matter already exists."
             fi
           done
-          # --- ▲▲▲【脚本结束】▲▲K▲ ---
+          # --- ▲▲▲【脚本结束】▲▲▲ ---
 
-          # --- ▼▼▼【更新后的调试脚本】▼▼▼ ---
+          # --- ▼▼▼【调试脚本】▼▼▼ ---
           echo "--- [DEBUG] 检查一个 .md 文件的头部内容 (修复后) ---"
-          # 查找所有 .md 文件，并打印它们的前 5 行
           find content/daily -name "*.md" -print0 | xargs -0 -I {} sh -c 'echo "--- Content of: {} ---"; cat "{}" | head -n 5'
           # --- ▲▲▲【调试结束】▲▲▲ ---
           
