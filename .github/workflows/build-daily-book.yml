@@ -270,19 +270,19 @@ jobs:
           mkdir -p static
           cp rss.xml static/
           
-          # 【保留】创建 'content/daily' 的列表页 (用于侧边栏逻辑)
+          # --- ▼▼▼【修复-1：将 type 改为 "docs"】▼▼▼ ---
           echo "Creating daily list page..."
           cat << EOF > content/daily/_index.md
           ---
           title: "历史日报"
-          type: "page" 
+          type: "docs" 
+          draft: false
           ---
 
           这里是所有的历史日报存档。
           EOF
           
-          # --- ▼▼▼ 【删除】创建 content/_index.md 的步骤已被删除 ▼▼▼ ---
-          # 我们不再创建“欢迎页”，以防止它覆盖我们的重定向页面
+          # --- 【删除】创建 content/_index.md 的步骤已被删除 ---
           
           # 【保留】修复 'content/daily' 目录下的文件
           echo "Fixing missing Front Matter for Hugo..."
@@ -295,11 +295,14 @@ jobs:
               date_from_file=$(basename "$file" .md)
               title_from_file=$(head -n 1 "$file" | sed 's/^## //' | sed 's/[[:space:]]*$//')
               original_content=$(cat "$file")
+              
               (
                 echo "---"
                 echo "title: \"$title_from_file\""
                 echo "date: $date_from_file"
-                echo "type: \"page\"" 
+                # --- ▼▼▼【修复-2：将 type 改为 "docs"】▼▼▼ ---
+                echo "type: \"docs\"" 
+                echo "draft: false"
                 echo "---"
                 echo ""
                 echo "$original_content"
@@ -309,7 +312,7 @@ jobs:
             fi
           done
 
-          # --- ▼▼▼【关键解决方案：动态重定向到最新日报】▼▼▼ ---
+          # --- ▼▼▼【关键解决方案：动态重定向】▼▼▼ ---
           echo "Finding latest post and creating redirect..."
           
           # 1. 找到 'daily/' 目录中按字母排序最新的 .md 文件
@@ -345,7 +348,7 @@ jobs:
           # --- ▲▲▲【改动结束】▲▲▲ ---
           
           echo "Running Hugo build..."
-          # 4. 运行 Hugo 构建
+          # 【保留】强制构建草稿和未来文章
           hugo -D --buildFuture
 
       # --- [第 4 部分：部署到 gh-pages 分支] ---
