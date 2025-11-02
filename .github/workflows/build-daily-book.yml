@@ -247,7 +247,7 @@ jobs:
               mode = "auto"
               toggle = true
           
-          # 【恢复】“历史日报”菜单，作为备用
+          # 【保留】菜单，用于导航
           [menu]
             [[menu.main]]
               name = "历史日报"
@@ -264,13 +264,13 @@ jobs:
           EOF
 
           echo "Organizing content for Hugo..."
-          # 【恢复】使用 'content/daily' 目录
+          # 【保留】使用 'content/daily' 目录，这是 Hextra 侧边栏所必需的
           mkdir -p content/daily
           cp -r daily/*.md content/daily/
           mkdir -p static
           cp rss.xml static/
           
-          # 【恢复】创建 'content/daily' 的列表页 (用于侧边栏)
+          # 【保留】创建 'content/daily' 的列表页 (用于侧边栏逻辑)
           echo "Creating daily list page..."
           cat << EOF > content/daily/_index.md
           ---
@@ -280,8 +280,11 @@ jobs:
 
           这里是所有的历史日报存档。
           EOF
-
-          # 【恢复】修复脚本
+          
+          # --- ▼▼▼ 【删除】创建 content/_index.md 的步骤已被删除 ▼▼▼ ---
+          # 我们不再创建“欢迎页”，以防止它覆盖我们的重定向页面
+          
+          # 【保留】修复 'content/daily' 目录下的文件
           echo "Fixing missing Front Matter for Hugo..."
           for file in content/daily/*.md; do
             if [[ "$file" == "content/daily/_index.md" ]]; then
@@ -306,12 +309,11 @@ jobs:
             fi
           done
 
-          # --- ▼▼▼【关键改动：动态重定向到最新日报】▼▼▼ ---
+          # --- ▼▼▼【关键解决方案：动态重定向到最新日报】▼▼▼ ---
           echo "Finding latest post and creating redirect..."
           
           # 1. 找到 'daily/' 目录中按字母排序最新的 .md 文件
-          #    (因为文件名是 YYYY-MM-DD，字母排序 = 日期排序)
-          LATEST_FILE_PATH=$(ls -1 daily/*.md | sort -r | head -n 1)
+          LATEST_FILE_PATH=$(ls -1 daily/*.md | grep -v '_index.md' | sort -r | head -n 1)
           
           # 2. 从路径中提取文件名 (e.g., 2025-11-02.md)
           LATEST_BASENAME=$(basename "$LATEST_FILE_PATH")
@@ -319,13 +321,14 @@ jobs:
           # 3. 从文件名中移除 .md (e.g., 2025-11-02)
           LATEST_POST_SLUG=$(echo "$LATEST_BASENAME" | sed 's/\.md$//')
 
-          # 4. 构建完整的重定向 URL (注意 GitHub Pages 的路径)
+          # 4. 构建完整的重定向 URL
           REDIRECT_URL="/CloudFlare-AI-Insight-Daily/daily/${LATEST_POST_SLUG}/"
 
           echo "Latest post slug is: $LATEST_POST_SLUG"
           echo "Redirecting homepage to: $REDIRECT_URL"
 
           # 5. 创建 'static/index.html' 来执行重定向
+          #    因为 content/_index.md 不存在，这个文件将成为真正的首页
           cat << EOF > static/index.html
           <!DOCTYPE html>
           <html lang="zh-cn">
