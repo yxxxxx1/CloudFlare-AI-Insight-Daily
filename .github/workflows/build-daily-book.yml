@@ -236,23 +236,23 @@ jobs:
         run: |
           echo "Creating Hugo configuration..."
           # 动态创建 Hugo 配置文件
-          
-          # ▼▼▼ [重要] 请将 baseURL 修改为你的 GitHub Pages 网址 ▼▼▼
           cat << EOF > hugo.toml
           baseURL = "https://yxxxxx1.github.io/CloudFlare-AI-Insight-Daily/"
           languageCode = "zh-cn"
           title = "AI 资讯日报"
           theme = "hextra"
 
-          # Hextra 主题的配置
           [params]
             [params.theme]
-              # 开启暗黑/明亮模式自动切换
               mode = "auto"
               toggle = true
           
-          # 配置菜单
+          # --- ▼▼▼【添加“历史日报”菜单项】▼▼▼ ---
           [menu]
+            [[menu.main]]
+              name = "历史日报"
+              url = "/daily"
+              weight = 0 # 放在最前面
             [[menu.main]]
               name = "RSS"
               url = "/rss.xml"
@@ -264,47 +264,57 @@ jobs:
           EOF
 
           echo "Organizing content for Hugo..."
-          # 1. 把所有日报 .md 移动到 Hugo 的 content 目录
-          # Hugo 会自动把 daily/ 当作一个“分区”
-          #（我们使用 cp -r 而不是 mv 来确保本地文件存在）
+          # 1. 组织内容
           mkdir -p content/daily
           cp -r daily/*.md content/daily/
-
-          # 2. 把 rss.xml 移动到 static 目录，Hugo 会原样复制
           mkdir -p static
           cp rss.xml static/
-
           
-
-          # 3. 创建一个首页
+          # 2. 创建首页
           cat << EOF > content/_index.md
           ---
           title: "AI 资讯日报"
           type: "page"
           ---
-          
+
           欢迎来到 AI 资讯日报。
-          
+
           这里每日为您精选 AI 领域的最新动态，包括行业新闻、热门开源项目、前沿学术论文和科技大V社交媒体言论。
           EOF
+          
+          # --- ▼▼▼【创建日报列表页】▼▼▼ ---
+          echo "Creating daily list page..."
+          cat << EOF > content/daily/_index.md
+          ---
+          title: "历史日报"
+          type: "page" 
+          ---
 
+          这里是所有的历史日报存档。
+          EOF
+          # --- ▲▲▲【列表页结束】▲▲▲ ---
 
-          # --- ▼▼▼【最终修复脚本】▼▼▼ ---
+          # --- ▼▼▼【合并后的最终修复脚本】▼▼▼ ---
           echo "Fixing missing Front Matter for Hugo..."
           for file in content/daily/*.md; do
+            # 我们只处理文件，跳过 _index.md
+            if [[ "$file" == "content/daily/_index.md" ]]; then
+              continue
+            fi
+
             if [ "$(head -n 1 "$file")" != "---" ]; then
               echo "Adding Front Matter to $file"
               
-              # 从文件名提取日期，并从文件第一行提取标题（移除 ## 和末尾的换行符）
               date_from_file=$(basename "$file" .md)
               title_from_file=$(head -n 1 "$file" | sed 's/^## //' | sed 's/[[:space:]]*$//')
               original_content=$(cat "$file")
               
-              # 使用 ( ) 和 echo 来重写文件
+              # 一次性添加所有必需的 Front Matter
               (
                 echo "---"
                 echo "title: \"$title_from_file\""
                 echo "date: $date_from_file"
+                echo "type: \"page\"" # <-- 真正解决远因的行
                 echo "---"
                 echo ""
                 echo "$original_content"
@@ -319,40 +329,10 @@ jobs:
           echo "--- [DEBUG] 检查一个 .md 文件的头部内容 (修复后) ---"
           find content/daily -name "*.md" -print0 | xargs -0 -I {} sh -c 'echo "--- Content of: {} ---"; cat "{}" | head -n 5'
           # --- ▲▲▲【调试结束】▲▲▲ ---
-
-          # --- ▼▼▼【验证脚本】▼▼▼ ---
-          echo "Fixing missing Front Matter for Hugo..."
-          for file in content/daily/*.md; do
-            # 检查第一行是否不是 '---'
-            if [ "$(head -n 1 "$file")" != "---" ]; then
-              echo "Adding Front Matter to $file"
-              
-              date_from_file=$(basename "$file" .md)
-              title_from_file=$(head -n 1 "$file" | sed 's/^## //' | sed 's/[[:space:]]*$//')
-              original_content=$(cat "$file")
-              
-              (
-                echo "---"
-                echo "title: \"$title_from_file\""
-                echo "date: $date_from_file"
-                # --- ▼▼▼【添加这一行来验证】▼▼▼ ---
-                echo "type: \"page\"" 
-                # --- ▲▲▲【添加结束】▲▲▲ ---
-                echo "---"
-                echo ""
-                echo "$original_content"
-              ) > "$file"
-            else
-              echo "Skipping $file, Front Matter already exists."
-            fi
-          done
-          # --- ▲▲▲【脚本结束】▲▲▲ ---
           
           echo "Running Hugo build..."
           # 4. 运行 Hugo 构建
-          # Hugo 会读取 content/daily/ 中的所有 .md 文件
-          # 应用 Hextra 主题，并生成网站到 'public' 目录
-          hugo
+          hugo -v -D --buildFuture
 
       # --- [第 4 部分：部署到 gh-pages 分支] ---
       - name: Deploy to gh-pages
