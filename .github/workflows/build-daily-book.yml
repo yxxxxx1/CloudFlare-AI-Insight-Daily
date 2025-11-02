@@ -288,6 +288,38 @@ jobs:
           这里每日为您精选 AI 领域的最新动态，包括行业新闻、热门开源项目、前沿学术论文和科技大V社交媒体言论。
           EOF
 
+
+          # --- ▼▼▼【在此处添加新脚本】▼▼▼ ---
+          echo "Fixing missing Front Matter for Hugo..."
+          for file in content/daily/*.md; do
+            # 检查第一行是否不是 '---'
+            if [ "$(head -n 1 "$file")" != "---" ]; then
+              echo "Adding Front Matter to $file"
+              
+              # 1. 从文件名 (e.g., 2025-11-02.md) 提取日期
+              date_from_file=$(basename "$file" .md)
+              
+              # 2. 从文件第一行提取标题 (移除 '## ')
+              title_from_file=$(head -n 1 "$file" | sed 's/^## //')
+              
+              # 3. 存储文件的原始剩余内容
+              original_content=$(cat "$file")
+              
+              # 4. 重新构建文件，在顶部添加 Front Matter
+              cat << EOF > "$file"
+---
+title: "$title_from_file"
+date: $date_from_file
+---
+
+$original_content
+EOF
+            else
+              echo "Skipping $file, Front Matter already exists."
+            fi
+          done
+          # --- ▲▲▲【脚本结束】▲▲▲ ---
+          
           # --- ▼▼▼【调试步骤】▼▼▼ ---
           echo "--- [DEBUG] 检查 'daily' 目录内容 (拉取后) ---"
           ls -laR daily/
