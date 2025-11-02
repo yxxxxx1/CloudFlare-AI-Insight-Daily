@@ -247,9 +247,12 @@ jobs:
               mode = "auto"
               toggle = true
           
-          # --- ▼▼▼【修改-1：移除“历史日报”菜单】▼▼▼ ---
+          # 【恢复】“历史日报”菜单，作为备用
           [menu]
-            # 首页现在就是列表，不再需要这个链接
+            [[menu.main]]
+              name = "历史日报"
+              url = "/daily"
+              weight = 0
             [[menu.main]]
               name = "RSS"
               url = "/rss.xml"
@@ -261,46 +264,39 @@ jobs:
           EOF
 
           echo "Organizing content for Hugo..."
-          # --- ▼▼▼【修改-2：将日报 .md 移至根 content 目录】▼▼▼ ---
-          mkdir -p content
-          cp -r daily/*.md content/
-          # --- ▲▲▲【修改-2：结束】▲▲▲ ---
-          
+          # 【恢复】使用 'content/daily' 目录
+          mkdir -p content/daily
+          cp -r daily/*.md content/daily/
           mkdir -p static
           cp rss.xml static/
           
-          # --- ▼▼▼【修改-3：将“列表页”设为“首页”】▼▼▼ ---
-          echo "Creating Homepage (as list page)..."
-          cat << EOF > content/_index.md
+          # 【恢复】创建 'content/daily' 的列表页 (用于侧边栏)
+          echo "Creating daily list page..."
+          cat << EOF > content/daily/_index.md
           ---
-          title: "AI 资讯日报"
+          title: "历史日报"
           type: "page" 
           ---
 
           这里是所有的历史日报存档。
           EOF
-          # --- ▲▲▲【修改-3：结束】▲▲▲ ---
 
-          # --- ▼▼▼【修改-4：更新修复脚本的路径】▼▼▼ ---
+          # 【恢复】修复脚本
           echo "Fixing missing Front Matter for Hugo..."
-          for file in content/*.md; do
-            # 我们只处理文件，跳过 _index.md
-            if [[ "$file" == "content/_index.md" ]]; then
+          for file in content/daily/*.md; do
+            if [[ "$file" == "content/daily/_index.md" ]]; then
               continue
             fi
-
             if [ "$(head -n 1 "$file")" != "---" ]; then
               echo "Adding Front Matter to $file"
-              
               date_from_file=$(basename "$file" .md)
               title_from_file=$(head -n 1 "$file" | sed 's/^## //' | sed 's/[[:space:]]*$//')
               original_content=$(cat "$file")
-              
               (
                 echo "---"
                 echo "title: \"$title_from_file\""
                 echo "date: $date_from_file"
-                echo "type: \"page\"" # 保持 'page' 类型
+                echo "type: \"page\"" 
                 echo "---"
                 echo ""
                 echo "$original_content"
@@ -309,8 +305,42 @@ jobs:
               echo "Skipping $file, Front Matter already exists."
             fi
           done
-          # --- ▲▲▲【修改-4：结束】▲▲▲ ---
 
+          # --- ▼▼▼【关键改动：动态重定向到最新日报】▼▼▼ ---
+          echo "Finding latest post and creating redirect..."
+          
+          # 1. 找到 'daily/' 目录中按字母排序最新的 .md 文件
+          #    (因为文件名是 YYYY-MM-DD，字母排序 = 日期排序)
+          LATEST_FILE_PATH=$(ls -1 daily/*.md | sort -r | head -n 1)
+          
+          # 2. 从路径中提取文件名 (e.g., 2025-11-02.md)
+          LATEST_BASENAME=$(basename "$LATEST_FILE_PATH")
+
+          # 3. 从文件名中移除 .md (e.g., 2025-11-02)
+          LATEST_POST_SLUG=$(echo "$LATEST_BASENAME" | sed 's/\.md$//')
+
+          # 4. 构建完整的重定向 URL (注意 GitHub Pages 的路径)
+          REDIRECT_URL="/CloudFlare-AI-Insight-Daily/daily/${LATEST_POST_SLUG}/"
+
+          echo "Latest post slug is: $LATEST_POST_SLUG"
+          echo "Redirecting homepage to: $REDIRECT_URL"
+
+          # 5. 创建 'static/index.html' 来执行重定向
+          cat << EOF > static/index.html
+          <!DOCTYPE html>
+          <html lang="zh-cn">
+          <head>
+          <title>AI 资讯日报</title>
+          <meta http-equiv="refresh" content="0; url=${REDIRECT_URL}">
+          <link rel="canonical" href="${REDIRECT_URL}">
+          </head>
+          <body>
+          <p>正在跳转到<a href="${REDIRECT_URL}">最新的 AI 资讯日报</a>...</p>
+          </body>
+          </html>
+          EOF
+          # --- ▲▲▲【改动结束】▲▲▲ ---
+          
           echo "Running Hugo build..."
           # 4. 运行 Hugo 构建
           hugo -D --buildFuture
