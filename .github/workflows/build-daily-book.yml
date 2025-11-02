@@ -247,12 +247,9 @@ jobs:
               mode = "auto"
               toggle = true
           
-          # --- ▼▼▼【添加“历史日报”菜单项】▼▼▼ ---
+          # --- ▼▼▼【修改-1：移除“历史日报”菜单】▼▼▼ ---
           [menu]
-            [[menu.main]]
-              name = "历史日报"
-              url = "/daily"
-              weight = 0 # 放在最前面
+            # 首页现在就是列表，不再需要这个链接
             [[menu.main]]
               name = "RSS"
               url = "/rss.xml"
@@ -264,41 +261,31 @@ jobs:
           EOF
 
           echo "Organizing content for Hugo..."
-          # 1. 组织内容
-          mkdir -p content/daily
-          cp -r daily/*.md content/daily/
+          # --- ▼▼▼【修改-2：将日报 .md 移至根 content 目录】▼▼▼ ---
+          mkdir -p content
+          cp -r daily/*.md content/
+          # --- ▲▲▲【修改-2：结束】▲▲▲ ---
+          
           mkdir -p static
           cp rss.xml static/
           
-          # 2. 创建首页
+          # --- ▼▼▼【修改-3：将“列表页”设为“首页”】▼▼▼ ---
+          echo "Creating Homepage (as list page)..."
           cat << EOF > content/_index.md
           ---
           title: "AI 资讯日报"
-          type: "page"
-          ---
-
-          欢迎来到 AI 资讯日报。
-
-          这里每日为您精选 AI 领域的最新动态，包括行业新闻、热门开源项目、前沿学术论文和科技大V社交媒体言论。
-          EOF
-          
-          # --- ▼▼▼【创建日报列表页】▼▼▼ ---
-          echo "Creating daily list page..."
-          cat << EOF > content/daily/_index.md
-          ---
-          title: "历史日报"
           type: "page" 
           ---
 
           这里是所有的历史日报存档。
           EOF
-          # --- ▲▲▲【列表页结束】▲▲▲ ---
+          # --- ▲▲▲【修改-3：结束】▲▲▲ ---
 
-          # --- ▼▼▼【合并后的最终修复脚本】▼▼▼ ---
+          # --- ▼▼▼【修改-4：更新修复脚本的路径】▼▼▼ ---
           echo "Fixing missing Front Matter for Hugo..."
-          for file in content/daily/*.md; do
+          for file in content/*.md; do
             # 我们只处理文件，跳过 _index.md
-            if [[ "$file" == "content/daily/_index.md" ]]; then
+            if [[ "$file" == "content/_index.md" ]]; then
               continue
             fi
 
@@ -309,12 +296,11 @@ jobs:
               title_from_file=$(head -n 1 "$file" | sed 's/^## //' | sed 's/[[:space:]]*$//')
               original_content=$(cat "$file")
               
-              # 一次性添加所有必需的 Front Matter
               (
                 echo "---"
                 echo "title: \"$title_from_file\""
                 echo "date: $date_from_file"
-                echo "type: \"page\"" # <-- 真正解决远因的行
+                echo "type: \"page\"" # 保持 'page' 类型
                 echo "---"
                 echo ""
                 echo "$original_content"
@@ -323,16 +309,11 @@ jobs:
               echo "Skipping $file, Front Matter already exists."
             fi
           done
-          # --- ▲▲▲【脚本结束】▲▲▲ ---
+          # --- ▲▲▲【修改-4：结束】▲▲▲ ---
 
-          # --- ▼▼▼【调试脚本】▼▼▼ ---
-          echo "--- [DEBUG] 检查一个 .md 文件的头部内容 (修复后) ---"
-          find content/daily -name "*.md" -print0 | xargs -0 -I {} sh -c 'echo "--- Content of: {} ---"; cat "{}" | head -n 5'
-          # --- ▲▲▲【调试结束】▲▲▲ ---
-          
           echo "Running Hugo build..."
           # 4. 运行 Hugo 构建
-          hugo -D --buildFuture 
+          hugo -D --buildFuture
 
       # --- [第 4 部分：部署到 gh-pages 分支] ---
       - name: Deploy to gh-pages
