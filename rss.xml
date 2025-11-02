@@ -5,20 +5,20 @@
     <link></link>
     <description> 近 7 天的AI日报</description>
     <language>zh-cn</language>
-    <lastBuildDate>Sun, 02 Nov 2025 16:09:23 GMT</lastBuildDate>
+    <lastBuildDate>Sun, 02 Nov 2025 16:16:08 GMT</lastBuildDate>
     <atom:link href="https://yxxxxx1-ai-daily.gunzhao59.workers.dev/rss" rel="self" type="application/rss+xml" />
     
         <item>
           <title><![CDATA[2025-11-03日刊]]></title>
           <link>/2025-11/2025-11-03/</link>
           <guid>/2025-11/2025-11-03/</guid>
-          <pubDate>Mon, 03 Nov 2025 00:09:22 GMT</pubDate>
+          <pubDate>Mon, 03 Nov 2025 00:16:07 GMT</pubDate>
           <content:encoded><![CDATA[<h2>AI洞察日报 2025/11/3</h2><blockquote><p><code>AI 日报</code></p></blockquote><h3>今日摘要</h3><p>【1】BettaFish
 微舆：人人可用的多智能体舆情分析助手，打破信息茧房，还原舆情原貌，预测未来走向，辅助决策！从零实现，不依赖任何框架。</p><p>【2】claude-relay-service
 CRS-自建Claude代码镜像，一站式开源中转服务，统一接入Claude、OpenAI、Gemini、Droid订阅，支持拼车共享高效分摊成本，原生工具无缝使用</p><p>【3】agent-lightning
 点亮AI智能体的终极训练器</p><p>【4】DeepCode
 DeepCode：开放式智能编程（论文转代码&amp;文本转网页&amp;文本转后端）</p><p>【5】nano-vllm
-Nano vLLM</p><p>【6】opencode
+Nano vLLM轻量级推理引擎</p><p>【6】opencode
 专为终端打造的AI编程助手</p>]]></content:encoded>
           <description><![CDATA[AI洞察日报 2025/11/3 AI 日报 今日摘要 【1】BettaFish 微舆：人人可用的多智能体舆情分析助手，打破信息茧房，还原舆情原貌，预测未来走向，辅助决策！从零实现，不依赖任何框架。 【2】claude-relay-service CRS-自建Claude代码镜像，一站式开源中转服务，统一接入Claude、OpenAI、Gemini、Droid订阅，支持拼车共享高效分摊成本，原生工]]></description>
         </item>
