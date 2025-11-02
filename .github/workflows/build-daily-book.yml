@@ -332,7 +332,7 @@ jobs:
           
           echo "Running Hugo build..."
           # 4. 运行 Hugo 构建
-          hugo -v -D --buildFuture
+          hugo -D --buildFuture 
 
       # --- [第 4 部分：部署到 gh-pages 分支] ---
       - name: Deploy to gh-pages
