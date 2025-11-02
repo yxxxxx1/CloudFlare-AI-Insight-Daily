@@ -274,6 +274,8 @@ jobs:
           mkdir -p static
           cp rss.xml static/
 
+          
+
           # 3. 创建一个首页
           cat << EOF > content/_index.md
           ---
@@ -285,6 +287,18 @@ jobs:
           
           这里每日为您精选 AI 领域的最新动态，包括行业新闻、热门开源项目、前沿学术论文和科技大V社交媒体言论。
           EOF
+
+          # --- ▼▼▼【调试步骤】▼▼▼ ---
+          echo "--- [DEBUG] 检查 'daily' 目录内容 (拉取后) ---"
+          ls -laR daily/
+          
+          echo "--- [DEBUG] 检查 'content' 目录内容 (复制后) ---"
+          ls -laR content/
+
+          echo "--- [DEBUG] 检查任意一个 .md 文件的头部内容 ---"
+          # 尝试打印 'content/daily' 中第一个 .md 文件的前 10 行
+          find content/daily -name "*.md" -print0 | xargs -0 head -n 1 | xargs -I {} sh -c 'echo "File: {}"; cat {} | head -n 10'
+          # --- ▲▲▲【调试步骤】▲▲▲ ---
           
           echo "Running Hugo build..."
           # 4. 运行 Hugo 构建
