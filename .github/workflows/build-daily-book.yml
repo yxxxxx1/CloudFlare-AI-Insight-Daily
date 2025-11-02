@@ -307,14 +307,14 @@ jobs:
               
               # 4. 重新构建文件，在顶部添加 Front Matter
               cat << EOF > "$file"
----
-title: "$title_from_file"
-date: $date_from_file
----
+          ---
+          title: "$title_from_file"
+          date: $date_from_file
+          ---
 
-$original_content
-EOF
-            else
+          $original_content
+          EOF
+          else
               echo "Skipping $file, Front Matter already exists."
             fi
           done
