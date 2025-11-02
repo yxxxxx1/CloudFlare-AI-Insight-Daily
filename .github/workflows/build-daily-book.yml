@@ -289,48 +289,36 @@ jobs:
           EOF
 
 
-          # --- ▼▼▼【在此处添加新脚本】▼▼▼ ---
+          # --- ▼▼▼【更新后的修复脚本】▼▼▼ ---
           echo "Fixing missing Front Matter for Hugo..."
           for file in content/daily/*.md; do
-            # 检查第一行是否不是 '---'
             if [ "$(head -n 1 "$file")" != "---" ]; then
               echo "Adding Front Matter to $file"
               
-              # 1. 从文件名 (e.g., 2025-11-02.md) 提取日期
               date_from_file=$(basename "$file" .md)
-              
-              # 2. 从文件第一行提取标题 (移除 '## ')
               title_from_file=$(head -n 1 "$file" | sed 's/^## //')
-              
-              # 3. 存储文件的原始剩余内容
               original_content=$(cat "$file")
               
-              # 4. 重新构建文件，在顶部添加 Front Matter
-              cat << EOF > "$file"
-          ---
-          title: "$title_from_file"
-          date: $date_from_file
-          ---
-
-          $original_content
-          EOF
-          else
+              # 使用 ( ) 和 echo 来重写文件，避免 heredoc 缩进问题
+              (
+                echo "---"
+                echo "title: \"$title_from_file\""
+                echo "date: $date_from_file"
+                echo "---"
+                echo ""
+                echo "$original_content"
+              ) > "$file"
+            else
               echo "Skipping $file, Front Matter already exists."
             fi
           done
-          # --- ▲▲▲【脚本结束】▲▲▲ ---
-          
-          # --- ▼▼▼【调试步骤】▼▼▼ ---
-          echo "--- [DEBUG] 检查 'daily' 目录内容 (拉取后) ---"
-          ls -laR daily/
-          
-          echo "--- [DEBUG] 检查 'content' 目录内容 (复制后) ---"
-          ls -laR content/
+          # --- ▲▲▲【脚本结束】▲▲K▲ ---
 
-          echo "--- [DEBUG] 检查任意一个 .md 文件的头部内容 ---"
-          # 尝试打印 'content/daily' 中第一个 .md 文件的前 10 行
-          find content/daily -name "*.md" -print0 | xargs -0 head -n 1 | xargs -I {} sh -c 'echo "File: {}"; cat {} | head -n 10'
-          # --- ▲▲▲【调试步骤】▲▲▲ ---
+          # --- ▼▼▼【更新后的调试脚本】▼▼▼ ---
+          echo "--- [DEBUG] 检查一个 .md 文件的头部内容 (修复后) ---"
+          # 查找所有 .md 文件，并打印它们的前 5 行
+          find content/daily -name "*.md" -print0 | xargs -0 -I {} sh -c 'echo "--- Content of: {} ---"; cat "{}" | head -n 5'
+          # --- ▲▲▲【调试结束】▲▲▲ ---
           
           echo "Running Hugo build..."
           # 4. 运行 Hugo 构建
