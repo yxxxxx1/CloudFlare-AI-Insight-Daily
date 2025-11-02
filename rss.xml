@@ -5,28 +5,28 @@
     <link></link>
     <description> 近 7 天的AI日报</description>
     <language>zh-cn</language>
-    <lastBuildDate>Sun, 02 Nov 2025 10:04:45 GMT</lastBuildDate>
+    <lastBuildDate>Sun, 02 Nov 2025 10:10:38 GMT</lastBuildDate>
     <atom:link href="https://yxxxxx1-ai-daily.gunzhao59.workers.dev/rss" rel="self" type="application/rss+xml" />
     
         <item>
           <title><![CDATA[2025-11-02日刊]]></title>
           <link>/2025-11/2025-11-02/</link>
           <guid>/2025-11/2025-11-02/</guid>
-          <pubDate>Sun, 02 Nov 2025 18:04:44 GMT</pubDate>
+          <pubDate>Sun, 02 Nov 2025 18:10:37 GMT</pubDate>
           <content:encoded><![CDATA[<h2>AI洞察日报 2025/11/2</h2><blockquote><p><code>AI 日报</code></p></blockquote><h3>今日摘要</h3><p>【1】chef
 唯一懂后端的AI应用构建工具</p><p>【2】docs
 可扩展的协作式笔记、维基和文档平台，基于Django和React构建</p><p>【3】WeKnora
-基于RAG范式的LLM驱动框架，实现深度文档理解、语义检索和上下文感知回答</p><p>【4】jan
+基于LLM的深度文档理解框架，支持语义检索和RAG范式的上下文感知应答</p><p>【4】jan
 Jan是ChatGPT的开源替代品，可在计算机上100%离线运行</p><p>【5】Web-Dev-For-Beginners
-24节课，12周时间，零基础成为Web开发工程师</p><p>【6】Deep-Live-Cam
-实时人脸替换与单图一键视频深度伪造</p><p>【7】最近怎么这么多小语种顶级就业
+24节课，12周，开启Web开发之旅</p><p>【6】Deep-Live-Cam
+实时人脸替换和单图一键视频深度伪造</p><p>【7】最近怎么这么多小语种顶级就业
 最近怎么这么多小语种顶级就业 garrulous abyss🌈: 草。。。精通波斯语。。。这个很难的，几乎一定是科班出生。 这个描述估计就是广东那一大片的人。 [图片: <a href="https://pbs.twimg.com/media/G4qut5OXUAAnEIG?format=jpg&#x26;name=orig%5D">https://pbs.twimg.com/media/G4qut5OXUAAnEIG?format=jpg&#x26;name=orig]</a> [图片: <a href="https://pbs.twimg.com/media/G4qut-qWwAAttZx?format=jpg&#x26;name=orig%5D">https://pbs.twimg.com/media/G4qut-qWwAAttZx?format=jpg&#x26;name=orig]</a> [图片: <a href="https://pbs.twimg.com/media/G4qut9jWsAAuOlY?format=jpg&#x26;name=orig%5D">https://pbs.twimg.com/media/G4qut9jWsAAuOlY?format=jpg&#x26;name=orig]</a></p><p>【8】sexy nerd design
 sexy nerd design 蓝冰冰冰蓝蓝: 看到这个好心动 [图片: <a href="https://pbs.twimg.com/media/G4tODrRbgAADojW?format=jpg&#x26;name=orig%5D">https://pbs.twimg.com/media/G4tODrRbgAADojW?format=jpg&#x26;name=orig]</a></p><p>【9】马上2026年了，我的新年愿望是长出自己的触角q-q
 马上2026年了，我的新年愿望是长出自己的触角q-q maiqo: ngl this is kind of a vibe [图片: <a href="https://pbs.twimg.com/media/G4nN6w3XAAAmLia?format=png&#x26;name=orig%5D">https://pbs.twimg.com/media/G4nN6w3XAAAmLia?format=png&#x26;name=orig]</a></p><p>【10】Is this the way it’s going — from claymation to 3D to AI?
 When Jurassic Park was being made, the claymation team saw the new 3D dinosaurs and said, &quot;We’re going extinct.” Spielberg even used that line in the movie. It was a moment when one form of art was overtaken by another — faster, more powerful, more real. Now it feels like we’re at a similar turning point with AI. Just as 3D transformed animation, AI seems ready to transform the entire creative process — writing, art, filmmaking, even music. But does that mean artists are going &quot;extinct” again, or just evolving into something new? submitted by /u/Scandinavian-Viking- [link] [comments]</p><p>【11】zzz还是太懂希人xp了💦，定是有高人指点！！
 zzz还是太懂希人xp了💦，定是有高人指点！！ Lumo1121: #ゼンゼロ mkgsイドリーちゃん [图片: <a href="https://pbs.twimg.com/media/G4k4YGZbgAAG0MA?format=jpg&#x26;name=orig%5D">https://pbs.twimg.com/media/G4k4YGZbgAAG0MA?format=jpg&#x26;name=orig]</a></p><p>【12】看起来llm service没有任何生态依赖性，谁家好就用谁的，说换就换。开发者也都聪明了，统一接口层，不把业务逻辑和生态功能绑死。
 看起来llm service没有任何生态依赖性，谁家好就用谁的，说换就换。开发者也都聪明了，统一接口层，不把业务逻辑和生态功能绑死。 Jeffery Kaneda 金田達也: Anthropic 在企业 LLM API 市场份额上已经超过了 OpenAI，达到32%。 OpenAI降到25%， Google涨到20%</p>]]></content:encoded>
-          <description><![CDATA[AI洞察日报 2025/11/2 AI 日报 今日摘要 【1】chef 唯一懂后端的AI应用构建工具 【2】docs 可扩展的协作式笔记、维基和文档平台，基于Django和React构建 【3】WeKnora 基于RAG范式的LLM驱动框架，实现深度文档理解、语义检索和上下文感知回答 【4】jan Jan是ChatGPT的开源替代品，可在计算机上100%离线运行 【5】Web-Dev-For-Be]]></description>
+          <description><![CDATA[AI洞察日报 2025/11/2 AI 日报 今日摘要 【1】chef 唯一懂后端的AI应用构建工具 【2】docs 可扩展的协作式笔记、维基和文档平台，基于Django和React构建 【3】WeKnora 基于LLM的深度文档理解框架，支持语义检索和RAG范式的上下文感知应答 【4】jan Jan是ChatGPT的开源替代品，可在计算机上100%离线运行 【5】Web-Dev-For-Begi]]></description>
         </item>
       
         <item>
