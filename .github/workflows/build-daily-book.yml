@@ -264,7 +264,7 @@ jobs:
           EOF
 
           echo "Organizing content for Hugo..."
-          # 【保留】使用 'content/daily' 目录，这是 Hextra 侧边栏所必需的
+          # 【保留】使用 'content/daily' 目录
           mkdir -p content/daily
           cp -r daily/*.md content/daily/
           mkdir -p static
@@ -281,8 +281,6 @@ jobs:
 
           这里是所有的历史日报存档。
           EOF
-          
-          # --- 【删除】创建 content/_index.md 的步骤已被删除 ---
           
           # 【保留】修复 'content/daily' 目录下的文件
           echo "Fixing missing Front Matter for Hugo..."
@@ -312,27 +310,22 @@ jobs:
             fi
           done
 
-          # --- ▼▼▼【关键解决方案：动态重定向】▼▼▼ ---
-          echo "Finding latest post and creating redirect..."
+          # --- ▼▼▼【修复-3：创建自定义首页布局 (重定向)】▼▼▼ ---
+          echo "Finding latest post and creating redirect layout..."
           
-          # 1. 找到 'daily/' 目录中按字母排序最新的 .md 文件
+          # 1. 找到最新的日报
           LATEST_FILE_PATH=$(ls -1 daily/*.md | grep -v '_index.md' | sort -r | head -n 1)
-          
-          # 2. 从路径中提取文件名 (e.g., 2025-11-02.md)
           LATEST_BASENAME=$(basename "$LATEST_FILE_PATH")
-
-          # 3. 从文件名中移除 .md (e.g., 2025-11-02)
           LATEST_POST_SLUG=$(echo "$LATEST_BASENAME" | sed 's/\.md$//')
-
-          # 4. 构建完整的重定向 URL
           REDIRECT_URL="/CloudFlare-AI-Insight-Daily/daily/${LATEST_POST_SLUG}/"
 
           echo "Latest post slug is: $LATEST_POST_SLUG"
-          echo "Redirecting homepage to: $REDIRECT_URL"
+          echo "Homepage will redirect to: $REDIRECT_URL"
 
-          # 5. 创建 'static/index.html' 来执行重定向
-          #    因为 content/_index.md 不存在，这个文件将成为真正的首页
-          cat << EOF > static/index.html
+          # 2. 创建一个 'layouts/index.html' 文件
+          #    这将覆盖 Hextra 的“欢迎页”布局
+          mkdir -p layouts
+          cat << EOF > layouts/index.html
           <!DOCTYPE html>
           <html lang="zh-cn">
           <head>
@@ -345,7 +338,16 @@ jobs:
           </body>
           </html>
           EOF
-          # --- ▲▲▲【改动结束】▲▲▲ ---
+          
+          # 3. 创建一个 'content/_index.md' 来触发这个布局
+          #    没有这个文件, 'layouts/index.html' 不会被使用
+          cat << EOF > content/_index.md
+          ---
+          title: "AI 资讯日报"
+          draft: false
+          ---
+          EOF
+          # --- ▲▲▲【修复-3：结束】▲▲▲ ---
           
           echo "Running Hugo build..."
           # 【保留】强制构建草稿和未来文章
