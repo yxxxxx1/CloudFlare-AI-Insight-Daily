@@ -5,9 +5,36 @@
     <link></link>
     <description> 近 7 天的AI日报</description>
     <language>zh-cn</language>
-    <lastBuildDate>Fri, 07 Nov 2025 02:08:29 GMT</lastBuildDate>
+    <lastBuildDate>Sat, 08 Nov 2025 02:01:36 GMT</lastBuildDate>
     <atom:link href="https://yxxxxx1-ai-daily.gunzhao59.workers.dev/rss" rel="self" type="application/rss+xml" />
     
+        <item>
+          <title><![CDATA[2025-11-08日刊]]></title>
+          <link>/2025-11/2025-11-08/</link>
+          <guid>/2025-11/2025-11-08/</guid>
+          <pubDate>Sat, 08 Nov 2025 10:01:35 GMT</pubDate>
+          <content:encoded><![CDATA[<h2>AI洞察日报 2025/11/8</h2><blockquote><p><code>AI 日报</code></p></blockquote><h3>今日摘要</h3><p>【1】alertmanager
+Prometheus Alertmanager</p><p>【2】BettaFish
+微舆：人人可用的多智能体舆情分析助手，打破信息茧房，还原舆情原貌，预测未来走向，辅助决策！从零实现，不依赖任何框架。</p><p>【3】sim
+构建和部署AI智能体工作流的开源平台</p><p>【4】lima
+专注于运行容器的Linux虚拟机</p><p>【5】mcp
+AWS MCP服务器——帮助您在任意使用MCP的环境中最大化利用AWS</p><p>【6】strix
+✨ 为您的应用程序提供开源AI黑客 👨🏻‍💻</p><p>【7】Ruby 解决了我的问题（得分：5 小时内 151+）
+Ruby 解决了我的问题（得分：5 小时内 151+） <a href="https://readhacker.news/s/6F6pA">https://readhacker.news/s/6F6pA</a> Masilotti Ruby already solved my problem 😅 One great question in office hours led me to delete a whole class. [图片: <a href="https://cdn4.telesco.pe/file/cd_UBY4SwiM4iRLD6UEvfolSgBX9ouIDKnJnviBIMOYfMvzP-TSXRDAkUza7-lzJqshUPep-sr_D04GLFSO_3jTW5iuJewKPX2_Jp06rVy1z3O3y3TFG6yt5772lLe1Jf8iXMEZHyypsUhvBciGiFcJsDqy08cy7VQn2ELCRSwRJylJVpDYaSqHVMIueU7joeoIOMGw1LfuuHuu3Uu5OzHUXs21w8iH34RMXLugeEqBUq7IdsEJXQgmLEmbKDjyUBnAIxYscABacLWBwx6Yd-ZaXJrM0r_T3ZAHU54G6nWg0v4qjmDyQK7bW3ALK7aOGGuzMqJdJFP9viB-cxvxEnw.jpg%5D">https://cdn4.telesco.pe/file/cd_UBY4SwiM4iRLD6UEvfolSgBX9ouIDKnJnviBIMOYfMvzP-TSXRDAkUza7-lzJqshUPep-sr_D04GLFSO_3jTW5iuJewKPX2_Jp06rVy1z3O3y3TFG6yt5772lLe1Jf8iXMEZHyypsUhvBciGiFcJsDqy08cy7VQn2ELCRSwRJylJVpDYaSqHVMIueU7joeoIOMGw1LfuuHuu3Uu5OzHUXs21w8iH34RMXLugeEqBUq7IdsEJXQgmLEmbKDjyUBnAIxYscABacLWBwx6Yd-ZaXJrM0r_T3ZAHU54G6nWg0v4qjmDyQK7bW3ALK7aOGGuzMqJdJFP9viB-cxvxEnw.jpg]</a></p><p>【8】Immutable Software Deploys Using ZFS Jails on FreeBSD
+Article URL: <a href="https://conradresearch.com/articles/immutable-software-deploy-zfs-jails">https://conradresearch.com/articles/immutable-software-deploy-zfs-jails</a> Comments URL: <a href="https://news.ycombinator.com/item?id=45852895">https://news.ycombinator.com/item?id=45852895</a> Points: 14 # Comments: 5</p><p>【9】The Boss Has a Message: Use AI or You&#39;re Fired
+Article URL: <a href="https://www.wsj.com/tech/ai/ai-work-use-performance-reviews-1e8975df">https://www.wsj.com/tech/ai/ai-work-use-performance-reviews-1e8975df</a> Comments URL: <a href="https://news.ycombinator.com/item?id=45852859">https://news.ycombinator.com/item?id=45852859</a> Points: 17 # Comments: 6</p><p>【10】Snapchat open-sources Valdi a cross-platform UI framework
+Article URL: <a href="https://github.com/Snapchat/Valdi">https://github.com/Snapchat/Valdi</a> Comments URL: <a href="https://news.ycombinator.com/item?id=45852854">https://news.ycombinator.com/item?id=45852854</a> Points: 33 # Comments: 1</p><p>【11】Qwen Image Base Model Training vs FLUX SRPO Training 20 images comparison (top ones Qwen bottom ones FLUX) - Same Dataset (28 imgs) - I can&#39;t return back to FLUX such as massive difference - Oldest comment has prompts and more info - Qwen destroys the FLUX at complex prompts and emotions
+[图片: Qwen Image Base Model Training vs FLUX SRPO Training 20 images comparison (top ones Qwen bottom ones FLUX) - Same Dataset (28 imgs) - I can&#39;t return back to FLUX such as massive difference - Oldest comment has prompts and more info - Qwen destroys the FLUX at complex prompts and emotions <a href="https://b.thumbs.redditmedia.com/3Zb1S9ArxfYNA-T2uqR6c2ea1eD2oq0M-9j1_Ql1PZM.jpg%5D">https://b.thumbs.redditmedia.com/3Zb1S9ArxfYNA-T2uqR6c2ea1eD2oq0M-9j1_Ql1PZM.jpg]</a> Full step by step Tutorial (as low as 6 GB GPUs can train on Windows) : <a href="https://youtu.be/DPX3eBTuO_Y">https://youtu.be/DPX3eBTuO_Y</a> submitted by /u/CeFurkan [link] [comments]</p><p>【12】Analysis of Hedy Lamarr&#39;s Contribution to Spread-Spectrum Communication
+Article URL: <a href="https://researchers.one/articles/24.01.00001v4">https://researchers.one/articles/24.01.00001v4</a> Comments URL: <a href="https://news.ycombinator.com/item?id=45852642">https://news.ycombinator.com/item?id=45852642</a> Points: 24 # Comments: 16</p><p>【13】有了 AI 后起号挺简单的，找到某个人群对于某些内容的 G 点就行了，比如简中区确实对中年夫妻情感话题特别敏感。 但是我没有什么起号的动力。起了号之后要干嘛呢...
+有了 AI 后起号挺简单的，找到某个人群对于某些内容的 G 点就行了，比如简中区确实对中年夫妻情感话题特别敏感。 但是我没有什么起号的动力。起了号之后要干嘛呢，卖号？ 做独立开发，我感觉有个几千关注的号就足够了。 <a href="https://twitterxdownload.com/ai-writer">https://twitterxdownload.com/ai-writer</a> [图片: <a href="https://pbs.twimg.com/media/G5McWYsbIAQPvK7?format=jpg&#x26;name=orig%5D">https://pbs.twimg.com/media/G5McWYsbIAQPvK7?format=jpg&#x26;name=orig]</a></p><p>【14】你又不是人民币 不会每个人都喜欢 况且就算是人民币 也不是每个人都喜欢 每被拉黑一次 你就应该知道 世界帮你主动过滤了一些人 这些人不懂得如何多元看待事物 就...
+你又不是人民币 不会每个人都喜欢 况且就算是人民币 也不是每个人都喜欢 每被拉黑一次 你就应该知道 世界帮你主动过滤了一些人 这些人不懂得如何多元看待事物 就像很多人因为我曾发鸡汤屏蔽了我一样 但他们同样也会错过其他有意义的东西 好坏都是受时空动态变化的 不会多维看待事物的 就随他去呗 铁锤人: 最近我发现自己被不少人拉黑了 正常情况下，我会认为是我的问题，自己反思很久 后来想想，本该如此 假如你太在乎别人对你的看法，你就活不成自己想要的样子 无论走的路是好是坏</p><p>【15】我为什么想做游戏站，觉得流量好只是一方面，最主要我本身就是个数字仓鼠，喜欢收集老东西。 比如 @theawesomesites 项目是收集全世界最酷网站的静态资源，再比...
+我为什么想做游戏站，觉得流量好只是一方面，最主要我本身就是个数字仓鼠，喜欢收集老东西。 比如 @theawesomesites 项目是收集全世界最酷网站的静态资源，再比如几年前做彩虹屁老婆插件，就写了个爬虫把全球最大 Live2d 网站里的皮都扒下来过，就是喜欢收集。 游戏站也是如此，我现在还收集着一批当年最好玩的 flash 游戏，在我的网盘里是可以直接打开玩的。 <a href="https://desktop.dashu.ai/#explorer&#x26;pathFile=%7BshareItem:8%7D/2954">https://desktop.dashu.ai/#explorer&#x26;pathFile=%7BshareItem:8%7D/2954</a> [图片: <a href="https://pbs.twimg.com/media/G5MLNS0bIAUaBZN?format=jpg&#x26;name=orig%5D">https://pbs.twimg.com/media/G5MLNS0bIAUaBZN?format=jpg&#x26;name=orig]</a> [图片: <a href="https://pbs.twimg.com/media/G5MMyDobIAIkMqX?format=jpg&#x26;name=orig%5D">https://pbs.twimg.com/media/G5MMyDobIAIkMqX?format=jpg&#x26;name=orig]</a> [图片: <a href="https://pbs.twimg.com/media/G5MNVS3akAE2wxs?format=jpg&#x26;name=orig%5D">https://pbs.twimg.com/media/G5MNVS3akAE2wxs?format=jpg&#x26;name=orig]</a> [图片: <a href="https://pbs.twimg.com/media/G5MN8MabIAAaQ7n?format=jpg&#x26;name=orig%5D">https://pbs.twimg.com/media/G5MN8MabIAAaQ7n?format=jpg&#x26;name=orig]</a></p><p>【16】富途这个投资干货合计很不错，偏价值投资的一些思路，我很喜欢，对投资感兴趣的小伙伴可以看看。 <a href="https://news.futunn.com/news-topics/127/investment-practica">https://news.futunn.com/news-topics/127/investment-practica</a>...
+富途这个投资干货合计很不错，偏价值投资的一些思路，我很喜欢，对投资感兴趣的小伙伴可以看看。 <a href="https://news.futunn.com/news-topics/127/investment-practical-information-collection">https://news.futunn.com/news-topics/127/investment-practical-information-collection</a> [图片: <a href="https://pbs.twimg.com/media/G5KC98hbcAAMYnX?format=jpg&#x26;name=orig%5D">https://pbs.twimg.com/media/G5KC98hbcAAMYnX?format=jpg&#x26;name=orig]</a></p><p>【17】Thrilled to share our work has been accepted to AAAI 26. 🎉 Great job to every teammate involved and grateful for all the effort that made this poss...
+Thrilled to share our work has been accepted to AAAI 26. 🎉 Great job to every teammate involved and grateful for all the effort that made this possible! [图片: <a href="https://pbs.twimg.com/media/G5MHM7dXIAAzLsf?format=jpg&#x26;name=orig%5D">https://pbs.twimg.com/media/G5MHM7dXIAAzLsf?format=jpg&#x26;name=orig]</a></p><p>【18】[R] Brief History of Post Training of LLMs Slide Deck
+Created a slide deck with relevant paper links to illustrate brief history of LLM Post Training <a href="https://github.com/samrat3264/llm_post_training_history/blob/main/Post-Training%20Soup.pdf">https://github.com/samrat3264/llm_post_training_history/blob/main/Post-Training%20Soup.pdf</a> submitted by /u/Internet_Problems [link] [comments]</p>]]></content:encoded>
+          <description><![CDATA[AI洞察日报 2025/11/8 AI 日报 今日摘要 【1】alertmanager Prometheus Alertmanager 【2】BettaFish 微舆：人人可用的多智能体舆情分析助手，打破信息茧房，还原舆情原貌，预测未来走向，辅助决策！从零实现，不依赖任何框架。 【3】sim 构建和部署AI智能体工作流的开源平台 【4】lima 专注于运行容器的Linux虚拟机 【5】mcp AW]]></description>
+        </item>
+      
         <item>
           <title><![CDATA[2025-11-07日刊]]></title>
           <link>/2025-11/2025-11-07/</link>
@@ -156,27 +183,6 @@ RT 卡尔的AI沃茨 实测美团第一个AI视频模型LongCat-Video，13.6B参
 前两天接一个「3D 模型 AI 生成技术」的咨询，除了常规聊生成技术的原理和门槛、落地情况，Tripo、混元、字节、Meshy 等不同团队和模型情况... 咨询团队知道我有「3D打印/激光雕刻」这个行业的从业经历，问了我一个问题：3D 模型 AI 生成技术的未来，在不在 3D 打印行业？这个技术发展到什么程度，能促进 3D 打印机进一步普及？ 这个问题我有点回答不好，直觉上 AI 生成技术应该能把想象力无限放大，但实际上拓竹 3D 打印机和 Tripo 的合作，没激起太大水花，3D 打印还是实用工具为主，偶有热门 IP 打印的短暂热度，貌似生成技术的创意性和想象力，没有让 3D 打印用户有太大兴趣，至于说促进 3D 打印机普及，就更谈不上了，毕竟他们还有太多打印问题没解决。 感觉 3D 模型生成技术，未来还是在实时生成世界模型上，这个方向对 3D 模型有更广泛和个性化的需求，而且也在快速发展中，不局限于游戏方向。</p><p>【12】礼崩乐坏
 礼崩乐坏 Min Choi: NVIDIA just dropped ChronoEdit This AI &quot;edits by thinking&quot;, turns each edit into a tiny video and uses temporal tokens to keep physics real. 10 wild examples + Demo: 1. &quot;Restore the Winged Victory of Samothrace by adding a realistic classical head and arms&quot; [视频: <a href="https://video.twimg.com/amplify_video/1984695782340001792/vid/avc1/960x1280/SxrZ2HCKBiAHW492.mp4?tag=21%5D">https://video.twimg.com/amplify_video/1984695782340001792/vid/avc1/960x1280/SxrZ2HCKBiAHW492.mp4?tag=21]</a></p>]]></content:encoded>
           <description><![CDATA[AI洞察日报 2025/11/2 AI 日报 今日摘要 【1】BettaFish 微舆：人人可用的多智能体舆情分析助手，打破信息茧房，还原舆情原貌，预测未来走向，辅助决策！从零实现，不依赖任何框架。 【2】claude-relay-service CRS-自建Claude代码镜像，一站式开源中转服务，统一接入Claude、OpenAI、Gemini、Droid订阅，支持拼车共享高效分摊成本，原生工]]></description>
-        </item>
-      
-        <item>
-          <title><![CDATA[2025-11-01日刊]]></title>
-          <link>/2025-11/2025-11-01/</link>
-          <guid>/2025-11/2025-11-01/</guid>
-          <pubDate>Sat, 01 Nov 2025 23:57:30 GMT</pubDate>
-          <content:encoded><![CDATA[<h2>AI洞察日报 2025/11/1</h2><blockquote><p><code>AI 日报</code></p></blockquote><h3>今日摘要</h3><p>【1】chef
-唯一懂后端的AI应用构建工具</p><p>【2】docs
-可扩展的协作式笔记、维基和文档平台，基于Django和React构建</p><p>【3】WeKnora
-基于RAG范式的LLM驱动框架，实现深度文档理解、语义检索和上下文感知应答</p><p>【4】jan
-Jan是ChatGPT的开源替代品，可在计算机上100%离线运行</p><p>【5】Web-Dev-For-Beginners
-24节课，12周时间，开启你的Web开发者之旅</p><p>【6】Deep-Live-Cam
-仅需单张图像即可实现实时换脸和一键视频深度伪造</p><p>【7】很多东西是个循环。 曾经很长一段时间，不使用外键，在业务层做约束考虑，几乎成了我的必定的起手式。 又拖性能又不方便改，何苦呢。 数据库的金科玉律在当年的...
-很多东西是个循环。 曾经很长一段时间，不使用外键，在业务层做约束考虑，几乎成了我的必定的起手式。 又拖性能又不方便改，何苦呢。 数据库的金科玉律在当年的我看来，是要为了现实业务让步的。 但这一年来，我的外键用的越来越多了。 当然肯定还是看具体场景，只是我越来越不介意了，也享受到了外键带来的好处。 我不展开讲细节，这个确实具体情况具体看。就是在人生中能看到这种螺旋一样的发展，还是会有一些感慨。 人的认知和理解也是螺旋式的。AI 介入的辅助过程，帮助我更快的体会到了这一点。 再说一次，不是为了争论哪个更好。</p><p>【8】&quot;AIGC 让软件变成数字快消品” 这句话的含金量还在上升～
-&quot;AIGC 让软件变成数字快消品” 这句话的含金量还在上升～ [图片: <a href="https://pbs.twimg.com/media/G4rOO91aoAAKV3a?format=jpg&#x26;name=orig%5D">https://pbs.twimg.com/media/G4rOO91aoAAKV3a?format=jpg&#x26;name=orig]</a> 吕立青_JimmyLv (🐣, 🐣) 2𐃏25 | building bibigpt.co: @oran_ge 是的啊，我今天感触特别特别深， 程序员做&quot;功能”这件事情根本毫无价值了。。。 或者说，AI 能够 one-shot prompt 就把事情做得很好，让&quot;编程”技能门槛无限降为 0。 因为我看到 Zara 做的 <a href="http://tldw.us">http://tldw.us</a> 的高光片段特别好，我之前也有类似的想法。 昨晚上睡前截图让 Codex 在 [视频: <a href="https://video.twimg.com/tweet_video/G4rMkY4bQAcvxrw.mp4%5D">https://video.twimg.com/tweet_video/G4rMkY4bQAcvxrw.mp4]</a></p><p>【9】最后三场球都是点球，过于刺激，但精彩不足😁
-最后三场球都是点球，过于刺激，但精彩不足😁 ginobefun: 和娃一起看苏超决赛 [图片: <a href="https://pbs.twimg.com/media/G4quCvDbQAECZKj?format=jpg&#x26;name=orig%5D">https://pbs.twimg.com/media/G4quCvDbQAECZKj?format=jpg&#x26;name=orig]</a></p><p>【10】AI资讯日报，11月1日：<a href="https://gorden-sun.notion.site/11-1-AI-29e594247325802e8093d7c7b68d2f14?source=copy_link">https://gorden-sun.notion.site/11-1-AI-29e594247325802e8093d7c7b68d2f14?source=copy_link</a>
-AI资讯日报，11月1日：<a href="https://gorden-sun.notion.site/11-1-AI-29e594247325802e8093d7c7b68d2f14?source=copy_link">https://gorden-sun.notion.site/11-1-AI-29e594247325802e8093d7c7b68d2f14?source=copy_link</a> [图片: <a href="https://pbs.twimg.com/media/G4rBqcKbQAAWy0q?format=jpg&#x26;name=orig%5D">https://pbs.twimg.com/media/G4rBqcKbQAAWy0q?format=jpg&#x26;name=orig]</a></p><p>【11】替群友来拉个线，招一个 USRP 的讲师, 2万： 1/ 必备：熟悉 OAI（OpenAirInterface） 2/ 了解一点 USRP 和 UHD 驱动 更好（会用更加分） 3/ 有 GSM 或 LTE 信号...
-替群友来拉个线，招一个 USRP 的讲师, 2万： 1/ 必备：熟悉 OAI（OpenAirInterface） 2/ 了解一点 USRP 和 UHD 驱动 更好（会用更加分） 3/ 有 GSM 或 LTE 信号相关经验更好（哪怕只是入门/玩过） 3/ 硬件不死板：只要你熟悉 OAI，不用非得是 USRP，用别的射频硬件也可以 来的兄弟，滴滴 [图片: <a href="https://pbs.twimg.com/media/G4q7-gobYAAh7rv?format=jpg&#x26;name=orig%5D">https://pbs.twimg.com/media/G4q7-gobYAAh7rv?format=jpg&#x26;name=orig]</a></p><p>【12】AI漫剧 PMF 太强了 现在成了大趋势
-AI漫剧 PMF 太强了 现在成了大趋势 Coco.AI: 最近红果、知乎、爱奇艺、腾讯 分别出了AI漫剧的相关扶持政策 刚刚和邻居公司的分镜师聊了一下 普通人如果现在沉下来进入圈子 系统性的学习AI漫剧的内容 3个月出短剧集作品问题不大 当然现在也是垃圾内容频出的阶段 一年后AI漫剧一定会迎来精品阶段</p>]]></content:encoded>
-          <description><![CDATA[AI洞察日报 2025/11/1 AI 日报 今日摘要 【1】chef 唯一懂后端的AI应用构建工具 【2】docs 可扩展的协作式笔记、维基和文档平台，基于Django和React构建 【3】WeKnora 基于RAG范式的LLM驱动框架，实现深度文档理解、语义检索和上下文感知应答 【4】jan Jan是ChatGPT的开源替代品，可在计算机上100%离线运行 【5】Web-Dev-For-Be]]></description>
         </item>
       
   </channel>
