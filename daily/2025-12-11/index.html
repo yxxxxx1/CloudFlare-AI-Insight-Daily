@@ -1,0 +1,1755 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr"><head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="robots" content="index, follow" />
+  <link rel="icon shortcut" href="/CloudFlare-AI-Insight-Daily/favicon.ico" sizes="32x32" />
+<link rel="icon" href="/CloudFlare-AI-Insight-Daily/favicon.svg" type="image/svg+xml" id="favicon-svg" />
+<link rel="icon" href="/CloudFlare-AI-Insight-Daily/favicon-16x16.png" type="image/png" sizes="16x16" />
+<link rel="icon" href="/CloudFlare-AI-Insight-Daily/favicon-32x32.png" type="image/png" sizes="32x32" />
+<link rel="apple-touch-icon" href="/CloudFlare-AI-Insight-Daily/apple-touch-icon.png" sizes="180x180" />
+<link fetchpriority="low" href="/CloudFlare-AI-Insight-Daily/site.webmanifest" rel="manifest" />
+<title>AI洞察日报 2025/12/11 – AI 资讯日报</title>
+  <meta name="description" content=" AI 日报
+今日摘要 【1】claude-mem 一款Claude Code插件，能够自动捕获Claude在编码会话中的所有操作，通过AI（使用Claude的agent-sdk）进行压缩，并将相关上下文注入未来的会话中。
+【2】kaiju 使用Go（golang）和Vulkan构建的通用3D与2D游戏引擎，内置编辑器
+【3】agents.md AGENTS.md —— 一个用于指导编码智能体的简单、开放的格式
+【4】open-notebook Notebook LM的开源实现，具有更高的灵活性和更多功能
+【5】dyad 免费、本地、开源的AI应用构建器 ✨ v0 / lovable / Bolt替代品 🌟 喜欢就点个星吧！
+【6】hello-agents 📚 《从零开始构建智能体》——从零开始的智能体原理与实践教程
+【7】对话式逆向工程剖析 ChatGPT 记忆系统 ❌ 完全没有向量数据库和 RAG ✅ 而是一种分层、高效的四级上下文结构 核心发现：比想象中更简洁 ChatGPT 的&#34;记忆”并非… 对话式逆向工程剖析 ChatGPT 记忆系统 ❌ 完全没有向量数据库和 RAG ✅ 而是一种分层、高效的四级上下文结构 核心发现：比想象中更简洁 ChatGPT 的&#34;记忆”并非在一个巨大的数据库中搜寻你过去说过的每一句话。相反，它通过巧妙地拼接不同层级的信息，在个性化和响应速度/成本之间取得了平衡。 ChatGPT 上下文的四层结构 1. 会话元数据 · 环境感知：包含你的设备类型、大致位置、时间、订阅等级以及近期的使用习惯（如活跃频率）。 · 作用：让回复适应你的当前环境（如深色模式、地理位置）。临时仅限当前会话，不保存。 2. 用户记忆库 · 长期核心事实：存储你的姓名、职业、偏好、长期目标等关键信息（作者示例中存了33条）。 · 来源：你明确要求&#34;记住这个”，或系统自动识别的重要事实。持久跨会话存在，直到被删除。 3. 近期对话摘要 · 短期兴趣地图：这是最令人意外的部分。它不是完整的历史记录，而是最近约 15 个对话的轻量级摘要（包含时间戳、标题和用户消息片段）。 · 作用：提供一种&#34;连贯感”，让 AI 知道你最近在关注什么，而无需加载全部历史。近期随时间推移更新。 4. 当前会话窗口 · 即时上下文：当前对话的完整记录。采用&#34;滑动窗口”机制，当对话过长超出 Token 限制时，最早的消息会被&#34;挤出”。 · 作用：保证当前对话逻辑的严密和连贯。当前随会话结束或超长而滚动。 为什么这种设计很聪明？ · 效率至上：传统的 RAG 需要对每一次查询都在海量历史中进行搜索，计算成本高且延迟大。 · 抓大放小：ChatGPT 的策略是——“记住重要事实（层级2），了解近期话题概况（层级3），专注当前对话细节（层级4）”。 · 工程哲学的体现：这是一种实用主义的工程设计。它牺牲了对过去每一个微小细节的完美回忆，换取了极其流畅、快速且看似&#34;懂你”的交互体验。 总结 ChatGPT 让你感觉它&#34;记性很好”，并不是因为它真的记得你两年前说的某个琐碎细节，而是因为它始终随身携带一份关于你的&#34;核心档案”（长期记忆）和一份&#34;近期动态简报”（对话摘要）。这是一种极为高效的&#34;伪全知”体验。 阅读原文（作者 @manthanguptaa） https://manthanguptaa.in/posts/chatgpt_memory/ [图片: https://pbs.twimg.com/media/G72dWfLaMAYDe7P?format=jpg&amp;name=orig] Manthan Gupta: I spent the last few days prompting ChatGPT to understand how its memory system actually works. Spoiler alert: There is no RAG used https://manthanguptaa.in/posts/chatgpt_memory/ [图片: https://pbs.twimg.com/media/G7x-vjXakAArpzJ?format=png&amp;name=orig]" /><link rel="canonical" href="https://yxxxxx1.github.io/CloudFlare-AI-Insight-Daily/daily/2025-12-11/" itemprop="url" />
+
+<meta property="og:title" content="AI洞察日报 2025/12/11">
+<meta
+  property="og:description"
+  content="
+    
+      
+  AI 日报
+
+
+今日摘要
+    【1】claude-mem
+一款Claude Code插件，能够自动捕获Claude在编码会话中的所有操作，通过AI（使用Claude的agent-sdk）进行压缩，并将相关上下文注入未来的会话中。
+【2】kaiju
+使用Go（golang）和Vulkan构建的通用3D与2D游戏引擎，内置编辑器
+【3】agents.md
+AGENTS.md —— 一个用于指导编码智能体的简单、开放的格式
+【4】open-notebook
+Notebook LM的开源实现，具有更高的灵活性和更多功能
+【5】dyad
+免费、本地、开源的AI应用构建器 ✨ v0 / lovable / Bolt替代品 🌟 喜欢就点个星吧！
+【6】hello-agents
+📚 《从零开始构建智能体》——从零开始的智能体原理与实践教程
+【7】对话式逆向工程剖析 ChatGPT 记忆系统 ❌ 完全没有向量数据库和 RAG ✅ 而是一种分层、高效的四级上下文结构 核心发现：比想象中更简洁 ChatGPT 的&quot;记忆”并非&hellip;
+对话式逆向工程剖析 ChatGPT 记忆系统 ❌ 完全没有向量数据库和 RAG ✅ 而是一种分层、高效的四级上下文结构 核心发现：比想象中更简洁 ChatGPT 的&quot;记忆”并非在一个巨大的数据库中搜寻你过去说过的每一句话。相反，它通过巧妙地拼接不同层级的信息，在个性化和响应速度/成本之间取得了平衡。 ChatGPT 上下文的四层结构 1. 会话元数据 · 环境感知：包含你的设备类型、大致位置、时间、订阅等级以及近期的使用习惯（如活跃频率）。 · 作用：让回复适应你的当前环境（如深色模式、地理位置）。临时仅限当前会话，不保存。 2. 用户记忆库 · 长期核心事实：存储你的姓名、职业、偏好、长期目标等关键信息（作者示例中存了33条）。 · 来源：你明确要求&quot;记住这个”，或系统自动识别的重要事实。持久跨会话存在，直到被删除。 3. 近期对话摘要 · 短期兴趣地图：这是最令人意外的部分。它不是完整的历史记录，而是最近约 15 个对话的轻量级摘要（包含时间戳、标题和用户消息片段）。 · 作用：提供一种&quot;连贯感”，让 AI 知道你最近在关注什么，而无需加载全部历史。近期随时间推移更新。 4. 当前会话窗口 · 即时上下文：当前对话的完整记录。采用&quot;滑动窗口”机制，当对话过长超出 Token 限制时，最早的消息会被&quot;挤出”。 · 作用：保证当前对话逻辑的严密和连贯。当前随会话结束或超长而滚动。 为什么这种设计很聪明？ · 效率至上：传统的 RAG 需要对每一次查询都在海量历史中进行搜索，计算成本高且延迟大。 · 抓大放小：ChatGPT 的策略是——&ldquo;记住重要事实（层级2），了解近期话题概况（层级3），专注当前对话细节（层级4）”。 · 工程哲学的体现：这是一种实用主义的工程设计。它牺牲了对过去每一个微小细节的完美回忆，换取了极其流畅、快速且看似&quot;懂你”的交互体验。 总结 ChatGPT 让你感觉它&quot;记性很好”，并不是因为它真的记得你两年前说的某个琐碎细节，而是因为它始终随身携带一份关于你的&quot;核心档案”（长期记忆）和一份&quot;近期动态简报”（对话摘要）。这是一种极为高效的&quot;伪全知”体验。 阅读原文（作者 @manthanguptaa） https://manthanguptaa.in/posts/chatgpt_memory/ [图片: https://pbs.twimg.com/media/G72dWfLaMAYDe7P?format=jpg&amp;name=orig] Manthan Gupta: I spent the last few days prompting ChatGPT to understand how its memory system actually works. Spoiler alert: There is no RAG used https://manthanguptaa.in/posts/chatgpt_memory/ [图片: https://pbs.twimg.com/media/G7x-vjXakAArpzJ?format=png&amp;name=orig]
+    
+  ">
+<meta
+  property="og:type"
+  content="
+    article
+  ">
+<meta property="og:url" content="https://yxxxxx1.github.io/CloudFlare-AI-Insight-Daily/daily/2025-12-11/"><meta property="article:section" content="daily">
+
+<meta
+  property="article:published_time"
+  content="2025-12-11T00:00:00+00:00">
+
+
+<meta
+  property="article:modified_time"
+  content="2025-12-11T00:00:00+00:00">
+
+
+
+  <meta itemprop="name" content="AI洞察日报 2025/12/11">
+  <meta itemprop="description" content="AI 日报
+今日摘要 【1】claude-mem 一款Claude Code插件，能够自动捕获Claude在编码会话中的所有操作，通过AI（使用Claude的agent-sdk）进行压缩，并将相关上下文注入未来的会话中。
+【2】kaiju 使用Go（golang）和Vulkan构建的通用3D与2D游戏引擎，内置编辑器
+【3】agents.md AGENTS.md —— 一个用于指导编码智能体的简单、开放的格式
+【4】open-notebook Notebook LM的开源实现，具有更高的灵活性和更多功能
+【5】dyad 免费、本地、开源的AI应用构建器 ✨ v0 / lovable / Bolt替代品 🌟 喜欢就点个星吧！
+【6】hello-agents 📚 《从零开始构建智能体》——从零开始的智能体原理与实践教程
+【7】对话式逆向工程剖析 ChatGPT 记忆系统 ❌ 完全没有向量数据库和 RAG ✅ 而是一种分层、高效的四级上下文结构 核心发现：比想象中更简洁 ChatGPT 的&#34;记忆”并非… 对话式逆向工程剖析 ChatGPT 记忆系统 ❌ 完全没有向量数据库和 RAG ✅ 而是一种分层、高效的四级上下文结构 核心发现：比想象中更简洁 ChatGPT 的&#34;记忆”并非在一个巨大的数据库中搜寻你过去说过的每一句话。相反，它通过巧妙地拼接不同层级的信息，在个性化和响应速度/成本之间取得了平衡。 ChatGPT 上下文的四层结构 1. 会话元数据 · 环境感知：包含你的设备类型、大致位置、时间、订阅等级以及近期的使用习惯（如活跃频率）。 · 作用：让回复适应你的当前环境（如深色模式、地理位置）。临时仅限当前会话，不保存。 2. 用户记忆库 · 长期核心事实：存储你的姓名、职业、偏好、长期目标等关键信息（作者示例中存了33条）。 · 来源：你明确要求&#34;记住这个”，或系统自动识别的重要事实。持久跨会话存在，直到被删除。 3. 近期对话摘要 · 短期兴趣地图：这是最令人意外的部分。它不是完整的历史记录，而是最近约 15 个对话的轻量级摘要（包含时间戳、标题和用户消息片段）。 · 作用：提供一种&#34;连贯感”，让 AI 知道你最近在关注什么，而无需加载全部历史。近期随时间推移更新。 4. 当前会话窗口 · 即时上下文：当前对话的完整记录。采用&#34;滑动窗口”机制，当对话过长超出 Token 限制时，最早的消息会被&#34;挤出”。 · 作用：保证当前对话逻辑的严密和连贯。当前随会话结束或超长而滚动。 为什么这种设计很聪明？ · 效率至上：传统的 RAG 需要对每一次查询都在海量历史中进行搜索，计算成本高且延迟大。 · 抓大放小：ChatGPT 的策略是——“记住重要事实（层级2），了解近期话题概况（层级3），专注当前对话细节（层级4）”。 · 工程哲学的体现：这是一种实用主义的工程设计。它牺牲了对过去每一个微小细节的完美回忆，换取了极其流畅、快速且看似&#34;懂你”的交互体验。 总结 ChatGPT 让你感觉它&#34;记性很好”，并不是因为它真的记得你两年前说的某个琐碎细节，而是因为它始终随身携带一份关于你的&#34;核心档案”（长期记忆）和一份&#34;近期动态简报”（对话摘要）。这是一种极为高效的&#34;伪全知”体验。 阅读原文（作者 @manthanguptaa） https://manthanguptaa.in/posts/chatgpt_memory/ [图片: https://pbs.twimg.com/media/G72dWfLaMAYDe7P?format=jpg&amp;name=orig] Manthan Gupta: I spent the last few days prompting ChatGPT to understand how its memory system actually works. Spoiler alert: There is no RAG used https://manthanguptaa.in/posts/chatgpt_memory/ [图片: https://pbs.twimg.com/media/G7x-vjXakAArpzJ?format=png&amp;name=orig]">
+  <meta itemprop="datePublished" content="2025-12-11T00:00:00+00:00">
+  <meta itemprop="dateModified" content="2025-12-11T00:00:00+00:00">
+  <meta itemprop="wordCount" content="884">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="AI洞察日报 2025/12/11">
+  <meta name="twitter:description" content="AI 日报
+今日摘要 【1】claude-mem 一款Claude Code插件，能够自动捕获Claude在编码会话中的所有操作，通过AI（使用Claude的agent-sdk）进行压缩，并将相关上下文注入未来的会话中。
+【2】kaiju 使用Go（golang）和Vulkan构建的通用3D与2D游戏引擎，内置编辑器
+【3】agents.md AGENTS.md —— 一个用于指导编码智能体的简单、开放的格式
+【4】open-notebook Notebook LM的开源实现，具有更高的灵活性和更多功能
+【5】dyad 免费、本地、开源的AI应用构建器 ✨ v0 / lovable / Bolt替代品 🌟 喜欢就点个星吧！
+【6】hello-agents 📚 《从零开始构建智能体》——从零开始的智能体原理与实践教程
+【7】对话式逆向工程剖析 ChatGPT 记忆系统 ❌ 完全没有向量数据库和 RAG ✅ 而是一种分层、高效的四级上下文结构 核心发现：比想象中更简洁 ChatGPT 的&#34;记忆”并非… 对话式逆向工程剖析 ChatGPT 记忆系统 ❌ 完全没有向量数据库和 RAG ✅ 而是一种分层、高效的四级上下文结构 核心发现：比想象中更简洁 ChatGPT 的&#34;记忆”并非在一个巨大的数据库中搜寻你过去说过的每一句话。相反，它通过巧妙地拼接不同层级的信息，在个性化和响应速度/成本之间取得了平衡。 ChatGPT 上下文的四层结构 1. 会话元数据 · 环境感知：包含你的设备类型、大致位置、时间、订阅等级以及近期的使用习惯（如活跃频率）。 · 作用：让回复适应你的当前环境（如深色模式、地理位置）。临时仅限当前会话，不保存。 2. 用户记忆库 · 长期核心事实：存储你的姓名、职业、偏好、长期目标等关键信息（作者示例中存了33条）。 · 来源：你明确要求&#34;记住这个”，或系统自动识别的重要事实。持久跨会话存在，直到被删除。 3. 近期对话摘要 · 短期兴趣地图：这是最令人意外的部分。它不是完整的历史记录，而是最近约 15 个对话的轻量级摘要（包含时间戳、标题和用户消息片段）。 · 作用：提供一种&#34;连贯感”，让 AI 知道你最近在关注什么，而无需加载全部历史。近期随时间推移更新。 4. 当前会话窗口 · 即时上下文：当前对话的完整记录。采用&#34;滑动窗口”机制，当对话过长超出 Token 限制时，最早的消息会被&#34;挤出”。 · 作用：保证当前对话逻辑的严密和连贯。当前随会话结束或超长而滚动。 为什么这种设计很聪明？ · 效率至上：传统的 RAG 需要对每一次查询都在海量历史中进行搜索，计算成本高且延迟大。 · 抓大放小：ChatGPT 的策略是——“记住重要事实（层级2），了解近期话题概况（层级3），专注当前对话细节（层级4）”。 · 工程哲学的体现：这是一种实用主义的工程设计。它牺牲了对过去每一个微小细节的完美回忆，换取了极其流畅、快速且看似&#34;懂你”的交互体验。 总结 ChatGPT 让你感觉它&#34;记性很好”，并不是因为它真的记得你两年前说的某个琐碎细节，而是因为它始终随身携带一份关于你的&#34;核心档案”（长期记忆）和一份&#34;近期动态简报”（对话摘要）。这是一种极为高效的&#34;伪全知”体验。 阅读原文（作者 @manthanguptaa） https://manthanguptaa.in/posts/chatgpt_memory/ [图片: https://pbs.twimg.com/media/G72dWfLaMAYDe7P?format=jpg&amp;name=orig] Manthan Gupta: I spent the last few days prompting ChatGPT to understand how its memory system actually works. Spoiler alert: There is no RAG used https://manthanguptaa.in/posts/chatgpt_memory/ [图片: https://pbs.twimg.com/media/G7x-vjXakAArpzJ?format=png&amp;name=orig]">
+
+    <link rel="preload" href="/CloudFlare-AI-Insight-Daily/css/compiled/main.min.1a431501cdeb52323c920e7761f7d9e327b2bee53160196c4bd1d34a3fd9fbc9.css" as="style" integrity="sha256-GkMVAc3rUjI8kg53YffZ4yeyvuUxYBlsS9HTSj/Z&#43;8k=" />
+    <link href="/CloudFlare-AI-Insight-Daily/css/compiled/main.min.1a431501cdeb52323c920e7761f7d9e327b2bee53160196c4bd1d34a3fd9fbc9.css" rel="stylesheet" integrity="sha256-GkMVAc3rUjI8kg53YffZ4yeyvuUxYBlsS9HTSj/Z&#43;8k=" />
+
+  
+
+
+
+
+
+
+<script src="/CloudFlare-AI-Insight-Daily/js/main-head.min.94da6f95b126542222dab3a6e07ffefe1aaf63ec3ca555e827b58b80e7d3f0b7.js" integrity="sha256-lNpvlbEmVCIi2rOm4H/&#43;/hqvY&#43;w8pVXoJ7WLgOfT8Lc="></script>
+
+  
+  
+  </head>
+<body>
+    <a href="#content" class="hx:sr-only hx:focus-visible:not-sr-only hx:focus-visible:fixed hx:focus-visible:z-50 hx:focus-visible:top-2 hx:focus-visible:left-2 hx:focus-visible:bg-primary-500 hx:focus-visible:text-white hx:focus-visible:px-4 hx:focus-visible:py-2 hx:focus-visible:rounded-md hx:focus-visible:text-sm hx:focus-visible:font-medium">跳至内容</a><div class="hextra-nav-container hx:sticky hx:top-0 hx:z-20 hx:w-full hx:bg-transparent hx:print:hidden">
+  <div
+    class="hextra-nav-container-blur hx:pointer-events-none hx:absolute hx:z-[-1] hx:h-full hx:w-full hx:bg-white hx:dark:bg-dark hx:shadow-[0_2px_4px_rgba(0,0,0,.02),0_1px_0_rgba(0,0,0,.06)] hx:contrast-more:shadow-[0_0_0_1px_#000] hx:dark:shadow-[0_-1px_0_rgba(255,255,255,.1)_inset] hx:contrast-more:dark:shadow-[0_0_0_1px_#fff]"
+  ></div>
+
+  <nav class="hextra-max-navbar-width hx:mx-auto hx:flex hx:items-center hx:justify-end hx:gap-2 hx:h-16 hx:px-6">
+    <a class="hx:flex hx:items-center hx:hover:opacity-75 hx:ltr:mr-auto hx:rtl:ml-auto" href="/CloudFlare-AI-Insight-Daily/">
+    <img class="hx:mr-2 hx:block hx:dark:hidden" src="/CloudFlare-AI-Insight-Daily/images/logo.svg" alt="Logo" height="20" width="20" />
+    <img class="hx:mr-2 hx:hidden hx:dark:block" src="/CloudFlare-AI-Insight-Daily/images/logo.svg" alt="Dark Logo" height="20" width="20" />
+    <span class="hx:mr-2 hx:font-extrabold hx:inline hx:select-none">AI 资讯日报</span>
+</a>
+<a
+  title=""
+  href="/CloudFlare-AI-Insight-Daily/rss.xml"
+  
+  class="hx:text-sm hx:contrast-more:text-gray-700 hx:contrast-more:dark:text-gray-100 hx:relative hx:-ml-2 hx:hidden hx:whitespace-nowrap hx:p-2 hx:md:inline-flex hx:items-center hx:gap-1 hx:text-gray-600 hx:hover:text-gray-800 hx:dark:text-gray-400 hx:dark:hover:text-gray-200"
+><span class="hx:text-center">RSS</span>
+</a><a
+  title=""
+  href="https://github.com/yxxxxx1/CloudFlare-AI-Insight-Daily"
+  target="_blank" rel="noreferrer"
+  class="hx:text-sm hx:contrast-more:text-gray-700 hx:contrast-more:dark:text-gray-100 hx:relative hx:-ml-2 hx:hidden hx:whitespace-nowrap hx:p-2 hx:md:inline-flex hx:items-center hx:gap-1 hx:text-gray-600 hx:hover:text-gray-800 hx:dark:text-gray-400 hx:dark:hover:text-gray-200"
+><span class="hx:text-center">GitHub</span>
+</a><a
+  title=""
+  href="/CloudFlare-AI-Insight-Daily/daily"
+  
+  class="hx:text-sm hx:contrast-more:text-gray-700 hx:contrast-more:dark:text-gray-100 hx:relative hx:-ml-2 hx:hidden hx:whitespace-nowrap hx:p-2 hx:md:inline-flex hx:items-center hx:gap-1 hx:text-gray-600 hx:hover:text-gray-800 hx:dark:text-gray-400 hx:dark:hover:text-gray-200"
+><span class="hx:text-center">历史日报</span>
+</a><button type="button" aria-label="菜单" aria-expanded="false" class="hextra-hamburger-menu hx:cursor-pointer hx:-mr-2 hx:rounded-sm hx:p-2 hx:active:bg-gray-400/20 hx:md:hidden hx:hextra-focus-visible-inset"><svg height=24 fill="none" viewBox="0 0 24 24" stroke="currentColor"><g><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 8H20"></path></g><g><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16H20"></path></g></svg></button>
+  </nav>
+</div>
+
+  <div class='hx:mx-auto hx:flex hextra-max-page-width'>
+    <aside class="hextra-sidebar-container hx:flex hx:flex-col hx:print:hidden hx:md:top-16 hx:md:shrink-0 hx:md:w-64 hx:md:self-start hx:max-md:[transform:translate3d(0,-100%,0)] hx:md:sticky">
+    <div class="hx:px-4 hx:pt-4 hx:md:hidden">
+      <div class="hextra-search-wrapper hx:relative hx:md:w-64">
+  <div class="hx:relative hx:flex hx:items-center hx:text-gray-900 hx:contrast-more:text-gray-800 hx:dark:text-gray-300 hx:contrast-more:dark:text-gray-300">
+    <input
+      placeholder="搜索文档..."
+      aria-label="搜索文档..."
+      class="hextra-search-input hx:hextra-focus-visible hx:block hx:w-full hx:appearance-none hx:rounded-lg hx:px-3 hx:py-2 hx:transition-colors hx:text-base hx:leading-tight hx:md:text-sm hx:bg-black/[.05] hx:dark:bg-gray-50/10 hx:focus-visible:bg-white hx:dark:focus-visible:bg-dark hx:placeholder:text-gray-500 hx:dark:placeholder:text-gray-400 hx:contrast-more:border hx:contrast-more:border-current"
+      type="search"
+      autocomplete="off"
+      value=""
+      spellcheck="false"
+    />
+    <kbd
+      class="hx:absolute hx:my-1.5 hx:select-none hx:ltr:right-1.5 hx:rtl:left-1.5 hx:h-5 hx:rounded-sm hx:bg-white hx:px-1.5 hx:font-mono hx:text-[10px] hx:font-medium hx:text-gray-500 hx:border hx:border-gray-200 hx:dark:border-gray-100/20 hx:dark:bg-dark/50 hx:contrast-more:border-current hx:contrast-more:text-current hx:contrast-more:dark:border-current hx:items-center hx:gap-1 hx:transition-opacity hx:pointer-events-none hx:hidden hx:sm:flex"
+    >
+      CTRL K
+    </kbd>
+  </div>
+
+  <div>
+    <ul
+      class="hextra-search-results hextra-scrollbar hx:hidden hx:border hx:border-gray-200 hx:bg-white hx:text-gray-100 hx:dark:border-neutral-800 hx:dark:bg-neutral-900 hx:absolute hx:top-full hx:z-20 hx:mt-2 hx:overflow-auto hx:overscroll-contain hx:rounded-xl hx:py-2.5 hx:shadow-xl hx:max-h-[min(calc(50vh-11rem-env(safe-area-inset-bottom)),400px)] hx:md:max-h-[min(calc(100vh-5rem-env(safe-area-inset-bottom)),400px)] hx:inset-x-0 hx:ltr:md:left-auto hx:rtl:md:right-auto hx:contrast-more:border hx:contrast-more:border-gray-900 hx:contrast-more:dark:border-gray-50 hx:w-screen hx:min-h-[100px] hx:max-w-[min(calc(100vw-2rem),calc(100%+20rem))]"
+      aria-label="搜索结果"
+      style="transition: max-height 0.2s ease 0s;"
+    ></ul>
+    <div class="hextra-search-status hx:sr-only" aria-live="polite" role="status"></div>
+  </div>
+</div>
+
+    </div><div class="hextra-scrollbar hx:overflow-y-auto hx:overflow-x-hidden hx:p-4 hx:grow hx:md:h-[calc(100vh-var(--navbar-height)-var(--menu-height))]">
+    <ul class="hx:flex hx:flex-col hx:gap-1 hx:md:hidden">
+      
+      
+    </ul>
+
+    <ul class="hx:flex hx:flex-col hx:gap-1 hx:max-md:hidden">
+        
+          <li class=""><div class="hextra-sidebar-item hx:group hx:relative hx:flex hx:items-center" data-active="false">
+    <a
+      class="hx:flex hx:items-center hx:justify-between hx:gap-2 hx:grow hx:cursor-pointer hx:rounded-sm hx:px-2 hx:py-1.5 hx:text-sm hx:transition-colors [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none]
+      hx:hextra-focus-visible-inset
+        hx:text-gray-500 hx:hover:bg-gray-100 hx:hover:text-gray-900 hx:contrast-more:border hx:contrast-more:border-transparent hx:contrast-more:text-gray-900 hx:contrast-more:hover:border-gray-900 hx:dark:text-neutral-400 hx:dark:hover:bg-primary-100/5 hx:dark:hover:text-gray-50 hx:contrast-more:dark:text-gray-50 hx:contrast-more:dark:hover:border-gray-50"
+      href="/CloudFlare-AI-Insight-Daily/daily/2026-03-01/"
+      
+    >
+      <span class="hx:min-w-0 [word-break:break-word]">AI洞察日报 2026/3/1</span>
+    </a>
+  </div></li>
+          <li class=""><div class="hextra-sidebar-item hx:group hx:relative hx:flex hx:items-center" data-active="false">
+    <a
+      class="hx:flex hx:items-center hx:justify-between hx:gap-2 hx:grow hx:cursor-pointer hx:rounded-sm hx:px-2 hx:py-1.5 hx:text-sm hx:transition-colors [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none]
+      hx:hextra-focus-visible-inset
+        hx:text-gray-500 hx:hover:bg-gray-100 hx:hover:text-gray-900 hx:contrast-more:border hx:contrast-more:border-transparent hx:contrast-more:text-gray-900 hx:contrast-more:hover:border-gray-900 hx:dark:text-neutral-400 hx:dark:hover:bg-primary-100/5 hx:dark:hover:text-gray-50 hx:contrast-more:dark:text-gray-50 hx:contrast-more:dark:hover:border-gray-50"
+      href="/CloudFlare-AI-Insight-Daily/daily/2026-02-28/"
+      
+    >
+      <span class="hx:min-w-0 [word-break:break-word]">AI洞察日报 2026/2/28</span>
+    </a>
+  </div></li>
+          <li class=""><div class="hextra-sidebar-item hx:group hx:relative hx:flex hx:items-center" data-active="false">
+    <a
+      class="hx:flex hx:items-center hx:justify-between hx:gap-2 hx:grow hx:cursor-pointer hx:rounded-sm hx:px-2 hx:py-1.5 hx:text-sm hx:transition-colors [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none]
+      hx:hextra-focus-visible-inset
+        hx:text-gray-500 hx:hover:bg-gray-100 hx:hover:text-gray-900 hx:contrast-more:border hx:contrast-more:border-transparent hx:contrast-more:text-gray-900 hx:contrast-more:hover:border-gray-900 hx:dark:text-neutral-400 hx:dark:hover:bg-primary-100/5 hx:dark:hover:text-gray-50 hx:contrast-more:dark:text-gray-50 hx:contrast-more:dark:hover:border-gray-50"
+      href="/CloudFlare-AI-Insight-Daily/daily/2026-02-27/"
+      
+    >
+      <span class="hx:min-w-0 [word-break:break-word]">AI洞察日报 2026/2/27</span>
+    </a>
+  </div></li>
+          <li class=""><div class="hextra-sidebar-item hx:group hx:relative hx:flex hx:items-center" data-active="false">
+    <a
+      class="hx:flex hx:items-center hx:justify-between hx:gap-2 hx:grow hx:cursor-pointer hx:rounded-sm hx:px-2 hx:py-1.5 hx:text-sm hx:transition-colors [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none]
+      hx:hextra-focus-visible-inset
+        hx:text-gray-500 hx:hover:bg-gray-100 hx:hover:text-gray-900 hx:contrast-more:border hx:contrast-more:border-transparent hx:contrast-more:text-gray-900 hx:contrast-more:hover:border-gray-900 hx:dark:text-neutral-400 hx:dark:hover:bg-primary-100/5 hx:dark:hover:text-gray-50 hx:contrast-more:dark:text-gray-50 hx:contrast-more:dark:hover:border-gray-50"
+      href="/CloudFlare-AI-Insight-Daily/daily/2026-02-26/"
+      
+    >
+      <span class="hx:min-w-0 [word-break:break-word]">AI洞察日报 2026/2/26</span>
+    </a>
+  </div></li>
+          <li class=""><div class="hextra-sidebar-item hx:group hx:relative hx:flex hx:items-center" data-active="false">
+    <a
+      class="hx:flex hx:items-center hx:justify-between hx:gap-2 hx:grow hx:cursor-pointer hx:rounded-sm hx:px-2 hx:py-1.5 hx:text-sm hx:transition-colors [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none]
+      hx:hextra-focus-visible-inset
+        hx:text-gray-500 hx:hover:bg-gray-100 hx:hover:text-gray-900 hx:contrast-more:border hx:contrast-more:border-transparent hx:contrast-more:text-gray-900 hx:contrast-more:hover:border-gray-900 hx:dark:text-neutral-400 hx:dark:hover:bg-primary-100/5 hx:dark:hover:text-gray-50 hx:contrast-more:dark:text-gray-50 hx:contrast-more:dark:hover:border-gray-50"
+      href="/CloudFlare-AI-Insight-Daily/daily/2026-02-25/"
+      
+    >
+      <span class="hx:min-w-0 [word-break:break-word]">AI洞察日报 2026/2/25</span>
+    </a>
+  </div></li>
+          <li class=""><div class="hextra-sidebar-item hx:group hx:relative hx:flex hx:items-center" data-active="false">
+    <a
+      class="hx:flex hx:items-center hx:justify-between hx:gap-2 hx:grow hx:cursor-pointer hx:rounded-sm hx:px-2 hx:py-1.5 hx:text-sm hx:transition-colors [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none]
+      hx:hextra-focus-visible-inset
+        hx:text-gray-500 hx:hover:bg-gray-100 hx:hover:text-gray-900 hx:contrast-more:border hx:contrast-more:border-transparent hx:contrast-more:text-gray-900 hx:contrast-more:hover:border-gray-900 hx:dark:text-neutral-400 hx:dark:hover:bg-primary-100/5 hx:dark:hover:text-gray-50 hx:contrast-more:dark:text-gray-50 hx:contrast-more:dark:hover:border-gray-50"
+      href="/CloudFlare-AI-Insight-Daily/daily/2026-02-24/"
+      
+    >
+      <span class="hx:min-w-0 [word-break:break-word]">AI洞察日报 2026/2/24</span>
+    </a>
+  </div></li>
+          <li class=""><div class="hextra-sidebar-item hx:group hx:relative hx:flex hx:items-center" data-active="false">
+    <a
+      class="hx:flex hx:items-center hx:justify-between hx:gap-2 hx:grow hx:cursor-pointer hx:rounded-sm hx:px-2 hx:py-1.5 hx:text-sm hx:transition-colors [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none]
+      hx:hextra-focus-visible-inset
+        hx:text-gray-500 hx:hover:bg-gray-100 hx:hover:text-gray-900 hx:contrast-more:border hx:contrast-more:border-transparent hx:contrast-more:text-gray-900 hx:contrast-more:hover:border-gray-900 hx:dark:text-neutral-400 hx:dark:hover:bg-primary-100/5 hx:dark:hover:text-gray-50 hx:contrast-more:dark:text-gray-50 hx:contrast-more:dark:hover:border-gray-50"
+      href="/CloudFlare-AI-Insight-Daily/daily/2026-02-23/"
+      
+    >
+      <span class="hx:min-w-0 [word-break:break-word]">AI洞察日报 2026/2/23</span>
+    </a>
+  </div></li>
+          <li class=""><div class="hextra-sidebar-item hx:group hx:relative hx:flex hx:items-center" data-active="false">
+    <a
+      class="hx:flex hx:items-center hx:justify-between hx:gap-2 hx:grow hx:cursor-pointer hx:rounded-sm hx:px-2 hx:py-1.5 hx:text-sm hx:transition-colors [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none]
+      hx:hextra-focus-visible-inset
+        hx:text-gray-500 hx:hover:bg-gray-100 hx:hover:text-gray-900 hx:contrast-more:border hx:contrast-more:border-transparent hx:contrast-more:text-gray-900 hx:contrast-more:hover:border-gray-900 hx:dark:text-neutral-400 hx:dark:hover:bg-primary-100/5 hx:dark:hover:text-gray-50 hx:contrast-more:dark:text-gray-50 hx:contrast-more:dark:hover:border-gray-50"
+      href="/CloudFlare-AI-Insight-Daily/daily/2026-02-22/"
+      
+    >
+      <span class="hx:min-w-0 [word-break:break-word]">AI洞察日报 2026/2/22</span>
+    </a>
+  </div></li>
+          <li class=""><div class="hextra-sidebar-item hx:group hx:relative hx:flex hx:items-center" data-active="false">
+    <a
+      class="hx:flex hx:items-center hx:justify-between hx:gap-2 hx:grow hx:cursor-pointer hx:rounded-sm hx:px-2 hx:py-1.5 hx:text-sm hx:transition-colors [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none]
+      hx:hextra-focus-visible-inset
+        hx:text-gray-500 hx:hover:bg-gray-100 hx:hover:text-gray-900 hx:contrast-more:border hx:contrast-more:border-transparent hx:contrast-more:text-gray-900 hx:contrast-more:hover:border-gray-900 hx:dark:text-neutral-400 hx:dark:hover:bg-primary-100/5 hx:dark:hover:text-gray-50 hx:contrast-more:dark:text-gray-50 hx:contrast-more:dark:hover:border-gray-50"
+      href="/CloudFlare-AI-Insight-Daily/daily/2026-02-21/"
+      
+    >
+      <span class="hx:min-w-0 [word-break:break-word]">AI洞察日报 2026/2/21</span>
+    </a>
+  </div></li>
+          <li class=""><div class="hextra-sidebar-item hx:group hx:relative hx:flex hx:items-center" data-active="false">
+    <a
+      class="hx:flex hx:items-center hx:justify-between hx:gap-2 hx:grow hx:cursor-pointer hx:rounded-sm hx:px-2 hx:py-1.5 hx:text-sm hx:transition-colors [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none]
+      hx:hextra-focus-visible-inset
+        hx:text-gray-500 hx:hover:bg-gray-100 hx:hover:text-gray-900 hx:contrast-more:border hx:contrast-more:border-transparent hx:contrast-more:text-gray-900 hx:contrast-more:hover:border-gray-900 hx:dark:text-neutral-400 hx:dark:hover:bg-primary-100/5 hx:dark:hover:text-gray-50 hx:contrast-more:dark:text-gray-50 hx:contrast-more:dark:hover:border-gray-50"
+      href="/CloudFlare-AI-Insight-Daily/daily/2026-02-20/"
+      
+    >
+      <span class="hx:min-w-0 [word-break:break-word]">AI洞察日报 2026/2/20</span>
+    </a>
+  </div></li>
+          <li class=""><div class="hextra-sidebar-item hx:group hx:relative hx:flex hx:items-center" data-active="false">
+    <a
+      class="hx:flex hx:items-center hx:justify-between hx:gap-2 hx:grow hx:cursor-pointer hx:rounded-sm hx:px-2 hx:py-1.5 hx:text-sm hx:transition-colors [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none]
+      hx:hextra-focus-visible-inset
+        hx:text-gray-500 hx:hover:bg-gray-100 hx:hover:text-gray-900 hx:contrast-more:border hx:contrast-more:border-transparent hx:contrast-more:text-gray-900 hx:contrast-more:hover:border-gray-900 hx:dark:text-neutral-400 hx:dark:hover:bg-primary-100/5 hx:dark:hover:text-gray-50 hx:contrast-more:dark:text-gray-50 hx:contrast-more:dark:hover:border-gray-50"
+      href="/CloudFlare-AI-Insight-Daily/daily/2026-02-19/"
+      
+    >
+      <span class="hx:min-w-0 [word-break:break-word]">AI洞察日报 2026/2/19</span>
+    </a>
+  </div></li>
+          <li class=""><div class="hextra-sidebar-item hx:group hx:relative hx:flex hx:items-center" data-active="false">
+    <a
+      class="hx:flex hx:items-center hx:justify-between hx:gap-2 hx:grow hx:cursor-pointer hx:rounded-sm hx:px-2 hx:py-1.5 hx:text-sm hx:transition-colors [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none]
+      hx:hextra-focus-visible-inset
+        hx:text-gray-500 hx:hover:bg-gray-100 hx:hover:text-gray-900 hx:contrast-more:border hx:contrast-more:border-transparent hx:contrast-more:text-gray-900 hx:contrast-more:hover:border-gray-900 hx:dark:text-neutral-400 hx:dark:hover:bg-primary-100/5 hx:dark:hover:text-gray-50 hx:contrast-more:dark:text-gray-50 hx:contrast-more:dark:hover:border-gray-50"
+      href="/CloudFlare-AI-Insight-Daily/daily/2026-02-18/"
+      
+    >
+      <span class="hx:min-w-0 [word-break:break-word]">AI洞察日报 2026/2/18</span>
+    </a>
+  </div></li>
+          <li class=""><div class="hextra-sidebar-item hx:group hx:relative hx:flex hx:items-center" data-active="false">
+    <a
+      class="hx:flex hx:items-center hx:justify-between hx:gap-2 hx:grow hx:cursor-pointer hx:rounded-sm hx:px-2 hx:py-1.5 hx:text-sm hx:transition-colors [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none]
+      hx:hextra-focus-visible-inset
+        hx:text-gray-500 hx:hover:bg-gray-100 hx:hover:text-gray-900 hx:contrast-more:border hx:contrast-more:border-transparent hx:contrast-more:text-gray-900 hx:contrast-more:hover:border-gray-900 hx:dark:text-neutral-400 hx:dark:hover:bg-primary-100/5 hx:dark:hover:text-gray-50 hx:contrast-more:dark:text-gray-50 hx:contrast-more:dark:hover:border-gray-50"
+      href="/CloudFlare-AI-Insight-Daily/daily/2026-02-17/"
+      
+    >
+      <span class="hx:min-w-0 [word-break:break-word]">AI洞察日报 2026/2/17</span>
+    </a>
+  </div></li>
+          <li class=""><div class="hextra-sidebar-item hx:group hx:relative hx:flex hx:items-center" data-active="false">
+    <a
+      class="hx:flex hx:items-center hx:justify-between hx:gap-2 hx:grow hx:cursor-pointer hx:rounded-sm hx:px-2 hx:py-1.5 hx:text-sm hx:transition-colors [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none]
+      hx:hextra-focus-visible-inset
+        hx:text-gray-500 hx:hover:bg-gray-100 hx:hover:text-gray-900 hx:contrast-more:border hx:contrast-more:border-transparent hx:contrast-more:text-gray-900 hx:contrast-more:hover:border-gray-900 hx:dark:text-neutral-400 hx:dark:hover:bg-primary-100/5 hx:dark:hover:text-gray-50 hx:contrast-more:dark:text-gray-50 hx:contrast-more:dark:hover:border-gray-50"
+      href="/CloudFlare-AI-Insight-Daily/daily/2026-02-16/"
+      
+    >
+      <span class="hx:min-w-0 [word-break:break-word]">AI洞察日报 2026/2/16</span>
+    </a>
+  </div></li>
+          <li class=""><div class="hextra-sidebar-item hx:group hx:relative hx:flex hx:items-center" data-active="false">
+    <a
+      class="hx:flex hx:items-center hx:justify-between hx:gap-2 hx:grow hx:cursor-pointer hx:rounded-sm hx:px-2 hx:py-1.5 hx:text-sm hx:transition-colors [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none]
+      hx:hextra-focus-visible-inset
+        hx:text-gray-500 hx:hover:bg-gray-100 hx:hover:text-gray-900 hx:contrast-more:border hx:contrast-more:border-transparent hx:contrast-more:text-gray-900 hx:contrast-more:hover:border-gray-900 hx:dark:text-neutral-400 hx:dark:hover:bg-primary-100/5 hx:dark:hover:text-gray-50 hx:contrast-more:dark:text-gray-50 hx:contrast-more:dark:hover:border-gray-50"
+      href="/CloudFlare-AI-Insight-Daily/daily/2026-02-15/"
+      
+    >
+      <span class="hx:min-w-0 [word-break:break-word]">AI洞察日报 2026/2/15</span>
+    </a>
+  </div></li>
+          <li class=""><div class="hextra-sidebar-item hx:group hx:relative hx:flex hx:items-center" data-active="false">
+    <a
+      class="hx:flex hx:items-center hx:justify-between hx:gap-2 hx:grow hx:cursor-pointer hx:rounded-sm hx:px-2 hx:py-1.5 hx:text-sm hx:transition-colors [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none]
+      hx:hextra-focus-visible-inset
+        hx:text-gray-500 hx:hover:bg-gray-100 hx:hover:text-gray-900 hx:contrast-more:border hx:contrast-more:border-transparent hx:contrast-more:text-gray-900 hx:contrast-more:hover:border-gray-900 hx:dark:text-neutral-400 hx:dark:hover:bg-primary-100/5 hx:dark:hover:text-gray-50 hx:contrast-more:dark:text-gray-50 hx:contrast-more:dark:hover:border-gray-50"
+      href="/CloudFlare-AI-Insight-Daily/daily/2026-02-14/"
+      
+    >
+      <span class="hx:min-w-0 [word-break:break-word]">AI洞察日报 2026/2/14</span>
+    </a>
+  </div></li>
+          <li class=""><div class="hextra-sidebar-item hx:group hx:relative hx:flex hx:items-center" data-active="false">
+    <a
+      class="hx:flex hx:items-center hx:justify-between hx:gap-2 hx:grow hx:cursor-pointer hx:rounded-sm hx:px-2 hx:py-1.5 hx:text-sm hx:transition-colors [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none]
+      hx:hextra-focus-visible-inset
+        hx:text-gray-500 hx:hover:bg-gray-100 hx:hover:text-gray-900 hx:contrast-more:border hx:contrast-more:border-transparent hx:contrast-more:text-gray-900 hx:contrast-more:hover:border-gray-900 hx:dark:text-neutral-400 hx:dark:hover:bg-primary-100/5 hx:dark:hover:text-gray-50 hx:contrast-more:dark:text-gray-50 hx:contrast-more:dark:hover:border-gray-50"
+      href="/CloudFlare-AI-Insight-Daily/daily/2026-02-13/"
+      
+    >
+      <span class="hx:min-w-0 [word-break:break-word]">AI洞察日报 2026/2/13</span>
+    </a>
+  </div></li>
+          <li class=""><div class="hextra-sidebar-item hx:group hx:relative hx:flex hx:items-center" data-active="false">
+    <a
+      class="hx:flex hx:items-center hx:justify-between hx:gap-2 hx:grow hx:cursor-pointer hx:rounded-sm hx:px-2 hx:py-1.5 hx:text-sm hx:transition-colors [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none]
+      hx:hextra-focus-visible-inset
+        hx:text-gray-500 hx:hover:bg-gray-100 hx:hover:text-gray-900 hx:contrast-more:border hx:contrast-more:border-transparent hx:contrast-more:text-gray-900 hx:contrast-more:hover:border-gray-900 hx:dark:text-neutral-400 hx:dark:hover:bg-primary-100/5 hx:dark:hover:text-gray-50 hx:contrast-more:dark:text-gray-50 hx:contrast-more:dark:hover:border-gray-50"
+      href="/CloudFlare-AI-Insight-Daily/daily/2026-02-12/"
+      
+    >
+      <span class="hx:min-w-0 [word-break:break-word]">AI洞察日报 2026/2/12</span>
+    </a>
+  </div></li>
+          <li class=""><div class="hextra-sidebar-item hx:group hx:relative hx:flex hx:items-center" data-active="false">
+    <a
+      class="hx:flex hx:items-center hx:justify-between hx:gap-2 hx:grow hx:cursor-pointer hx:rounded-sm hx:px-2 hx:py-1.5 hx:text-sm hx:transition-colors [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none]
+      hx:hextra-focus-visible-inset
+        hx:text-gray-500 hx:hover:bg-gray-100 hx:hover:text-gray-900 hx:contrast-more:border hx:contrast-more:border-transparent hx:contrast-more:text-gray-900 hx:contrast-more:hover:border-gray-900 hx:dark:text-neutral-400 hx:dark:hover:bg-primary-100/5 hx:dark:hover:text-gray-50 hx:contrast-more:dark:text-gray-50 hx:contrast-more:dark:hover:border-gray-50"
+      href="/CloudFlare-AI-Insight-Daily/daily/2026-02-11/"
+      
+    >
+      <span class="hx:min-w-0 [word-break:break-word]">AI洞察日报 2026/2/11</span>
+    </a>
+  </div></li>
+          <li class=""><div class="hextra-sidebar-item hx:group hx:relative hx:flex hx:items-center" data-active="false">
+    <a
+      class="hx:flex hx:items-center hx:justify-between hx:gap-2 hx:grow hx:cursor-pointer hx:rounded-sm hx:px-2 hx:py-1.5 hx:text-sm hx:transition-colors [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none]
+      hx:hextra-focus-visible-inset
+        hx:text-gray-500 hx:hover:bg-gray-100 hx:hover:text-gray-900 hx:contrast-more:border hx:contrast-more:border-transparent hx:contrast-more:text-gray-900 hx:contrast-more:hover:border-gray-900 hx:dark:text-neutral-400 hx:dark:hover:bg-primary-100/5 hx:dark:hover:text-gray-50 hx:contrast-more:dark:text-gray-50 hx:contrast-more:dark:hover:border-gray-50"
+      href="/CloudFlare-AI-Insight-Daily/daily/2026-02-10/"
+      
+    >
+      <span class="hx:min-w-0 [word-break:break-word]">AI洞察日报 2026/2/10</span>
+    </a>
+  </div></li>
+          <li class=""><div class="hextra-sidebar-item hx:group hx:relative hx:flex hx:items-center" data-active="false">
+    <a
+      class="hx:flex hx:items-center hx:justify-between hx:gap-2 hx:grow hx:cursor-pointer hx:rounded-sm hx:px-2 hx:py-1.5 hx:text-sm hx:transition-colors [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none]
+      hx:hextra-focus-visible-inset
+        hx:text-gray-500 hx:hover:bg-gray-100 hx:hover:text-gray-900 hx:contrast-more:border hx:contrast-more:border-transparent hx:contrast-more:text-gray-900 hx:contrast-more:hover:border-gray-900 hx:dark:text-neutral-400 hx:dark:hover:bg-primary-100/5 hx:dark:hover:text-gray-50 hx:contrast-more:dark:text-gray-50 hx:contrast-more:dark:hover:border-gray-50"
+      href="/CloudFlare-AI-Insight-Daily/daily/2026-02-09/"
+      
+    >
+      <span class="hx:min-w-0 [word-break:break-word]">AI洞察日报 2026/2/9</span>
+    </a>
+  </div></li>
+          <li class=""><div class="hextra-sidebar-item hx:group hx:relative hx:flex hx:items-center" data-active="false">
+    <a
+      class="hx:flex hx:items-center hx:justify-between hx:gap-2 hx:grow hx:cursor-pointer hx:rounded-sm hx:px-2 hx:py-1.5 hx:text-sm hx:transition-colors [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none]
+      hx:hextra-focus-visible-inset
+        hx:text-gray-500 hx:hover:bg-gray-100 hx:hover:text-gray-900 hx:contrast-more:border hx:contrast-more:border-transparent hx:contrast-more:text-gray-900 hx:contrast-more:hover:border-gray-900 hx:dark:text-neutral-400 hx:dark:hover:bg-primary-100/5 hx:dark:hover:text-gray-50 hx:contrast-more:dark:text-gray-50 hx:contrast-more:dark:hover:border-gray-50"
+      href="/CloudFlare-AI-Insight-Daily/daily/2026-02-08/"
+      
+    >
+      <span class="hx:min-w-0 [word-break:break-word]">AI洞察日报 2026/2/8</span>
+    </a>
+  </div></li>
+          <li class=""><div class="hextra-sidebar-item hx:group hx:relative hx:flex hx:items-center" data-active="false">
+    <a
+      class="hx:flex hx:items-center hx:justify-between hx:gap-2 hx:grow hx:cursor-pointer hx:rounded-sm hx:px-2 hx:py-1.5 hx:text-sm hx:transition-colors [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none]
+      hx:hextra-focus-visible-inset
+        hx:text-gray-500 hx:hover:bg-gray-100 hx:hover:text-gray-900 hx:contrast-more:border hx:contrast-more:border-transparent hx:contrast-more:text-gray-900 hx:contrast-more:hover:border-gray-900 hx:dark:text-neutral-400 hx:dark:hover:bg-primary-100/5 hx:dark:hover:text-gray-50 hx:contrast-more:dark:text-gray-50 hx:contrast-more:dark:hover:border-gray-50"
+      href="/CloudFlare-AI-Insight-Daily/daily/2026-02-07/"
+      
+    >
+      <span class="hx:min-w-0 [word-break:break-word]">AI洞察日报 2026/2/7</span>
+    </a>
+  </div></li>
+          <li class=""><div class="hextra-sidebar-item hx:group hx:relative hx:flex hx:items-center" data-active="false">
+    <a
+      class="hx:flex hx:items-center hx:justify-between hx:gap-2 hx:grow hx:cursor-pointer hx:rounded-sm hx:px-2 hx:py-1.5 hx:text-sm hx:transition-colors [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none]
+      hx:hextra-focus-visible-inset
+        hx:text-gray-500 hx:hover:bg-gray-100 hx:hover:text-gray-900 hx:contrast-more:border hx:contrast-more:border-transparent hx:contrast-more:text-gray-900 hx:contrast-more:hover:border-gray-900 hx:dark:text-neutral-400 hx:dark:hover:bg-primary-100/5 hx:dark:hover:text-gray-50 hx:contrast-more:dark:text-gray-50 hx:contrast-more:dark:hover:border-gray-50"
+      href="/CloudFlare-AI-Insight-Daily/daily/2026-02-06/"
+      
+    >
+      <span class="hx:min-w-0 [word-break:break-word]">AI洞察日报 2026/2/6</span>
+    </a>
+  </div></li>
+          <li class=""><div class="hextra-sidebar-item hx:group hx:relative hx:flex hx:items-center" data-active="false">
+    <a
+      class="hx:flex hx:items-center hx:justify-between hx:gap-2 hx:grow hx:cursor-pointer hx:rounded-sm hx:px-2 hx:py-1.5 hx:text-sm hx:transition-colors [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none]
+      hx:hextra-focus-visible-inset
+        hx:text-gray-500 hx:hover:bg-gray-100 hx:hover:text-gray-900 hx:contrast-more:border hx:contrast-more:border-transparent hx:contrast-more:text-gray-900 hx:contrast-more:hover:border-gray-900 hx:dark:text-neutral-400 hx:dark:hover:bg-primary-100/5 hx:dark:hover:text-gray-50 hx:contrast-more:dark:text-gray-50 hx:contrast-more:dark:hover:border-gray-50"
+      href="/CloudFlare-AI-Insight-Daily/daily/2026-02-05/"
+      
+    >
+      <span class="hx:min-w-0 [word-break:break-word]">AI洞察日报 2026/2/5</span>
+    </a>
+  </div></li>
+          <li class=""><div class="hextra-sidebar-item hx:group hx:relative hx:flex hx:items-center" data-active="false">
+    <a
+      class="hx:flex hx:items-center hx:justify-between hx:gap-2 hx:grow hx:cursor-pointer hx:rounded-sm hx:px-2 hx:py-1.5 hx:text-sm hx:transition-colors [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none]
+      hx:hextra-focus-visible-inset
+        hx:text-gray-500 hx:hover:bg-gray-100 hx:hover:text-gray-900 hx:contrast-more:border hx:contrast-more:border-transparent hx:contrast-more:text-gray-900 hx:contrast-more:hover:border-gray-900 hx:dark:text-neutral-400 hx:dark:hover:bg-primary-100/5 hx:dark:hover:text-gray-50 hx:contrast-more:dark:text-gray-50 hx:contrast-more:dark:hover:border-gray-50"
+      href="/CloudFlare-AI-Insight-Daily/daily/2026-02-04/"
+      
+    >
+      <span class="hx:min-w-0 [word-break:break-word]">AI洞察日报 2026/2/4</span>
+    </a>
+  </div></li>
+          <li class=""><div class="hextra-sidebar-item hx:group hx:relative hx:flex hx:items-center" data-active="false">
+    <a
+      class="hx:flex hx:items-center hx:justify-between hx:gap-2 hx:grow hx:cursor-pointer hx:rounded-sm hx:px-2 hx:py-1.5 hx:text-sm hx:transition-colors [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none]
+      hx:hextra-focus-visible-inset
+        hx:text-gray-500 hx:hover:bg-gray-100 hx:hover:text-gray-900 hx:contrast-more:border hx:contrast-more:border-transparent hx:contrast-more:text-gray-900 hx:contrast-more:hover:border-gray-900 hx:dark:text-neutral-400 hx:dark:hover:bg-primary-100/5 hx:dark:hover:text-gray-50 hx:contrast-more:dark:text-gray-50 hx:contrast-more:dark:hover:border-gray-50"
+      href="/CloudFlare-AI-Insight-Daily/daily/2026-02-03/"
+      
+    >
+      <span class="hx:min-w-0 [word-break:break-word]">AI洞察日报 2026/2/3</span>
+    </a>
+  </div></li>
+          <li class=""><div class="hextra-sidebar-item hx:group hx:relative hx:flex hx:items-center" data-active="false">
+    <a
+      class="hx:flex hx:items-center hx:justify-between hx:gap-2 hx:grow hx:cursor-pointer hx:rounded-sm hx:px-2 hx:py-1.5 hx:text-sm hx:transition-colors [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none]
+      hx:hextra-focus-visible-inset
+        hx:text-gray-500 hx:hover:bg-gray-100 hx:hover:text-gray-900 hx:contrast-more:border hx:contrast-more:border-transparent hx:contrast-more:text-gray-900 hx:contrast-more:hover:border-gray-900 hx:dark:text-neutral-400 hx:dark:hover:bg-primary-100/5 hx:dark:hover:text-gray-50 hx:contrast-more:dark:text-gray-50 hx:contrast-more:dark:hover:border-gray-50"
+      href="/CloudFlare-AI-Insight-Daily/daily/2026-02-02/"
+      
+    >
+      <span class="hx:min-w-0 [word-break:break-word]">AI洞察日报 2026/2/2</span>
+    </a>
+  </div></li>
+          <li class=""><div class="hextra-sidebar-item hx:group hx:relative hx:flex hx:items-center" data-active="false">
+    <a
+      class="hx:flex hx:items-center hx:justify-between hx:gap-2 hx:grow hx:cursor-pointer hx:rounded-sm hx:px-2 hx:py-1.5 hx:text-sm hx:transition-colors [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none]
+      hx:hextra-focus-visible-inset
+        hx:text-gray-500 hx:hover:bg-gray-100 hx:hover:text-gray-900 hx:contrast-more:border hx:contrast-more:border-transparent hx:contrast-more:text-gray-900 hx:contrast-more:hover:border-gray-900 hx:dark:text-neutral-400 hx:dark:hover:bg-primary-100/5 hx:dark:hover:text-gray-50 hx:contrast-more:dark:text-gray-50 hx:contrast-more:dark:hover:border-gray-50"
+      href="/CloudFlare-AI-Insight-Daily/daily/2026-02-01/"
+      
+    >
+      <span class="hx:min-w-0 [word-break:break-word]">AI洞察日报 2026/2/1</span>
+    </a>
+  </div></li>
+          <li class=""><div class="hextra-sidebar-item hx:group hx:relative hx:flex hx:items-center" data-active="false">
+    <a
+      class="hx:flex hx:items-center hx:justify-between hx:gap-2 hx:grow hx:cursor-pointer hx:rounded-sm hx:px-2 hx:py-1.5 hx:text-sm hx:transition-colors [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none]
+      hx:hextra-focus-visible-inset
+        hx:text-gray-500 hx:hover:bg-gray-100 hx:hover:text-gray-900 hx:contrast-more:border hx:contrast-more:border-transparent hx:contrast-more:text-gray-900 hx:contrast-more:hover:border-gray-900 hx:dark:text-neutral-400 hx:dark:hover:bg-primary-100/5 hx:dark:hover:text-gray-50 hx:contrast-more:dark:text-gray-50 hx:contrast-more:dark:hover:border-gray-50"
+      href="/CloudFlare-AI-Insight-Daily/daily/2026-01-31/"
+      
+    >
+      <span class="hx:min-w-0 [word-break:break-word]">AI洞察日报 2026/1/31</span>
+    </a>
+  </div></li>
+          <li class=""><div class="hextra-sidebar-item hx:group hx:relative hx:flex hx:items-center" data-active="false">
+    <a
+      class="hx:flex hx:items-center hx:justify-between hx:gap-2 hx:grow hx:cursor-pointer hx:rounded-sm hx:px-2 hx:py-1.5 hx:text-sm hx:transition-colors [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none]
+      hx:hextra-focus-visible-inset
+        hx:text-gray-500 hx:hover:bg-gray-100 hx:hover:text-gray-900 hx:contrast-more:border hx:contrast-more:border-transparent hx:contrast-more:text-gray-900 hx:contrast-more:hover:border-gray-900 hx:dark:text-neutral-400 hx:dark:hover:bg-primary-100/5 hx:dark:hover:text-gray-50 hx:contrast-more:dark:text-gray-50 hx:contrast-more:dark:hover:border-gray-50"
+      href="/CloudFlare-AI-Insight-Daily/daily/2026-01-30/"
+      
+    >
+      <span class="hx:min-w-0 [word-break:break-word]">AI洞察日报 2026/1/30</span>
+    </a>
+  </div></li>
+          <li class=""><div class="hextra-sidebar-item hx:group hx:relative hx:flex hx:items-center" data-active="false">
+    <a
+      class="hx:flex hx:items-center hx:justify-between hx:gap-2 hx:grow hx:cursor-pointer hx:rounded-sm hx:px-2 hx:py-1.5 hx:text-sm hx:transition-colors [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none]
+      hx:hextra-focus-visible-inset
+        hx:text-gray-500 hx:hover:bg-gray-100 hx:hover:text-gray-900 hx:contrast-more:border hx:contrast-more:border-transparent hx:contrast-more:text-gray-900 hx:contrast-more:hover:border-gray-900 hx:dark:text-neutral-400 hx:dark:hover:bg-primary-100/5 hx:dark:hover:text-gray-50 hx:contrast-more:dark:text-gray-50 hx:contrast-more:dark:hover:border-gray-50"
+      href="/CloudFlare-AI-Insight-Daily/daily/2026-01-29/"
+      
+    >
+      <span class="hx:min-w-0 [word-break:break-word]">AI洞察日报 2026/1/29</span>
+    </a>
+  </div></li>
+          <li class=""><div class="hextra-sidebar-item hx:group hx:relative hx:flex hx:items-center" data-active="false">
+    <a
+      class="hx:flex hx:items-center hx:justify-between hx:gap-2 hx:grow hx:cursor-pointer hx:rounded-sm hx:px-2 hx:py-1.5 hx:text-sm hx:transition-colors [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none]
+      hx:hextra-focus-visible-inset
+        hx:text-gray-500 hx:hover:bg-gray-100 hx:hover:text-gray-900 hx:contrast-more:border hx:contrast-more:border-transparent hx:contrast-more:text-gray-900 hx:contrast-more:hover:border-gray-900 hx:dark:text-neutral-400 hx:dark:hover:bg-primary-100/5 hx:dark:hover:text-gray-50 hx:contrast-more:dark:text-gray-50 hx:contrast-more:dark:hover:border-gray-50"
+      href="/CloudFlare-AI-Insight-Daily/daily/2026-01-28/"
+      
+    >
+      <span class="hx:min-w-0 [word-break:break-word]">AI洞察日报 2026/1/28</span>
+    </a>
+  </div></li>
+          <li class=""><div class="hextra-sidebar-item hx:group hx:relative hx:flex hx:items-center" data-active="false">
+    <a
+      class="hx:flex hx:items-center hx:justify-between hx:gap-2 hx:grow hx:cursor-pointer hx:rounded-sm hx:px-2 hx:py-1.5 hx:text-sm hx:transition-colors [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none]
+      hx:hextra-focus-visible-inset
+        hx:text-gray-500 hx:hover:bg-gray-100 hx:hover:text-gray-900 hx:contrast-more:border hx:contrast-more:border-transparent hx:contrast-more:text-gray-900 hx:contrast-more:hover:border-gray-900 hx:dark:text-neutral-400 hx:dark:hover:bg-primary-100/5 hx:dark:hover:text-gray-50 hx:contrast-more:dark:text-gray-50 hx:contrast-more:dark:hover:border-gray-50"
+      href="/CloudFlare-AI-Insight-Daily/daily/2026-01-27/"
+      
+    >
+      <span class="hx:min-w-0 [word-break:break-word]">AI洞察日报 2026/1/27</span>
+    </a>
+  </div></li>
+          <li class=""><div class="hextra-sidebar-item hx:group hx:relative hx:flex hx:items-center" data-active="false">
+    <a
+      class="hx:flex hx:items-center hx:justify-between hx:gap-2 hx:grow hx:cursor-pointer hx:rounded-sm hx:px-2 hx:py-1.5 hx:text-sm hx:transition-colors [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none]
+      hx:hextra-focus-visible-inset
+        hx:text-gray-500 hx:hover:bg-gray-100 hx:hover:text-gray-900 hx:contrast-more:border hx:contrast-more:border-transparent hx:contrast-more:text-gray-900 hx:contrast-more:hover:border-gray-900 hx:dark:text-neutral-400 hx:dark:hover:bg-primary-100/5 hx:dark:hover:text-gray-50 hx:contrast-more:dark:text-gray-50 hx:contrast-more:dark:hover:border-gray-50"
+      href="/CloudFlare-AI-Insight-Daily/daily/2026-01-26/"
+      
+    >
+      <span class="hx:min-w-0 [word-break:break-word]">AI洞察日报 2026/1/26</span>
+    </a>
+  </div></li>
+          <li class=""><div class="hextra-sidebar-item hx:group hx:relative hx:flex hx:items-center" data-active="false">
+    <a
+      class="hx:flex hx:items-center hx:justify-between hx:gap-2 hx:grow hx:cursor-pointer hx:rounded-sm hx:px-2 hx:py-1.5 hx:text-sm hx:transition-colors [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none]
+      hx:hextra-focus-visible-inset
+        hx:text-gray-500 hx:hover:bg-gray-100 hx:hover:text-gray-900 hx:contrast-more:border hx:contrast-more:border-transparent hx:contrast-more:text-gray-900 hx:contrast-more:hover:border-gray-900 hx:dark:text-neutral-400 hx:dark:hover:bg-primary-100/5 hx:dark:hover:text-gray-50 hx:contrast-more:dark:text-gray-50 hx:contrast-more:dark:hover:border-gray-50"
+      href="/CloudFlare-AI-Insight-Daily/daily/2026-01-25/"
+      
+    >
+      <span class="hx:min-w-0 [word-break:break-word]">AI洞察日报 2026/1/25</span>
+    </a>
+  </div></li>
+          <li class=""><div class="hextra-sidebar-item hx:group hx:relative hx:flex hx:items-center" data-active="false">
+    <a
+      class="hx:flex hx:items-center hx:justify-between hx:gap-2 hx:grow hx:cursor-pointer hx:rounded-sm hx:px-2 hx:py-1.5 hx:text-sm hx:transition-colors [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none]
+      hx:hextra-focus-visible-inset
+        hx:text-gray-500 hx:hover:bg-gray-100 hx:hover:text-gray-900 hx:contrast-more:border hx:contrast-more:border-transparent hx:contrast-more:text-gray-900 hx:contrast-more:hover:border-gray-900 hx:dark:text-neutral-400 hx:dark:hover:bg-primary-100/5 hx:dark:hover:text-gray-50 hx:contrast-more:dark:text-gray-50 hx:contrast-more:dark:hover:border-gray-50"
+      href="/CloudFlare-AI-Insight-Daily/daily/2026-01-24/"
+      
+    >
+      <span class="hx:min-w-0 [word-break:break-word]">AI洞察日报 2026/1/24</span>
+    </a>
+  </div></li>
+          <li class=""><div class="hextra-sidebar-item hx:group hx:relative hx:flex hx:items-center" data-active="false">
+    <a
+      class="hx:flex hx:items-center hx:justify-between hx:gap-2 hx:grow hx:cursor-pointer hx:rounded-sm hx:px-2 hx:py-1.5 hx:text-sm hx:transition-colors [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none]
+      hx:hextra-focus-visible-inset
+        hx:text-gray-500 hx:hover:bg-gray-100 hx:hover:text-gray-900 hx:contrast-more:border hx:contrast-more:border-transparent hx:contrast-more:text-gray-900 hx:contrast-more:hover:border-gray-900 hx:dark:text-neutral-400 hx:dark:hover:bg-primary-100/5 hx:dark:hover:text-gray-50 hx:contrast-more:dark:text-gray-50 hx:contrast-more:dark:hover:border-gray-50"
+      href="/CloudFlare-AI-Insight-Daily/daily/2026-01-23/"
+      
+    >
+      <span class="hx:min-w-0 [word-break:break-word]">AI洞察日报 2026/1/23</span>
+    </a>
+  </div></li>
+          <li class=""><div class="hextra-sidebar-item hx:group hx:relative hx:flex hx:items-center" data-active="false">
+    <a
+      class="hx:flex hx:items-center hx:justify-between hx:gap-2 hx:grow hx:cursor-pointer hx:rounded-sm hx:px-2 hx:py-1.5 hx:text-sm hx:transition-colors [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none]
+      hx:hextra-focus-visible-inset
+        hx:text-gray-500 hx:hover:bg-gray-100 hx:hover:text-gray-900 hx:contrast-more:border hx:contrast-more:border-transparent hx:contrast-more:text-gray-900 hx:contrast-more:hover:border-gray-900 hx:dark:text-neutral-400 hx:dark:hover:bg-primary-100/5 hx:dark:hover:text-gray-50 hx:contrast-more:dark:text-gray-50 hx:contrast-more:dark:hover:border-gray-50"
+      href="/CloudFlare-AI-Insight-Daily/daily/2026-01-22/"
+      
+    >
+      <span class="hx:min-w-0 [word-break:break-word]">AI洞察日报 2026/1/22</span>
+    </a>
+  </div></li>
+          <li class=""><div class="hextra-sidebar-item hx:group hx:relative hx:flex hx:items-center" data-active="false">
+    <a
+      class="hx:flex hx:items-center hx:justify-between hx:gap-2 hx:grow hx:cursor-pointer hx:rounded-sm hx:px-2 hx:py-1.5 hx:text-sm hx:transition-colors [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none]
+      hx:hextra-focus-visible-inset
+        hx:text-gray-500 hx:hover:bg-gray-100 hx:hover:text-gray-900 hx:contrast-more:border hx:contrast-more:border-transparent hx:contrast-more:text-gray-900 hx:contrast-more:hover:border-gray-900 hx:dark:text-neutral-400 hx:dark:hover:bg-primary-100/5 hx:dark:hover:text-gray-50 hx:contrast-more:dark:text-gray-50 hx:contrast-more:dark:hover:border-gray-50"
+      href="/CloudFlare-AI-Insight-Daily/daily/2026-01-21/"
+      
+    >
+      <span class="hx:min-w-0 [word-break:break-word]">AI洞察日报 2026/1/21</span>
+    </a>
+  </div></li>
+          <li class=""><div class="hextra-sidebar-item hx:group hx:relative hx:flex hx:items-center" data-active="false">
+    <a
+      class="hx:flex hx:items-center hx:justify-between hx:gap-2 hx:grow hx:cursor-pointer hx:rounded-sm hx:px-2 hx:py-1.5 hx:text-sm hx:transition-colors [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none]
+      hx:hextra-focus-visible-inset
+        hx:text-gray-500 hx:hover:bg-gray-100 hx:hover:text-gray-900 hx:contrast-more:border hx:contrast-more:border-transparent hx:contrast-more:text-gray-900 hx:contrast-more:hover:border-gray-900 hx:dark:text-neutral-400 hx:dark:hover:bg-primary-100/5 hx:dark:hover:text-gray-50 hx:contrast-more:dark:text-gray-50 hx:contrast-more:dark:hover:border-gray-50"
+      href="/CloudFlare-AI-Insight-Daily/daily/2026-01-20/"
+      
+    >
+      <span class="hx:min-w-0 [word-break:break-word]">AI洞察日报 2026/1/20</span>
+    </a>
+  </div></li>
+          <li class=""><div class="hextra-sidebar-item hx:group hx:relative hx:flex hx:items-center" data-active="false">
+    <a
+      class="hx:flex hx:items-center hx:justify-between hx:gap-2 hx:grow hx:cursor-pointer hx:rounded-sm hx:px-2 hx:py-1.5 hx:text-sm hx:transition-colors [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none]
+      hx:hextra-focus-visible-inset
+        hx:text-gray-500 hx:hover:bg-gray-100 hx:hover:text-gray-900 hx:contrast-more:border hx:contrast-more:border-transparent hx:contrast-more:text-gray-900 hx:contrast-more:hover:border-gray-900 hx:dark:text-neutral-400 hx:dark:hover:bg-primary-100/5 hx:dark:hover:text-gray-50 hx:contrast-more:dark:text-gray-50 hx:contrast-more:dark:hover:border-gray-50"
+      href="/CloudFlare-AI-Insight-Daily/daily/2026-01-19/"
+      
+    >
+      <span class="hx:min-w-0 [word-break:break-word]">AI洞察日报 2026/1/19</span>
+    </a>
+  </div></li>
+          <li class=""><div class="hextra-sidebar-item hx:group hx:relative hx:flex hx:items-center" data-active="false">
+    <a
+      class="hx:flex hx:items-center hx:justify-between hx:gap-2 hx:grow hx:cursor-pointer hx:rounded-sm hx:px-2 hx:py-1.5 hx:text-sm hx:transition-colors [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none]
+      hx:hextra-focus-visible-inset
+        hx:text-gray-500 hx:hover:bg-gray-100 hx:hover:text-gray-900 hx:contrast-more:border hx:contrast-more:border-transparent hx:contrast-more:text-gray-900 hx:contrast-more:hover:border-gray-900 hx:dark:text-neutral-400 hx:dark:hover:bg-primary-100/5 hx:dark:hover:text-gray-50 hx:contrast-more:dark:text-gray-50 hx:contrast-more:dark:hover:border-gray-50"
+      href="/CloudFlare-AI-Insight-Daily/daily/2026-01-18/"
+      
+    >
+      <span class="hx:min-w-0 [word-break:break-word]">AI洞察日报 2026/1/18</span>
+    </a>
+  </div></li>
+          <li class=""><div class="hextra-sidebar-item hx:group hx:relative hx:flex hx:items-center" data-active="false">
+    <a
+      class="hx:flex hx:items-center hx:justify-between hx:gap-2 hx:grow hx:cursor-pointer hx:rounded-sm hx:px-2 hx:py-1.5 hx:text-sm hx:transition-colors [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none]
+      hx:hextra-focus-visible-inset
+        hx:text-gray-500 hx:hover:bg-gray-100 hx:hover:text-gray-900 hx:contrast-more:border hx:contrast-more:border-transparent hx:contrast-more:text-gray-900 hx:contrast-more:hover:border-gray-900 hx:dark:text-neutral-400 hx:dark:hover:bg-primary-100/5 hx:dark:hover:text-gray-50 hx:contrast-more:dark:text-gray-50 hx:contrast-more:dark:hover:border-gray-50"
+      href="/CloudFlare-AI-Insight-Daily/daily/2026-01-17/"
+      
+    >
+      <span class="hx:min-w-0 [word-break:break-word]">AI洞察日报 2026/1/17</span>
+    </a>
+  </div></li>
+          <li class=""><div class="hextra-sidebar-item hx:group hx:relative hx:flex hx:items-center" data-active="false">
+    <a
+      class="hx:flex hx:items-center hx:justify-between hx:gap-2 hx:grow hx:cursor-pointer hx:rounded-sm hx:px-2 hx:py-1.5 hx:text-sm hx:transition-colors [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none]
+      hx:hextra-focus-visible-inset
+        hx:text-gray-500 hx:hover:bg-gray-100 hx:hover:text-gray-900 hx:contrast-more:border hx:contrast-more:border-transparent hx:contrast-more:text-gray-900 hx:contrast-more:hover:border-gray-900 hx:dark:text-neutral-400 hx:dark:hover:bg-primary-100/5 hx:dark:hover:text-gray-50 hx:contrast-more:dark:text-gray-50 hx:contrast-more:dark:hover:border-gray-50"
+      href="/CloudFlare-AI-Insight-Daily/daily/2026-01-16/"
+      
+    >
+      <span class="hx:min-w-0 [word-break:break-word]">AI洞察日报 2026/1/16</span>
+    </a>
+  </div></li>
+          <li class=""><div class="hextra-sidebar-item hx:group hx:relative hx:flex hx:items-center" data-active="false">
+    <a
+      class="hx:flex hx:items-center hx:justify-between hx:gap-2 hx:grow hx:cursor-pointer hx:rounded-sm hx:px-2 hx:py-1.5 hx:text-sm hx:transition-colors [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none]
+      hx:hextra-focus-visible-inset
+        hx:text-gray-500 hx:hover:bg-gray-100 hx:hover:text-gray-900 hx:contrast-more:border hx:contrast-more:border-transparent hx:contrast-more:text-gray-900 hx:contrast-more:hover:border-gray-900 hx:dark:text-neutral-400 hx:dark:hover:bg-primary-100/5 hx:dark:hover:text-gray-50 hx:contrast-more:dark:text-gray-50 hx:contrast-more:dark:hover:border-gray-50"
+      href="/CloudFlare-AI-Insight-Daily/daily/2026-01-15/"
+      
+    >
+      <span class="hx:min-w-0 [word-break:break-word]">AI洞察日报 2026/1/15</span>
+    </a>
+  </div></li>
+          <li class=""><div class="hextra-sidebar-item hx:group hx:relative hx:flex hx:items-center" data-active="false">
+    <a
+      class="hx:flex hx:items-center hx:justify-between hx:gap-2 hx:grow hx:cursor-pointer hx:rounded-sm hx:px-2 hx:py-1.5 hx:text-sm hx:transition-colors [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none]
+      hx:hextra-focus-visible-inset
+        hx:text-gray-500 hx:hover:bg-gray-100 hx:hover:text-gray-900 hx:contrast-more:border hx:contrast-more:border-transparent hx:contrast-more:text-gray-900 hx:contrast-more:hover:border-gray-900 hx:dark:text-neutral-400 hx:dark:hover:bg-primary-100/5 hx:dark:hover:text-gray-50 hx:contrast-more:dark:text-gray-50 hx:contrast-more:dark:hover:border-gray-50"
+      href="/CloudFlare-AI-Insight-Daily/daily/2026-01-14/"
+      
+    >
+      <span class="hx:min-w-0 [word-break:break-word]">AI洞察日报 2026/1/14</span>
+    </a>
+  </div></li>
+          <li class=""><div class="hextra-sidebar-item hx:group hx:relative hx:flex hx:items-center" data-active="false">
+    <a
+      class="hx:flex hx:items-center hx:justify-between hx:gap-2 hx:grow hx:cursor-pointer hx:rounded-sm hx:px-2 hx:py-1.5 hx:text-sm hx:transition-colors [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none]
+      hx:hextra-focus-visible-inset
+        hx:text-gray-500 hx:hover:bg-gray-100 hx:hover:text-gray-900 hx:contrast-more:border hx:contrast-more:border-transparent hx:contrast-more:text-gray-900 hx:contrast-more:hover:border-gray-900 hx:dark:text-neutral-400 hx:dark:hover:bg-primary-100/5 hx:dark:hover:text-gray-50 hx:contrast-more:dark:text-gray-50 hx:contrast-more:dark:hover:border-gray-50"
+      href="/CloudFlare-AI-Insight-Daily/daily/2026-01-13/"
+      
+    >
+      <span class="hx:min-w-0 [word-break:break-word]">AI洞察日报 2026/1/13</span>
+    </a>
+  </div></li>
+          <li class=""><div class="hextra-sidebar-item hx:group hx:relative hx:flex hx:items-center" data-active="false">
+    <a
+      class="hx:flex hx:items-center hx:justify-between hx:gap-2 hx:grow hx:cursor-pointer hx:rounded-sm hx:px-2 hx:py-1.5 hx:text-sm hx:transition-colors [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none]
+      hx:hextra-focus-visible-inset
+        hx:text-gray-500 hx:hover:bg-gray-100 hx:hover:text-gray-900 hx:contrast-more:border hx:contrast-more:border-transparent hx:contrast-more:text-gray-900 hx:contrast-more:hover:border-gray-900 hx:dark:text-neutral-400 hx:dark:hover:bg-primary-100/5 hx:dark:hover:text-gray-50 hx:contrast-more:dark:text-gray-50 hx:contrast-more:dark:hover:border-gray-50"
+      href="/CloudFlare-AI-Insight-Daily/daily/2026-01-12/"
+      
+    >
+      <span class="hx:min-w-0 [word-break:break-word]">AI洞察日报 2026/1/12</span>
+    </a>
+  </div></li>
+          <li class=""><div class="hextra-sidebar-item hx:group hx:relative hx:flex hx:items-center" data-active="false">
+    <a
+      class="hx:flex hx:items-center hx:justify-between hx:gap-2 hx:grow hx:cursor-pointer hx:rounded-sm hx:px-2 hx:py-1.5 hx:text-sm hx:transition-colors [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none]
+      hx:hextra-focus-visible-inset
+        hx:text-gray-500 hx:hover:bg-gray-100 hx:hover:text-gray-900 hx:contrast-more:border hx:contrast-more:border-transparent hx:contrast-more:text-gray-900 hx:contrast-more:hover:border-gray-900 hx:dark:text-neutral-400 hx:dark:hover:bg-primary-100/5 hx:dark:hover:text-gray-50 hx:contrast-more:dark:text-gray-50 hx:contrast-more:dark:hover:border-gray-50"
+      href="/CloudFlare-AI-Insight-Daily/daily/2026-01-11/"
+      
+    >
+      <span class="hx:min-w-0 [word-break:break-word]">AI洞察日报 2026/1/11</span>
+    </a>
+  </div></li>
+          <li class=""><div class="hextra-sidebar-item hx:group hx:relative hx:flex hx:items-center" data-active="false">
+    <a
+      class="hx:flex hx:items-center hx:justify-between hx:gap-2 hx:grow hx:cursor-pointer hx:rounded-sm hx:px-2 hx:py-1.5 hx:text-sm hx:transition-colors [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none]
+      hx:hextra-focus-visible-inset
+        hx:text-gray-500 hx:hover:bg-gray-100 hx:hover:text-gray-900 hx:contrast-more:border hx:contrast-more:border-transparent hx:contrast-more:text-gray-900 hx:contrast-more:hover:border-gray-900 hx:dark:text-neutral-400 hx:dark:hover:bg-primary-100/5 hx:dark:hover:text-gray-50 hx:contrast-more:dark:text-gray-50 hx:contrast-more:dark:hover:border-gray-50"
+      href="/CloudFlare-AI-Insight-Daily/daily/2026-01-10/"
+      
+    >
+      <span class="hx:min-w-0 [word-break:break-word]">AI洞察日报 2026/1/10</span>
+    </a>
+  </div></li>
+          <li class=""><div class="hextra-sidebar-item hx:group hx:relative hx:flex hx:items-center" data-active="false">
+    <a
+      class="hx:flex hx:items-center hx:justify-between hx:gap-2 hx:grow hx:cursor-pointer hx:rounded-sm hx:px-2 hx:py-1.5 hx:text-sm hx:transition-colors [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none]
+      hx:hextra-focus-visible-inset
+        hx:text-gray-500 hx:hover:bg-gray-100 hx:hover:text-gray-900 hx:contrast-more:border hx:contrast-more:border-transparent hx:contrast-more:text-gray-900 hx:contrast-more:hover:border-gray-900 hx:dark:text-neutral-400 hx:dark:hover:bg-primary-100/5 hx:dark:hover:text-gray-50 hx:contrast-more:dark:text-gray-50 hx:contrast-more:dark:hover:border-gray-50"
+      href="/CloudFlare-AI-Insight-Daily/daily/2026-01-09/"
+      
+    >
+      <span class="hx:min-w-0 [word-break:break-word]">AI洞察日报 2026/1/9</span>
+    </a>
+  </div></li>
+          <li class=""><div class="hextra-sidebar-item hx:group hx:relative hx:flex hx:items-center" data-active="false">
+    <a
+      class="hx:flex hx:items-center hx:justify-between hx:gap-2 hx:grow hx:cursor-pointer hx:rounded-sm hx:px-2 hx:py-1.5 hx:text-sm hx:transition-colors [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none]
+      hx:hextra-focus-visible-inset
+        hx:text-gray-500 hx:hover:bg-gray-100 hx:hover:text-gray-900 hx:contrast-more:border hx:contrast-more:border-transparent hx:contrast-more:text-gray-900 hx:contrast-more:hover:border-gray-900 hx:dark:text-neutral-400 hx:dark:hover:bg-primary-100/5 hx:dark:hover:text-gray-50 hx:contrast-more:dark:text-gray-50 hx:contrast-more:dark:hover:border-gray-50"
+      href="/CloudFlare-AI-Insight-Daily/daily/2026-01-08/"
+      
+    >
+      <span class="hx:min-w-0 [word-break:break-word]">AI洞察日报 2026/1/8</span>
+    </a>
+  </div></li>
+          <li class=""><div class="hextra-sidebar-item hx:group hx:relative hx:flex hx:items-center" data-active="false">
+    <a
+      class="hx:flex hx:items-center hx:justify-between hx:gap-2 hx:grow hx:cursor-pointer hx:rounded-sm hx:px-2 hx:py-1.5 hx:text-sm hx:transition-colors [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none]
+      hx:hextra-focus-visible-inset
+        hx:text-gray-500 hx:hover:bg-gray-100 hx:hover:text-gray-900 hx:contrast-more:border hx:contrast-more:border-transparent hx:contrast-more:text-gray-900 hx:contrast-more:hover:border-gray-900 hx:dark:text-neutral-400 hx:dark:hover:bg-primary-100/5 hx:dark:hover:text-gray-50 hx:contrast-more:dark:text-gray-50 hx:contrast-more:dark:hover:border-gray-50"
+      href="/CloudFlare-AI-Insight-Daily/daily/2026-01-07/"
+      
+    >
+      <span class="hx:min-w-0 [word-break:break-word]">AI洞察日报 2026/1/7</span>
+    </a>
+  </div></li>
+          <li class=""><div class="hextra-sidebar-item hx:group hx:relative hx:flex hx:items-center" data-active="false">
+    <a
+      class="hx:flex hx:items-center hx:justify-between hx:gap-2 hx:grow hx:cursor-pointer hx:rounded-sm hx:px-2 hx:py-1.5 hx:text-sm hx:transition-colors [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none]
+      hx:hextra-focus-visible-inset
+        hx:text-gray-500 hx:hover:bg-gray-100 hx:hover:text-gray-900 hx:contrast-more:border hx:contrast-more:border-transparent hx:contrast-more:text-gray-900 hx:contrast-more:hover:border-gray-900 hx:dark:text-neutral-400 hx:dark:hover:bg-primary-100/5 hx:dark:hover:text-gray-50 hx:contrast-more:dark:text-gray-50 hx:contrast-more:dark:hover:border-gray-50"
+      href="/CloudFlare-AI-Insight-Daily/daily/2026-01-06/"
+      
+    >
+      <span class="hx:min-w-0 [word-break:break-word]">AI洞察日报 2026/1/6</span>
+    </a>
+  </div></li>
+          <li class=""><div class="hextra-sidebar-item hx:group hx:relative hx:flex hx:items-center" data-active="false">
+    <a
+      class="hx:flex hx:items-center hx:justify-between hx:gap-2 hx:grow hx:cursor-pointer hx:rounded-sm hx:px-2 hx:py-1.5 hx:text-sm hx:transition-colors [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none]
+      hx:hextra-focus-visible-inset
+        hx:text-gray-500 hx:hover:bg-gray-100 hx:hover:text-gray-900 hx:contrast-more:border hx:contrast-more:border-transparent hx:contrast-more:text-gray-900 hx:contrast-more:hover:border-gray-900 hx:dark:text-neutral-400 hx:dark:hover:bg-primary-100/5 hx:dark:hover:text-gray-50 hx:contrast-more:dark:text-gray-50 hx:contrast-more:dark:hover:border-gray-50"
+      href="/CloudFlare-AI-Insight-Daily/daily/2026-01-05/"
+      
+    >
+      <span class="hx:min-w-0 [word-break:break-word]">AI洞察日报 2026/1/5</span>
+    </a>
+  </div></li>
+          <li class=""><div class="hextra-sidebar-item hx:group hx:relative hx:flex hx:items-center" data-active="false">
+    <a
+      class="hx:flex hx:items-center hx:justify-between hx:gap-2 hx:grow hx:cursor-pointer hx:rounded-sm hx:px-2 hx:py-1.5 hx:text-sm hx:transition-colors [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none]
+      hx:hextra-focus-visible-inset
+        hx:text-gray-500 hx:hover:bg-gray-100 hx:hover:text-gray-900 hx:contrast-more:border hx:contrast-more:border-transparent hx:contrast-more:text-gray-900 hx:contrast-more:hover:border-gray-900 hx:dark:text-neutral-400 hx:dark:hover:bg-primary-100/5 hx:dark:hover:text-gray-50 hx:contrast-more:dark:text-gray-50 hx:contrast-more:dark:hover:border-gray-50"
+      href="/CloudFlare-AI-Insight-Daily/daily/2026-01-04/"
+      
+    >
+      <span class="hx:min-w-0 [word-break:break-word]">AI洞察日报 2026/1/4</span>
+    </a>
+  </div></li>
+          <li class=""><div class="hextra-sidebar-item hx:group hx:relative hx:flex hx:items-center" data-active="false">
+    <a
+      class="hx:flex hx:items-center hx:justify-between hx:gap-2 hx:grow hx:cursor-pointer hx:rounded-sm hx:px-2 hx:py-1.5 hx:text-sm hx:transition-colors [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none]
+      hx:hextra-focus-visible-inset
+        hx:text-gray-500 hx:hover:bg-gray-100 hx:hover:text-gray-900 hx:contrast-more:border hx:contrast-more:border-transparent hx:contrast-more:text-gray-900 hx:contrast-more:hover:border-gray-900 hx:dark:text-neutral-400 hx:dark:hover:bg-primary-100/5 hx:dark:hover:text-gray-50 hx:contrast-more:dark:text-gray-50 hx:contrast-more:dark:hover:border-gray-50"
+      href="/CloudFlare-AI-Insight-Daily/daily/2026-01-03/"
+      
+    >
+      <span class="hx:min-w-0 [word-break:break-word]">AI洞察日报 2026/1/3</span>
+    </a>
+  </div></li>
+          <li class=""><div class="hextra-sidebar-item hx:group hx:relative hx:flex hx:items-center" data-active="false">
+    <a
+      class="hx:flex hx:items-center hx:justify-between hx:gap-2 hx:grow hx:cursor-pointer hx:rounded-sm hx:px-2 hx:py-1.5 hx:text-sm hx:transition-colors [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none]
+      hx:hextra-focus-visible-inset
+        hx:text-gray-500 hx:hover:bg-gray-100 hx:hover:text-gray-900 hx:contrast-more:border hx:contrast-more:border-transparent hx:contrast-more:text-gray-900 hx:contrast-more:hover:border-gray-900 hx:dark:text-neutral-400 hx:dark:hover:bg-primary-100/5 hx:dark:hover:text-gray-50 hx:contrast-more:dark:text-gray-50 hx:contrast-more:dark:hover:border-gray-50"
+      href="/CloudFlare-AI-Insight-Daily/daily/2026-01-02/"
+      
+    >
+      <span class="hx:min-w-0 [word-break:break-word]">AI洞察日报 2026/1/2</span>
+    </a>
+  </div></li>
+          <li class=""><div class="hextra-sidebar-item hx:group hx:relative hx:flex hx:items-center" data-active="false">
+    <a
+      class="hx:flex hx:items-center hx:justify-between hx:gap-2 hx:grow hx:cursor-pointer hx:rounded-sm hx:px-2 hx:py-1.5 hx:text-sm hx:transition-colors [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none]
+      hx:hextra-focus-visible-inset
+        hx:text-gray-500 hx:hover:bg-gray-100 hx:hover:text-gray-900 hx:contrast-more:border hx:contrast-more:border-transparent hx:contrast-more:text-gray-900 hx:contrast-more:hover:border-gray-900 hx:dark:text-neutral-400 hx:dark:hover:bg-primary-100/5 hx:dark:hover:text-gray-50 hx:contrast-more:dark:text-gray-50 hx:contrast-more:dark:hover:border-gray-50"
+      href="/CloudFlare-AI-Insight-Daily/daily/2026-01-01/"
+      
+    >
+      <span class="hx:min-w-0 [word-break:break-word]">AI洞察日报 2026/1/1</span>
+    </a>
+  </div></li>
+          <li class=""><div class="hextra-sidebar-item hx:group hx:relative hx:flex hx:items-center" data-active="false">
+    <a
+      class="hx:flex hx:items-center hx:justify-between hx:gap-2 hx:grow hx:cursor-pointer hx:rounded-sm hx:px-2 hx:py-1.5 hx:text-sm hx:transition-colors [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none]
+      hx:hextra-focus-visible-inset
+        hx:text-gray-500 hx:hover:bg-gray-100 hx:hover:text-gray-900 hx:contrast-more:border hx:contrast-more:border-transparent hx:contrast-more:text-gray-900 hx:contrast-more:hover:border-gray-900 hx:dark:text-neutral-400 hx:dark:hover:bg-primary-100/5 hx:dark:hover:text-gray-50 hx:contrast-more:dark:text-gray-50 hx:contrast-more:dark:hover:border-gray-50"
+      href="/CloudFlare-AI-Insight-Daily/daily/2025-12-31/"
+      
+    >
+      <span class="hx:min-w-0 [word-break:break-word]">AI洞察日报 2025/12/31</span>
+    </a>
+  </div></li>
+          <li class=""><div class="hextra-sidebar-item hx:group hx:relative hx:flex hx:items-center" data-active="false">
+    <a
+      class="hx:flex hx:items-center hx:justify-between hx:gap-2 hx:grow hx:cursor-pointer hx:rounded-sm hx:px-2 hx:py-1.5 hx:text-sm hx:transition-colors [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none]
+      hx:hextra-focus-visible-inset
+        hx:text-gray-500 hx:hover:bg-gray-100 hx:hover:text-gray-900 hx:contrast-more:border hx:contrast-more:border-transparent hx:contrast-more:text-gray-900 hx:contrast-more:hover:border-gray-900 hx:dark:text-neutral-400 hx:dark:hover:bg-primary-100/5 hx:dark:hover:text-gray-50 hx:contrast-more:dark:text-gray-50 hx:contrast-more:dark:hover:border-gray-50"
+      href="/CloudFlare-AI-Insight-Daily/daily/2025-12-30/"
+      
+    >
+      <span class="hx:min-w-0 [word-break:break-word]">AI洞察日报 2025/12/30</span>
+    </a>
+  </div></li>
+          <li class=""><div class="hextra-sidebar-item hx:group hx:relative hx:flex hx:items-center" data-active="false">
+    <a
+      class="hx:flex hx:items-center hx:justify-between hx:gap-2 hx:grow hx:cursor-pointer hx:rounded-sm hx:px-2 hx:py-1.5 hx:text-sm hx:transition-colors [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none]
+      hx:hextra-focus-visible-inset
+        hx:text-gray-500 hx:hover:bg-gray-100 hx:hover:text-gray-900 hx:contrast-more:border hx:contrast-more:border-transparent hx:contrast-more:text-gray-900 hx:contrast-more:hover:border-gray-900 hx:dark:text-neutral-400 hx:dark:hover:bg-primary-100/5 hx:dark:hover:text-gray-50 hx:contrast-more:dark:text-gray-50 hx:contrast-more:dark:hover:border-gray-50"
+      href="/CloudFlare-AI-Insight-Daily/daily/2025-12-29/"
+      
+    >
+      <span class="hx:min-w-0 [word-break:break-word]">AI洞察日报 2025/12/29</span>
+    </a>
+  </div></li>
+          <li class=""><div class="hextra-sidebar-item hx:group hx:relative hx:flex hx:items-center" data-active="false">
+    <a
+      class="hx:flex hx:items-center hx:justify-between hx:gap-2 hx:grow hx:cursor-pointer hx:rounded-sm hx:px-2 hx:py-1.5 hx:text-sm hx:transition-colors [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none]
+      hx:hextra-focus-visible-inset
+        hx:text-gray-500 hx:hover:bg-gray-100 hx:hover:text-gray-900 hx:contrast-more:border hx:contrast-more:border-transparent hx:contrast-more:text-gray-900 hx:contrast-more:hover:border-gray-900 hx:dark:text-neutral-400 hx:dark:hover:bg-primary-100/5 hx:dark:hover:text-gray-50 hx:contrast-more:dark:text-gray-50 hx:contrast-more:dark:hover:border-gray-50"
+      href="/CloudFlare-AI-Insight-Daily/daily/2025-12-28/"
+      
+    >
+      <span class="hx:min-w-0 [word-break:break-word]">AI洞察日报 2025/12/28</span>
+    </a>
+  </div></li>
+          <li class=""><div class="hextra-sidebar-item hx:group hx:relative hx:flex hx:items-center" data-active="false">
+    <a
+      class="hx:flex hx:items-center hx:justify-between hx:gap-2 hx:grow hx:cursor-pointer hx:rounded-sm hx:px-2 hx:py-1.5 hx:text-sm hx:transition-colors [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none]
+      hx:hextra-focus-visible-inset
+        hx:text-gray-500 hx:hover:bg-gray-100 hx:hover:text-gray-900 hx:contrast-more:border hx:contrast-more:border-transparent hx:contrast-more:text-gray-900 hx:contrast-more:hover:border-gray-900 hx:dark:text-neutral-400 hx:dark:hover:bg-primary-100/5 hx:dark:hover:text-gray-50 hx:contrast-more:dark:text-gray-50 hx:contrast-more:dark:hover:border-gray-50"
+      href="/CloudFlare-AI-Insight-Daily/daily/2025-12-27/"
+      
+    >
+      <span class="hx:min-w-0 [word-break:break-word]">AI洞察日报 2025/12/27</span>
+    </a>
+  </div></li>
+          <li class=""><div class="hextra-sidebar-item hx:group hx:relative hx:flex hx:items-center" data-active="false">
+    <a
+      class="hx:flex hx:items-center hx:justify-between hx:gap-2 hx:grow hx:cursor-pointer hx:rounded-sm hx:px-2 hx:py-1.5 hx:text-sm hx:transition-colors [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none]
+      hx:hextra-focus-visible-inset
+        hx:text-gray-500 hx:hover:bg-gray-100 hx:hover:text-gray-900 hx:contrast-more:border hx:contrast-more:border-transparent hx:contrast-more:text-gray-900 hx:contrast-more:hover:border-gray-900 hx:dark:text-neutral-400 hx:dark:hover:bg-primary-100/5 hx:dark:hover:text-gray-50 hx:contrast-more:dark:text-gray-50 hx:contrast-more:dark:hover:border-gray-50"
+      href="/CloudFlare-AI-Insight-Daily/daily/2025-12-26/"
+      
+    >
+      <span class="hx:min-w-0 [word-break:break-word]">AI洞察日报 2025/12/26</span>
+    </a>
+  </div></li>
+          <li class=""><div class="hextra-sidebar-item hx:group hx:relative hx:flex hx:items-center" data-active="false">
+    <a
+      class="hx:flex hx:items-center hx:justify-between hx:gap-2 hx:grow hx:cursor-pointer hx:rounded-sm hx:px-2 hx:py-1.5 hx:text-sm hx:transition-colors [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none]
+      hx:hextra-focus-visible-inset
+        hx:text-gray-500 hx:hover:bg-gray-100 hx:hover:text-gray-900 hx:contrast-more:border hx:contrast-more:border-transparent hx:contrast-more:text-gray-900 hx:contrast-more:hover:border-gray-900 hx:dark:text-neutral-400 hx:dark:hover:bg-primary-100/5 hx:dark:hover:text-gray-50 hx:contrast-more:dark:text-gray-50 hx:contrast-more:dark:hover:border-gray-50"
+      href="/CloudFlare-AI-Insight-Daily/daily/2025-12-25/"
+      
+    >
+      <span class="hx:min-w-0 [word-break:break-word]">AI洞察日报 2025/12/25</span>
+    </a>
+  </div></li>
+          <li class=""><div class="hextra-sidebar-item hx:group hx:relative hx:flex hx:items-center" data-active="false">
+    <a
+      class="hx:flex hx:items-center hx:justify-between hx:gap-2 hx:grow hx:cursor-pointer hx:rounded-sm hx:px-2 hx:py-1.5 hx:text-sm hx:transition-colors [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none]
+      hx:hextra-focus-visible-inset
+        hx:text-gray-500 hx:hover:bg-gray-100 hx:hover:text-gray-900 hx:contrast-more:border hx:contrast-more:border-transparent hx:contrast-more:text-gray-900 hx:contrast-more:hover:border-gray-900 hx:dark:text-neutral-400 hx:dark:hover:bg-primary-100/5 hx:dark:hover:text-gray-50 hx:contrast-more:dark:text-gray-50 hx:contrast-more:dark:hover:border-gray-50"
+      href="/CloudFlare-AI-Insight-Daily/daily/2025-12-24/"
+      
+    >
+      <span class="hx:min-w-0 [word-break:break-word]">AI洞察日报 2025/12/24</span>
+    </a>
+  </div></li>
+          <li class=""><div class="hextra-sidebar-item hx:group hx:relative hx:flex hx:items-center" data-active="false">
+    <a
+      class="hx:flex hx:items-center hx:justify-between hx:gap-2 hx:grow hx:cursor-pointer hx:rounded-sm hx:px-2 hx:py-1.5 hx:text-sm hx:transition-colors [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none]
+      hx:hextra-focus-visible-inset
+        hx:text-gray-500 hx:hover:bg-gray-100 hx:hover:text-gray-900 hx:contrast-more:border hx:contrast-more:border-transparent hx:contrast-more:text-gray-900 hx:contrast-more:hover:border-gray-900 hx:dark:text-neutral-400 hx:dark:hover:bg-primary-100/5 hx:dark:hover:text-gray-50 hx:contrast-more:dark:text-gray-50 hx:contrast-more:dark:hover:border-gray-50"
+      href="/CloudFlare-AI-Insight-Daily/daily/2025-12-23/"
+      
+    >
+      <span class="hx:min-w-0 [word-break:break-word]">AI洞察日报 2025/12/23</span>
+    </a>
+  </div></li>
+          <li class=""><div class="hextra-sidebar-item hx:group hx:relative hx:flex hx:items-center" data-active="false">
+    <a
+      class="hx:flex hx:items-center hx:justify-between hx:gap-2 hx:grow hx:cursor-pointer hx:rounded-sm hx:px-2 hx:py-1.5 hx:text-sm hx:transition-colors [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none]
+      hx:hextra-focus-visible-inset
+        hx:text-gray-500 hx:hover:bg-gray-100 hx:hover:text-gray-900 hx:contrast-more:border hx:contrast-more:border-transparent hx:contrast-more:text-gray-900 hx:contrast-more:hover:border-gray-900 hx:dark:text-neutral-400 hx:dark:hover:bg-primary-100/5 hx:dark:hover:text-gray-50 hx:contrast-more:dark:text-gray-50 hx:contrast-more:dark:hover:border-gray-50"
+      href="/CloudFlare-AI-Insight-Daily/daily/2025-12-22/"
+      
+    >
+      <span class="hx:min-w-0 [word-break:break-word]">AI洞察日报 2025/12/22</span>
+    </a>
+  </div></li>
+          <li class=""><div class="hextra-sidebar-item hx:group hx:relative hx:flex hx:items-center" data-active="false">
+    <a
+      class="hx:flex hx:items-center hx:justify-between hx:gap-2 hx:grow hx:cursor-pointer hx:rounded-sm hx:px-2 hx:py-1.5 hx:text-sm hx:transition-colors [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none]
+      hx:hextra-focus-visible-inset
+        hx:text-gray-500 hx:hover:bg-gray-100 hx:hover:text-gray-900 hx:contrast-more:border hx:contrast-more:border-transparent hx:contrast-more:text-gray-900 hx:contrast-more:hover:border-gray-900 hx:dark:text-neutral-400 hx:dark:hover:bg-primary-100/5 hx:dark:hover:text-gray-50 hx:contrast-more:dark:text-gray-50 hx:contrast-more:dark:hover:border-gray-50"
+      href="/CloudFlare-AI-Insight-Daily/daily/2025-12-21/"
+      
+    >
+      <span class="hx:min-w-0 [word-break:break-word]">AI洞察日报 2025/12/21</span>
+    </a>
+  </div></li>
+          <li class=""><div class="hextra-sidebar-item hx:group hx:relative hx:flex hx:items-center" data-active="false">
+    <a
+      class="hx:flex hx:items-center hx:justify-between hx:gap-2 hx:grow hx:cursor-pointer hx:rounded-sm hx:px-2 hx:py-1.5 hx:text-sm hx:transition-colors [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none]
+      hx:hextra-focus-visible-inset
+        hx:text-gray-500 hx:hover:bg-gray-100 hx:hover:text-gray-900 hx:contrast-more:border hx:contrast-more:border-transparent hx:contrast-more:text-gray-900 hx:contrast-more:hover:border-gray-900 hx:dark:text-neutral-400 hx:dark:hover:bg-primary-100/5 hx:dark:hover:text-gray-50 hx:contrast-more:dark:text-gray-50 hx:contrast-more:dark:hover:border-gray-50"
+      href="/CloudFlare-AI-Insight-Daily/daily/2025-12-20/"
+      
+    >
+      <span class="hx:min-w-0 [word-break:break-word]">AI洞察日报 2025/12/20</span>
+    </a>
+  </div></li>
+          <li class=""><div class="hextra-sidebar-item hx:group hx:relative hx:flex hx:items-center" data-active="false">
+    <a
+      class="hx:flex hx:items-center hx:justify-between hx:gap-2 hx:grow hx:cursor-pointer hx:rounded-sm hx:px-2 hx:py-1.5 hx:text-sm hx:transition-colors [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none]
+      hx:hextra-focus-visible-inset
+        hx:text-gray-500 hx:hover:bg-gray-100 hx:hover:text-gray-900 hx:contrast-more:border hx:contrast-more:border-transparent hx:contrast-more:text-gray-900 hx:contrast-more:hover:border-gray-900 hx:dark:text-neutral-400 hx:dark:hover:bg-primary-100/5 hx:dark:hover:text-gray-50 hx:contrast-more:dark:text-gray-50 hx:contrast-more:dark:hover:border-gray-50"
+      href="/CloudFlare-AI-Insight-Daily/daily/2025-12-19/"
+      
+    >
+      <span class="hx:min-w-0 [word-break:break-word]">AI洞察日报 2025/12/19</span>
+    </a>
+  </div></li>
+          <li class=""><div class="hextra-sidebar-item hx:group hx:relative hx:flex hx:items-center" data-active="false">
+    <a
+      class="hx:flex hx:items-center hx:justify-between hx:gap-2 hx:grow hx:cursor-pointer hx:rounded-sm hx:px-2 hx:py-1.5 hx:text-sm hx:transition-colors [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none]
+      hx:hextra-focus-visible-inset
+        hx:text-gray-500 hx:hover:bg-gray-100 hx:hover:text-gray-900 hx:contrast-more:border hx:contrast-more:border-transparent hx:contrast-more:text-gray-900 hx:contrast-more:hover:border-gray-900 hx:dark:text-neutral-400 hx:dark:hover:bg-primary-100/5 hx:dark:hover:text-gray-50 hx:contrast-more:dark:text-gray-50 hx:contrast-more:dark:hover:border-gray-50"
+      href="/CloudFlare-AI-Insight-Daily/daily/2025-12-18/"
+      
+    >
+      <span class="hx:min-w-0 [word-break:break-word]">AI洞察日报 2025/12/18</span>
+    </a>
+  </div></li>
+          <li class=""><div class="hextra-sidebar-item hx:group hx:relative hx:flex hx:items-center" data-active="false">
+    <a
+      class="hx:flex hx:items-center hx:justify-between hx:gap-2 hx:grow hx:cursor-pointer hx:rounded-sm hx:px-2 hx:py-1.5 hx:text-sm hx:transition-colors [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none]
+      hx:hextra-focus-visible-inset
+        hx:text-gray-500 hx:hover:bg-gray-100 hx:hover:text-gray-900 hx:contrast-more:border hx:contrast-more:border-transparent hx:contrast-more:text-gray-900 hx:contrast-more:hover:border-gray-900 hx:dark:text-neutral-400 hx:dark:hover:bg-primary-100/5 hx:dark:hover:text-gray-50 hx:contrast-more:dark:text-gray-50 hx:contrast-more:dark:hover:border-gray-50"
+      href="/CloudFlare-AI-Insight-Daily/daily/2025-12-17/"
+      
+    >
+      <span class="hx:min-w-0 [word-break:break-word]">AI洞察日报 2025/12/17</span>
+    </a>
+  </div></li>
+          <li class=""><div class="hextra-sidebar-item hx:group hx:relative hx:flex hx:items-center" data-active="false">
+    <a
+      class="hx:flex hx:items-center hx:justify-between hx:gap-2 hx:grow hx:cursor-pointer hx:rounded-sm hx:px-2 hx:py-1.5 hx:text-sm hx:transition-colors [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none]
+      hx:hextra-focus-visible-inset
+        hx:text-gray-500 hx:hover:bg-gray-100 hx:hover:text-gray-900 hx:contrast-more:border hx:contrast-more:border-transparent hx:contrast-more:text-gray-900 hx:contrast-more:hover:border-gray-900 hx:dark:text-neutral-400 hx:dark:hover:bg-primary-100/5 hx:dark:hover:text-gray-50 hx:contrast-more:dark:text-gray-50 hx:contrast-more:dark:hover:border-gray-50"
+      href="/CloudFlare-AI-Insight-Daily/daily/2025-12-16/"
+      
+    >
+      <span class="hx:min-w-0 [word-break:break-word]">AI洞察日报 2025/12/16</span>
+    </a>
+  </div></li>
+          <li class=""><div class="hextra-sidebar-item hx:group hx:relative hx:flex hx:items-center" data-active="false">
+    <a
+      class="hx:flex hx:items-center hx:justify-between hx:gap-2 hx:grow hx:cursor-pointer hx:rounded-sm hx:px-2 hx:py-1.5 hx:text-sm hx:transition-colors [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none]
+      hx:hextra-focus-visible-inset
+        hx:text-gray-500 hx:hover:bg-gray-100 hx:hover:text-gray-900 hx:contrast-more:border hx:contrast-more:border-transparent hx:contrast-more:text-gray-900 hx:contrast-more:hover:border-gray-900 hx:dark:text-neutral-400 hx:dark:hover:bg-primary-100/5 hx:dark:hover:text-gray-50 hx:contrast-more:dark:text-gray-50 hx:contrast-more:dark:hover:border-gray-50"
+      href="/CloudFlare-AI-Insight-Daily/daily/2025-12-15/"
+      
+    >
+      <span class="hx:min-w-0 [word-break:break-word]">AI洞察日报 2025/12/15</span>
+    </a>
+  </div></li>
+          <li class=""><div class="hextra-sidebar-item hx:group hx:relative hx:flex hx:items-center" data-active="false">
+    <a
+      class="hx:flex hx:items-center hx:justify-between hx:gap-2 hx:grow hx:cursor-pointer hx:rounded-sm hx:px-2 hx:py-1.5 hx:text-sm hx:transition-colors [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none]
+      hx:hextra-focus-visible-inset
+        hx:text-gray-500 hx:hover:bg-gray-100 hx:hover:text-gray-900 hx:contrast-more:border hx:contrast-more:border-transparent hx:contrast-more:text-gray-900 hx:contrast-more:hover:border-gray-900 hx:dark:text-neutral-400 hx:dark:hover:bg-primary-100/5 hx:dark:hover:text-gray-50 hx:contrast-more:dark:text-gray-50 hx:contrast-more:dark:hover:border-gray-50"
+      href="/CloudFlare-AI-Insight-Daily/daily/2025-12-14/"
+      
+    >
+      <span class="hx:min-w-0 [word-break:break-word]">AI洞察日报 2025/12/14</span>
+    </a>
+  </div></li>
+          <li class=""><div class="hextra-sidebar-item hx:group hx:relative hx:flex hx:items-center" data-active="false">
+    <a
+      class="hx:flex hx:items-center hx:justify-between hx:gap-2 hx:grow hx:cursor-pointer hx:rounded-sm hx:px-2 hx:py-1.5 hx:text-sm hx:transition-colors [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none]
+      hx:hextra-focus-visible-inset
+        hx:text-gray-500 hx:hover:bg-gray-100 hx:hover:text-gray-900 hx:contrast-more:border hx:contrast-more:border-transparent hx:contrast-more:text-gray-900 hx:contrast-more:hover:border-gray-900 hx:dark:text-neutral-400 hx:dark:hover:bg-primary-100/5 hx:dark:hover:text-gray-50 hx:contrast-more:dark:text-gray-50 hx:contrast-more:dark:hover:border-gray-50"
+      href="/CloudFlare-AI-Insight-Daily/daily/2025-12-13/"
+      
+    >
+      <span class="hx:min-w-0 [word-break:break-word]">AI洞察日报 2025/12/13</span>
+    </a>
+  </div></li>
+          <li class=""><div class="hextra-sidebar-item hx:group hx:relative hx:flex hx:items-center" data-active="false">
+    <a
+      class="hx:flex hx:items-center hx:justify-between hx:gap-2 hx:grow hx:cursor-pointer hx:rounded-sm hx:px-2 hx:py-1.5 hx:text-sm hx:transition-colors [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none]
+      hx:hextra-focus-visible-inset
+        hx:text-gray-500 hx:hover:bg-gray-100 hx:hover:text-gray-900 hx:contrast-more:border hx:contrast-more:border-transparent hx:contrast-more:text-gray-900 hx:contrast-more:hover:border-gray-900 hx:dark:text-neutral-400 hx:dark:hover:bg-primary-100/5 hx:dark:hover:text-gray-50 hx:contrast-more:dark:text-gray-50 hx:contrast-more:dark:hover:border-gray-50"
+      href="/CloudFlare-AI-Insight-Daily/daily/2025-12-12/"
+      
+    >
+      <span class="hx:min-w-0 [word-break:break-word]">AI洞察日报 2025/12/12</span>
+    </a>
+  </div></li>
+          <li class="open"><div class="hextra-sidebar-item hx:group hx:relative hx:flex hx:items-center" data-active="true">
+    <a
+      class="hx:flex hx:items-center hx:justify-between hx:gap-2 hx:grow hx:cursor-pointer hx:rounded-sm hx:px-2 hx:py-1.5 hx:text-sm hx:transition-colors [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none]
+      hx:hextra-focus-visible-inset
+        hextra-sidebar-active-item hx:bg-primary-100 hx:font-semibold hx:text-primary-800 hx:contrast-more:border hx:contrast-more:border-primary-500 hx:dark:bg-primary-400/10 hx:dark:text-primary-600 hx:contrast-more:dark:border-primary-500"
+      href="/CloudFlare-AI-Insight-Daily/daily/2025-12-11/"
+      
+    >
+      <span class="hx:min-w-0 [word-break:break-word]">AI洞察日报 2025/12/11</span>
+    </a>
+  </div></li>
+          <li class=""><div class="hextra-sidebar-item hx:group hx:relative hx:flex hx:items-center" data-active="false">
+    <a
+      class="hx:flex hx:items-center hx:justify-between hx:gap-2 hx:grow hx:cursor-pointer hx:rounded-sm hx:px-2 hx:py-1.5 hx:text-sm hx:transition-colors [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none]
+      hx:hextra-focus-visible-inset
+        hx:text-gray-500 hx:hover:bg-gray-100 hx:hover:text-gray-900 hx:contrast-more:border hx:contrast-more:border-transparent hx:contrast-more:text-gray-900 hx:contrast-more:hover:border-gray-900 hx:dark:text-neutral-400 hx:dark:hover:bg-primary-100/5 hx:dark:hover:text-gray-50 hx:contrast-more:dark:text-gray-50 hx:contrast-more:dark:hover:border-gray-50"
+      href="/CloudFlare-AI-Insight-Daily/daily/2025-12-10/"
+      
+    >
+      <span class="hx:min-w-0 [word-break:break-word]">AI洞察日报 2025/12/10</span>
+    </a>
+  </div></li>
+          <li class=""><div class="hextra-sidebar-item hx:group hx:relative hx:flex hx:items-center" data-active="false">
+    <a
+      class="hx:flex hx:items-center hx:justify-between hx:gap-2 hx:grow hx:cursor-pointer hx:rounded-sm hx:px-2 hx:py-1.5 hx:text-sm hx:transition-colors [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none]
+      hx:hextra-focus-visible-inset
+        hx:text-gray-500 hx:hover:bg-gray-100 hx:hover:text-gray-900 hx:contrast-more:border hx:contrast-more:border-transparent hx:contrast-more:text-gray-900 hx:contrast-more:hover:border-gray-900 hx:dark:text-neutral-400 hx:dark:hover:bg-primary-100/5 hx:dark:hover:text-gray-50 hx:contrast-more:dark:text-gray-50 hx:contrast-more:dark:hover:border-gray-50"
+      href="/CloudFlare-AI-Insight-Daily/daily/2025-12-09/"
+      
+    >
+      <span class="hx:min-w-0 [word-break:break-word]">AI洞察日报 2025/12/9</span>
+    </a>
+  </div></li>
+          <li class=""><div class="hextra-sidebar-item hx:group hx:relative hx:flex hx:items-center" data-active="false">
+    <a
+      class="hx:flex hx:items-center hx:justify-between hx:gap-2 hx:grow hx:cursor-pointer hx:rounded-sm hx:px-2 hx:py-1.5 hx:text-sm hx:transition-colors [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none]
+      hx:hextra-focus-visible-inset
+        hx:text-gray-500 hx:hover:bg-gray-100 hx:hover:text-gray-900 hx:contrast-more:border hx:contrast-more:border-transparent hx:contrast-more:text-gray-900 hx:contrast-more:hover:border-gray-900 hx:dark:text-neutral-400 hx:dark:hover:bg-primary-100/5 hx:dark:hover:text-gray-50 hx:contrast-more:dark:text-gray-50 hx:contrast-more:dark:hover:border-gray-50"
+      href="/CloudFlare-AI-Insight-Daily/daily/2025-12-08/"
+      
+    >
+      <span class="hx:min-w-0 [word-break:break-word]">AI洞察日报 2025/12/8</span>
+    </a>
+  </div></li>
+          <li class=""><div class="hextra-sidebar-item hx:group hx:relative hx:flex hx:items-center" data-active="false">
+    <a
+      class="hx:flex hx:items-center hx:justify-between hx:gap-2 hx:grow hx:cursor-pointer hx:rounded-sm hx:px-2 hx:py-1.5 hx:text-sm hx:transition-colors [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none]
+      hx:hextra-focus-visible-inset
+        hx:text-gray-500 hx:hover:bg-gray-100 hx:hover:text-gray-900 hx:contrast-more:border hx:contrast-more:border-transparent hx:contrast-more:text-gray-900 hx:contrast-more:hover:border-gray-900 hx:dark:text-neutral-400 hx:dark:hover:bg-primary-100/5 hx:dark:hover:text-gray-50 hx:contrast-more:dark:text-gray-50 hx:contrast-more:dark:hover:border-gray-50"
+      href="/CloudFlare-AI-Insight-Daily/daily/2025-12-07/"
+      
+    >
+      <span class="hx:min-w-0 [word-break:break-word]">AI洞察日报 2025/12/7</span>
+    </a>
+  </div></li>
+          <li class=""><div class="hextra-sidebar-item hx:group hx:relative hx:flex hx:items-center" data-active="false">
+    <a
+      class="hx:flex hx:items-center hx:justify-between hx:gap-2 hx:grow hx:cursor-pointer hx:rounded-sm hx:px-2 hx:py-1.5 hx:text-sm hx:transition-colors [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none]
+      hx:hextra-focus-visible-inset
+        hx:text-gray-500 hx:hover:bg-gray-100 hx:hover:text-gray-900 hx:contrast-more:border hx:contrast-more:border-transparent hx:contrast-more:text-gray-900 hx:contrast-more:hover:border-gray-900 hx:dark:text-neutral-400 hx:dark:hover:bg-primary-100/5 hx:dark:hover:text-gray-50 hx:contrast-more:dark:text-gray-50 hx:contrast-more:dark:hover:border-gray-50"
+      href="/CloudFlare-AI-Insight-Daily/daily/2025-12-06/"
+      
+    >
+      <span class="hx:min-w-0 [word-break:break-word]">AI洞察日报 2025/12/6</span>
+    </a>
+  </div></li>
+          <li class=""><div class="hextra-sidebar-item hx:group hx:relative hx:flex hx:items-center" data-active="false">
+    <a
+      class="hx:flex hx:items-center hx:justify-between hx:gap-2 hx:grow hx:cursor-pointer hx:rounded-sm hx:px-2 hx:py-1.5 hx:text-sm hx:transition-colors [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none]
+      hx:hextra-focus-visible-inset
+        hx:text-gray-500 hx:hover:bg-gray-100 hx:hover:text-gray-900 hx:contrast-more:border hx:contrast-more:border-transparent hx:contrast-more:text-gray-900 hx:contrast-more:hover:border-gray-900 hx:dark:text-neutral-400 hx:dark:hover:bg-primary-100/5 hx:dark:hover:text-gray-50 hx:contrast-more:dark:text-gray-50 hx:contrast-more:dark:hover:border-gray-50"
+      href="/CloudFlare-AI-Insight-Daily/daily/2025-12-05/"
+      
+    >
+      <span class="hx:min-w-0 [word-break:break-word]">AI洞察日报 2025/12/5</span>
+    </a>
+  </div></li>
+          <li class=""><div class="hextra-sidebar-item hx:group hx:relative hx:flex hx:items-center" data-active="false">
+    <a
+      class="hx:flex hx:items-center hx:justify-between hx:gap-2 hx:grow hx:cursor-pointer hx:rounded-sm hx:px-2 hx:py-1.5 hx:text-sm hx:transition-colors [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none]
+      hx:hextra-focus-visible-inset
+        hx:text-gray-500 hx:hover:bg-gray-100 hx:hover:text-gray-900 hx:contrast-more:border hx:contrast-more:border-transparent hx:contrast-more:text-gray-900 hx:contrast-more:hover:border-gray-900 hx:dark:text-neutral-400 hx:dark:hover:bg-primary-100/5 hx:dark:hover:text-gray-50 hx:contrast-more:dark:text-gray-50 hx:contrast-more:dark:hover:border-gray-50"
+      href="/CloudFlare-AI-Insight-Daily/daily/2025-12-04/"
+      
+    >
+      <span class="hx:min-w-0 [word-break:break-word]">AI洞察日报 2025/12/4</span>
+    </a>
+  </div></li>
+          <li class=""><div class="hextra-sidebar-item hx:group hx:relative hx:flex hx:items-center" data-active="false">
+    <a
+      class="hx:flex hx:items-center hx:justify-between hx:gap-2 hx:grow hx:cursor-pointer hx:rounded-sm hx:px-2 hx:py-1.5 hx:text-sm hx:transition-colors [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none]
+      hx:hextra-focus-visible-inset
+        hx:text-gray-500 hx:hover:bg-gray-100 hx:hover:text-gray-900 hx:contrast-more:border hx:contrast-more:border-transparent hx:contrast-more:text-gray-900 hx:contrast-more:hover:border-gray-900 hx:dark:text-neutral-400 hx:dark:hover:bg-primary-100/5 hx:dark:hover:text-gray-50 hx:contrast-more:dark:text-gray-50 hx:contrast-more:dark:hover:border-gray-50"
+      href="/CloudFlare-AI-Insight-Daily/daily/2025-12-03/"
+      
+    >
+      <span class="hx:min-w-0 [word-break:break-word]">AI洞察日报 2025/12/3</span>
+    </a>
+  </div></li>
+          <li class=""><div class="hextra-sidebar-item hx:group hx:relative hx:flex hx:items-center" data-active="false">
+    <a
+      class="hx:flex hx:items-center hx:justify-between hx:gap-2 hx:grow hx:cursor-pointer hx:rounded-sm hx:px-2 hx:py-1.5 hx:text-sm hx:transition-colors [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none]
+      hx:hextra-focus-visible-inset
+        hx:text-gray-500 hx:hover:bg-gray-100 hx:hover:text-gray-900 hx:contrast-more:border hx:contrast-more:border-transparent hx:contrast-more:text-gray-900 hx:contrast-more:hover:border-gray-900 hx:dark:text-neutral-400 hx:dark:hover:bg-primary-100/5 hx:dark:hover:text-gray-50 hx:contrast-more:dark:text-gray-50 hx:contrast-more:dark:hover:border-gray-50"
+      href="/CloudFlare-AI-Insight-Daily/daily/2025-12-02/"
+      
+    >
+      <span class="hx:min-w-0 [word-break:break-word]">AI洞察日报 2025/12/2</span>
+    </a>
+  </div></li>
+          <li class=""><div class="hextra-sidebar-item hx:group hx:relative hx:flex hx:items-center" data-active="false">
+    <a
+      class="hx:flex hx:items-center hx:justify-between hx:gap-2 hx:grow hx:cursor-pointer hx:rounded-sm hx:px-2 hx:py-1.5 hx:text-sm hx:transition-colors [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none]
+      hx:hextra-focus-visible-inset
+        hx:text-gray-500 hx:hover:bg-gray-100 hx:hover:text-gray-900 hx:contrast-more:border hx:contrast-more:border-transparent hx:contrast-more:text-gray-900 hx:contrast-more:hover:border-gray-900 hx:dark:text-neutral-400 hx:dark:hover:bg-primary-100/5 hx:dark:hover:text-gray-50 hx:contrast-more:dark:text-gray-50 hx:contrast-more:dark:hover:border-gray-50"
+      href="/CloudFlare-AI-Insight-Daily/daily/2025-12-01/"
+      
+    >
+      <span class="hx:min-w-0 [word-break:break-word]">AI洞察日报 2025/12/1</span>
+    </a>
+  </div></li>
+          <li class=""><div class="hextra-sidebar-item hx:group hx:relative hx:flex hx:items-center" data-active="false">
+    <a
+      class="hx:flex hx:items-center hx:justify-between hx:gap-2 hx:grow hx:cursor-pointer hx:rounded-sm hx:px-2 hx:py-1.5 hx:text-sm hx:transition-colors [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none]
+      hx:hextra-focus-visible-inset
+        hx:text-gray-500 hx:hover:bg-gray-100 hx:hover:text-gray-900 hx:contrast-more:border hx:contrast-more:border-transparent hx:contrast-more:text-gray-900 hx:contrast-more:hover:border-gray-900 hx:dark:text-neutral-400 hx:dark:hover:bg-primary-100/5 hx:dark:hover:text-gray-50 hx:contrast-more:dark:text-gray-50 hx:contrast-more:dark:hover:border-gray-50"
+      href="/CloudFlare-AI-Insight-Daily/daily/2025-11-30/"
+      
+    >
+      <span class="hx:min-w-0 [word-break:break-word]">AI洞察日报 2025/11/30</span>
+    </a>
+  </div></li>
+          <li class=""><div class="hextra-sidebar-item hx:group hx:relative hx:flex hx:items-center" data-active="false">
+    <a
+      class="hx:flex hx:items-center hx:justify-between hx:gap-2 hx:grow hx:cursor-pointer hx:rounded-sm hx:px-2 hx:py-1.5 hx:text-sm hx:transition-colors [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none]
+      hx:hextra-focus-visible-inset
+        hx:text-gray-500 hx:hover:bg-gray-100 hx:hover:text-gray-900 hx:contrast-more:border hx:contrast-more:border-transparent hx:contrast-more:text-gray-900 hx:contrast-more:hover:border-gray-900 hx:dark:text-neutral-400 hx:dark:hover:bg-primary-100/5 hx:dark:hover:text-gray-50 hx:contrast-more:dark:text-gray-50 hx:contrast-more:dark:hover:border-gray-50"
+      href="/CloudFlare-AI-Insight-Daily/daily/2025-11-29/"
+      
+    >
+      <span class="hx:min-w-0 [word-break:break-word]">AI洞察日报 2025/11/29</span>
+    </a>
+  </div></li>
+          <li class=""><div class="hextra-sidebar-item hx:group hx:relative hx:flex hx:items-center" data-active="false">
+    <a
+      class="hx:flex hx:items-center hx:justify-between hx:gap-2 hx:grow hx:cursor-pointer hx:rounded-sm hx:px-2 hx:py-1.5 hx:text-sm hx:transition-colors [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none]
+      hx:hextra-focus-visible-inset
+        hx:text-gray-500 hx:hover:bg-gray-100 hx:hover:text-gray-900 hx:contrast-more:border hx:contrast-more:border-transparent hx:contrast-more:text-gray-900 hx:contrast-more:hover:border-gray-900 hx:dark:text-neutral-400 hx:dark:hover:bg-primary-100/5 hx:dark:hover:text-gray-50 hx:contrast-more:dark:text-gray-50 hx:contrast-more:dark:hover:border-gray-50"
+      href="/CloudFlare-AI-Insight-Daily/daily/2025-11-28/"
+      
+    >
+      <span class="hx:min-w-0 [word-break:break-word]">AI洞察日报 2025/11/28</span>
+    </a>
+  </div></li>
+          <li class=""><div class="hextra-sidebar-item hx:group hx:relative hx:flex hx:items-center" data-active="false">
+    <a
+      class="hx:flex hx:items-center hx:justify-between hx:gap-2 hx:grow hx:cursor-pointer hx:rounded-sm hx:px-2 hx:py-1.5 hx:text-sm hx:transition-colors [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none]
+      hx:hextra-focus-visible-inset
+        hx:text-gray-500 hx:hover:bg-gray-100 hx:hover:text-gray-900 hx:contrast-more:border hx:contrast-more:border-transparent hx:contrast-more:text-gray-900 hx:contrast-more:hover:border-gray-900 hx:dark:text-neutral-400 hx:dark:hover:bg-primary-100/5 hx:dark:hover:text-gray-50 hx:contrast-more:dark:text-gray-50 hx:contrast-more:dark:hover:border-gray-50"
+      href="/CloudFlare-AI-Insight-Daily/daily/2025-11-27/"
+      
+    >
+      <span class="hx:min-w-0 [word-break:break-word]">AI洞察日报 2025/11/27</span>
+    </a>
+  </div></li>
+          <li class=""><div class="hextra-sidebar-item hx:group hx:relative hx:flex hx:items-center" data-active="false">
+    <a
+      class="hx:flex hx:items-center hx:justify-between hx:gap-2 hx:grow hx:cursor-pointer hx:rounded-sm hx:px-2 hx:py-1.5 hx:text-sm hx:transition-colors [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none]
+      hx:hextra-focus-visible-inset
+        hx:text-gray-500 hx:hover:bg-gray-100 hx:hover:text-gray-900 hx:contrast-more:border hx:contrast-more:border-transparent hx:contrast-more:text-gray-900 hx:contrast-more:hover:border-gray-900 hx:dark:text-neutral-400 hx:dark:hover:bg-primary-100/5 hx:dark:hover:text-gray-50 hx:contrast-more:dark:text-gray-50 hx:contrast-more:dark:hover:border-gray-50"
+      href="/CloudFlare-AI-Insight-Daily/daily/2025-11-26/"
+      
+    >
+      <span class="hx:min-w-0 [word-break:break-word]">AI洞察日报 2025/11/26</span>
+    </a>
+  </div></li>
+          <li class=""><div class="hextra-sidebar-item hx:group hx:relative hx:flex hx:items-center" data-active="false">
+    <a
+      class="hx:flex hx:items-center hx:justify-between hx:gap-2 hx:grow hx:cursor-pointer hx:rounded-sm hx:px-2 hx:py-1.5 hx:text-sm hx:transition-colors [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none]
+      hx:hextra-focus-visible-inset
+        hx:text-gray-500 hx:hover:bg-gray-100 hx:hover:text-gray-900 hx:contrast-more:border hx:contrast-more:border-transparent hx:contrast-more:text-gray-900 hx:contrast-more:hover:border-gray-900 hx:dark:text-neutral-400 hx:dark:hover:bg-primary-100/5 hx:dark:hover:text-gray-50 hx:contrast-more:dark:text-gray-50 hx:contrast-more:dark:hover:border-gray-50"
+      href="/CloudFlare-AI-Insight-Daily/daily/2025-11-25/"
+      
+    >
+      <span class="hx:min-w-0 [word-break:break-word]">AI洞察日报 2025/11/25</span>
+    </a>
+  </div></li>
+          <li class=""><div class="hextra-sidebar-item hx:group hx:relative hx:flex hx:items-center" data-active="false">
+    <a
+      class="hx:flex hx:items-center hx:justify-between hx:gap-2 hx:grow hx:cursor-pointer hx:rounded-sm hx:px-2 hx:py-1.5 hx:text-sm hx:transition-colors [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none]
+      hx:hextra-focus-visible-inset
+        hx:text-gray-500 hx:hover:bg-gray-100 hx:hover:text-gray-900 hx:contrast-more:border hx:contrast-more:border-transparent hx:contrast-more:text-gray-900 hx:contrast-more:hover:border-gray-900 hx:dark:text-neutral-400 hx:dark:hover:bg-primary-100/5 hx:dark:hover:text-gray-50 hx:contrast-more:dark:text-gray-50 hx:contrast-more:dark:hover:border-gray-50"
+      href="/CloudFlare-AI-Insight-Daily/daily/2025-11-24/"
+      
+    >
+      <span class="hx:min-w-0 [word-break:break-word]">AI洞察日报 2025/11/24</span>
+    </a>
+  </div></li>
+          <li class=""><div class="hextra-sidebar-item hx:group hx:relative hx:flex hx:items-center" data-active="false">
+    <a
+      class="hx:flex hx:items-center hx:justify-between hx:gap-2 hx:grow hx:cursor-pointer hx:rounded-sm hx:px-2 hx:py-1.5 hx:text-sm hx:transition-colors [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none]
+      hx:hextra-focus-visible-inset
+        hx:text-gray-500 hx:hover:bg-gray-100 hx:hover:text-gray-900 hx:contrast-more:border hx:contrast-more:border-transparent hx:contrast-more:text-gray-900 hx:contrast-more:hover:border-gray-900 hx:dark:text-neutral-400 hx:dark:hover:bg-primary-100/5 hx:dark:hover:text-gray-50 hx:contrast-more:dark:text-gray-50 hx:contrast-more:dark:hover:border-gray-50"
+      href="/CloudFlare-AI-Insight-Daily/daily/2025-11-23/"
+      
+    >
+      <span class="hx:min-w-0 [word-break:break-word]">AI洞察日报 2025/11/23</span>
+    </a>
+  </div></li>
+          <li class=""><div class="hextra-sidebar-item hx:group hx:relative hx:flex hx:items-center" data-active="false">
+    <a
+      class="hx:flex hx:items-center hx:justify-between hx:gap-2 hx:grow hx:cursor-pointer hx:rounded-sm hx:px-2 hx:py-1.5 hx:text-sm hx:transition-colors [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none]
+      hx:hextra-focus-visible-inset
+        hx:text-gray-500 hx:hover:bg-gray-100 hx:hover:text-gray-900 hx:contrast-more:border hx:contrast-more:border-transparent hx:contrast-more:text-gray-900 hx:contrast-more:hover:border-gray-900 hx:dark:text-neutral-400 hx:dark:hover:bg-primary-100/5 hx:dark:hover:text-gray-50 hx:contrast-more:dark:text-gray-50 hx:contrast-more:dark:hover:border-gray-50"
+      href="/CloudFlare-AI-Insight-Daily/daily/2025-11-22/"
+      
+    >
+      <span class="hx:min-w-0 [word-break:break-word]">AI洞察日报 2025/11/22</span>
+    </a>
+  </div></li>
+          <li class=""><div class="hextra-sidebar-item hx:group hx:relative hx:flex hx:items-center" data-active="false">
+    <a
+      class="hx:flex hx:items-center hx:justify-between hx:gap-2 hx:grow hx:cursor-pointer hx:rounded-sm hx:px-2 hx:py-1.5 hx:text-sm hx:transition-colors [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none]
+      hx:hextra-focus-visible-inset
+        hx:text-gray-500 hx:hover:bg-gray-100 hx:hover:text-gray-900 hx:contrast-more:border hx:contrast-more:border-transparent hx:contrast-more:text-gray-900 hx:contrast-more:hover:border-gray-900 hx:dark:text-neutral-400 hx:dark:hover:bg-primary-100/5 hx:dark:hover:text-gray-50 hx:contrast-more:dark:text-gray-50 hx:contrast-more:dark:hover:border-gray-50"
+      href="/CloudFlare-AI-Insight-Daily/daily/2025-11-21/"
+      
+    >
+      <span class="hx:min-w-0 [word-break:break-word]">AI洞察日报 2025/11/21</span>
+    </a>
+  </div></li>
+          <li class=""><div class="hextra-sidebar-item hx:group hx:relative hx:flex hx:items-center" data-active="false">
+    <a
+      class="hx:flex hx:items-center hx:justify-between hx:gap-2 hx:grow hx:cursor-pointer hx:rounded-sm hx:px-2 hx:py-1.5 hx:text-sm hx:transition-colors [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none]
+      hx:hextra-focus-visible-inset
+        hx:text-gray-500 hx:hover:bg-gray-100 hx:hover:text-gray-900 hx:contrast-more:border hx:contrast-more:border-transparent hx:contrast-more:text-gray-900 hx:contrast-more:hover:border-gray-900 hx:dark:text-neutral-400 hx:dark:hover:bg-primary-100/5 hx:dark:hover:text-gray-50 hx:contrast-more:dark:text-gray-50 hx:contrast-more:dark:hover:border-gray-50"
+      href="/CloudFlare-AI-Insight-Daily/daily/2025-11-20/"
+      
+    >
+      <span class="hx:min-w-0 [word-break:break-word]">AI洞察日报 2025/11/20</span>
+    </a>
+  </div></li>
+          <li class=""><div class="hextra-sidebar-item hx:group hx:relative hx:flex hx:items-center" data-active="false">
+    <a
+      class="hx:flex hx:items-center hx:justify-between hx:gap-2 hx:grow hx:cursor-pointer hx:rounded-sm hx:px-2 hx:py-1.5 hx:text-sm hx:transition-colors [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none]
+      hx:hextra-focus-visible-inset
+        hx:text-gray-500 hx:hover:bg-gray-100 hx:hover:text-gray-900 hx:contrast-more:border hx:contrast-more:border-transparent hx:contrast-more:text-gray-900 hx:contrast-more:hover:border-gray-900 hx:dark:text-neutral-400 hx:dark:hover:bg-primary-100/5 hx:dark:hover:text-gray-50 hx:contrast-more:dark:text-gray-50 hx:contrast-more:dark:hover:border-gray-50"
+      href="/CloudFlare-AI-Insight-Daily/daily/2025-11-19/"
+      
+    >
+      <span class="hx:min-w-0 [word-break:break-word]">AI洞察日报 2025/11/19</span>
+    </a>
+  </div></li>
+          <li class=""><div class="hextra-sidebar-item hx:group hx:relative hx:flex hx:items-center" data-active="false">
+    <a
+      class="hx:flex hx:items-center hx:justify-between hx:gap-2 hx:grow hx:cursor-pointer hx:rounded-sm hx:px-2 hx:py-1.5 hx:text-sm hx:transition-colors [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none]
+      hx:hextra-focus-visible-inset
+        hx:text-gray-500 hx:hover:bg-gray-100 hx:hover:text-gray-900 hx:contrast-more:border hx:contrast-more:border-transparent hx:contrast-more:text-gray-900 hx:contrast-more:hover:border-gray-900 hx:dark:text-neutral-400 hx:dark:hover:bg-primary-100/5 hx:dark:hover:text-gray-50 hx:contrast-more:dark:text-gray-50 hx:contrast-more:dark:hover:border-gray-50"
+      href="/CloudFlare-AI-Insight-Daily/daily/2025-11-18/"
+      
+    >
+      <span class="hx:min-w-0 [word-break:break-word]">AI洞察日报 2025/11/18</span>
+    </a>
+  </div></li>
+          <li class=""><div class="hextra-sidebar-item hx:group hx:relative hx:flex hx:items-center" data-active="false">
+    <a
+      class="hx:flex hx:items-center hx:justify-between hx:gap-2 hx:grow hx:cursor-pointer hx:rounded-sm hx:px-2 hx:py-1.5 hx:text-sm hx:transition-colors [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none]
+      hx:hextra-focus-visible-inset
+        hx:text-gray-500 hx:hover:bg-gray-100 hx:hover:text-gray-900 hx:contrast-more:border hx:contrast-more:border-transparent hx:contrast-more:text-gray-900 hx:contrast-more:hover:border-gray-900 hx:dark:text-neutral-400 hx:dark:hover:bg-primary-100/5 hx:dark:hover:text-gray-50 hx:contrast-more:dark:text-gray-50 hx:contrast-more:dark:hover:border-gray-50"
+      href="/CloudFlare-AI-Insight-Daily/daily/2025-11-17/"
+      
+    >
+      <span class="hx:min-w-0 [word-break:break-word]">AI洞察日报 2025/11/17</span>
+    </a>
+  </div></li>
+          <li class=""><div class="hextra-sidebar-item hx:group hx:relative hx:flex hx:items-center" data-active="false">
+    <a
+      class="hx:flex hx:items-center hx:justify-between hx:gap-2 hx:grow hx:cursor-pointer hx:rounded-sm hx:px-2 hx:py-1.5 hx:text-sm hx:transition-colors [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none]
+      hx:hextra-focus-visible-inset
+        hx:text-gray-500 hx:hover:bg-gray-100 hx:hover:text-gray-900 hx:contrast-more:border hx:contrast-more:border-transparent hx:contrast-more:text-gray-900 hx:contrast-more:hover:border-gray-900 hx:dark:text-neutral-400 hx:dark:hover:bg-primary-100/5 hx:dark:hover:text-gray-50 hx:contrast-more:dark:text-gray-50 hx:contrast-more:dark:hover:border-gray-50"
+      href="/CloudFlare-AI-Insight-Daily/daily/2025-11-16/"
+      
+    >
+      <span class="hx:min-w-0 [word-break:break-word]">AI洞察日报 2025/11/16</span>
+    </a>
+  </div></li>
+          <li class=""><div class="hextra-sidebar-item hx:group hx:relative hx:flex hx:items-center" data-active="false">
+    <a
+      class="hx:flex hx:items-center hx:justify-between hx:gap-2 hx:grow hx:cursor-pointer hx:rounded-sm hx:px-2 hx:py-1.5 hx:text-sm hx:transition-colors [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none]
+      hx:hextra-focus-visible-inset
+        hx:text-gray-500 hx:hover:bg-gray-100 hx:hover:text-gray-900 hx:contrast-more:border hx:contrast-more:border-transparent hx:contrast-more:text-gray-900 hx:contrast-more:hover:border-gray-900 hx:dark:text-neutral-400 hx:dark:hover:bg-primary-100/5 hx:dark:hover:text-gray-50 hx:contrast-more:dark:text-gray-50 hx:contrast-more:dark:hover:border-gray-50"
+      href="/CloudFlare-AI-Insight-Daily/daily/2025-11-15/"
+      
+    >
+      <span class="hx:min-w-0 [word-break:break-word]">AI洞察日报 2025/11/15</span>
+    </a>
+  </div></li>
+          <li class=""><div class="hextra-sidebar-item hx:group hx:relative hx:flex hx:items-center" data-active="false">
+    <a
+      class="hx:flex hx:items-center hx:justify-between hx:gap-2 hx:grow hx:cursor-pointer hx:rounded-sm hx:px-2 hx:py-1.5 hx:text-sm hx:transition-colors [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none]
+      hx:hextra-focus-visible-inset
+        hx:text-gray-500 hx:hover:bg-gray-100 hx:hover:text-gray-900 hx:contrast-more:border hx:contrast-more:border-transparent hx:contrast-more:text-gray-900 hx:contrast-more:hover:border-gray-900 hx:dark:text-neutral-400 hx:dark:hover:bg-primary-100/5 hx:dark:hover:text-gray-50 hx:contrast-more:dark:text-gray-50 hx:contrast-more:dark:hover:border-gray-50"
+      href="/CloudFlare-AI-Insight-Daily/daily/2025-11-14/"
+      
+    >
+      <span class="hx:min-w-0 [word-break:break-word]">AI洞察日报 2025/11/14</span>
+    </a>
+  </div></li>
+          <li class=""><div class="hextra-sidebar-item hx:group hx:relative hx:flex hx:items-center" data-active="false">
+    <a
+      class="hx:flex hx:items-center hx:justify-between hx:gap-2 hx:grow hx:cursor-pointer hx:rounded-sm hx:px-2 hx:py-1.5 hx:text-sm hx:transition-colors [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none]
+      hx:hextra-focus-visible-inset
+        hx:text-gray-500 hx:hover:bg-gray-100 hx:hover:text-gray-900 hx:contrast-more:border hx:contrast-more:border-transparent hx:contrast-more:text-gray-900 hx:contrast-more:hover:border-gray-900 hx:dark:text-neutral-400 hx:dark:hover:bg-primary-100/5 hx:dark:hover:text-gray-50 hx:contrast-more:dark:text-gray-50 hx:contrast-more:dark:hover:border-gray-50"
+      href="/CloudFlare-AI-Insight-Daily/daily/2025-11-13/"
+      
+    >
+      <span class="hx:min-w-0 [word-break:break-word]">AI洞察日报 2025/11/13</span>
+    </a>
+  </div></li>
+          <li class=""><div class="hextra-sidebar-item hx:group hx:relative hx:flex hx:items-center" data-active="false">
+    <a
+      class="hx:flex hx:items-center hx:justify-between hx:gap-2 hx:grow hx:cursor-pointer hx:rounded-sm hx:px-2 hx:py-1.5 hx:text-sm hx:transition-colors [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none]
+      hx:hextra-focus-visible-inset
+        hx:text-gray-500 hx:hover:bg-gray-100 hx:hover:text-gray-900 hx:contrast-more:border hx:contrast-more:border-transparent hx:contrast-more:text-gray-900 hx:contrast-more:hover:border-gray-900 hx:dark:text-neutral-400 hx:dark:hover:bg-primary-100/5 hx:dark:hover:text-gray-50 hx:contrast-more:dark:text-gray-50 hx:contrast-more:dark:hover:border-gray-50"
+      href="/CloudFlare-AI-Insight-Daily/daily/2025-11-12/"
+      
+    >
+      <span class="hx:min-w-0 [word-break:break-word]">AI洞察日报 2025/11/12</span>
+    </a>
+  </div></li>
+          <li class=""><div class="hextra-sidebar-item hx:group hx:relative hx:flex hx:items-center" data-active="false">
+    <a
+      class="hx:flex hx:items-center hx:justify-between hx:gap-2 hx:grow hx:cursor-pointer hx:rounded-sm hx:px-2 hx:py-1.5 hx:text-sm hx:transition-colors [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none]
+      hx:hextra-focus-visible-inset
+        hx:text-gray-500 hx:hover:bg-gray-100 hx:hover:text-gray-900 hx:contrast-more:border hx:contrast-more:border-transparent hx:contrast-more:text-gray-900 hx:contrast-more:hover:border-gray-900 hx:dark:text-neutral-400 hx:dark:hover:bg-primary-100/5 hx:dark:hover:text-gray-50 hx:contrast-more:dark:text-gray-50 hx:contrast-more:dark:hover:border-gray-50"
+      href="/CloudFlare-AI-Insight-Daily/daily/2025-11-11/"
+      
+    >
+      <span class="hx:min-w-0 [word-break:break-word]">AI洞察日报 2025/11/11</span>
+    </a>
+  </div></li>
+          <li class=""><div class="hextra-sidebar-item hx:group hx:relative hx:flex hx:items-center" data-active="false">
+    <a
+      class="hx:flex hx:items-center hx:justify-between hx:gap-2 hx:grow hx:cursor-pointer hx:rounded-sm hx:px-2 hx:py-1.5 hx:text-sm hx:transition-colors [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none]
+      hx:hextra-focus-visible-inset
+        hx:text-gray-500 hx:hover:bg-gray-100 hx:hover:text-gray-900 hx:contrast-more:border hx:contrast-more:border-transparent hx:contrast-more:text-gray-900 hx:contrast-more:hover:border-gray-900 hx:dark:text-neutral-400 hx:dark:hover:bg-primary-100/5 hx:dark:hover:text-gray-50 hx:contrast-more:dark:text-gray-50 hx:contrast-more:dark:hover:border-gray-50"
+      href="/CloudFlare-AI-Insight-Daily/daily/2025-11-10/"
+      
+    >
+      <span class="hx:min-w-0 [word-break:break-word]">AI洞察日报 2025/11/10</span>
+    </a>
+  </div></li>
+          <li class=""><div class="hextra-sidebar-item hx:group hx:relative hx:flex hx:items-center" data-active="false">
+    <a
+      class="hx:flex hx:items-center hx:justify-between hx:gap-2 hx:grow hx:cursor-pointer hx:rounded-sm hx:px-2 hx:py-1.5 hx:text-sm hx:transition-colors [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none]
+      hx:hextra-focus-visible-inset
+        hx:text-gray-500 hx:hover:bg-gray-100 hx:hover:text-gray-900 hx:contrast-more:border hx:contrast-more:border-transparent hx:contrast-more:text-gray-900 hx:contrast-more:hover:border-gray-900 hx:dark:text-neutral-400 hx:dark:hover:bg-primary-100/5 hx:dark:hover:text-gray-50 hx:contrast-more:dark:text-gray-50 hx:contrast-more:dark:hover:border-gray-50"
+      href="/CloudFlare-AI-Insight-Daily/daily/2025-11-09/"
+      
+    >
+      <span class="hx:min-w-0 [word-break:break-word]">AI洞察日报 2025/11/9</span>
+    </a>
+  </div></li>
+          <li class=""><div class="hextra-sidebar-item hx:group hx:relative hx:flex hx:items-center" data-active="false">
+    <a
+      class="hx:flex hx:items-center hx:justify-between hx:gap-2 hx:grow hx:cursor-pointer hx:rounded-sm hx:px-2 hx:py-1.5 hx:text-sm hx:transition-colors [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none]
+      hx:hextra-focus-visible-inset
+        hx:text-gray-500 hx:hover:bg-gray-100 hx:hover:text-gray-900 hx:contrast-more:border hx:contrast-more:border-transparent hx:contrast-more:text-gray-900 hx:contrast-more:hover:border-gray-900 hx:dark:text-neutral-400 hx:dark:hover:bg-primary-100/5 hx:dark:hover:text-gray-50 hx:contrast-more:dark:text-gray-50 hx:contrast-more:dark:hover:border-gray-50"
+      href="/CloudFlare-AI-Insight-Daily/daily/2025-11-08/"
+      
+    >
+      <span class="hx:min-w-0 [word-break:break-word]">AI洞察日报 2025/11/8</span>
+    </a>
+  </div></li>
+          <li class=""><div class="hextra-sidebar-item hx:group hx:relative hx:flex hx:items-center" data-active="false">
+    <a
+      class="hx:flex hx:items-center hx:justify-between hx:gap-2 hx:grow hx:cursor-pointer hx:rounded-sm hx:px-2 hx:py-1.5 hx:text-sm hx:transition-colors [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none]
+      hx:hextra-focus-visible-inset
+        hx:text-gray-500 hx:hover:bg-gray-100 hx:hover:text-gray-900 hx:contrast-more:border hx:contrast-more:border-transparent hx:contrast-more:text-gray-900 hx:contrast-more:hover:border-gray-900 hx:dark:text-neutral-400 hx:dark:hover:bg-primary-100/5 hx:dark:hover:text-gray-50 hx:contrast-more:dark:text-gray-50 hx:contrast-more:dark:hover:border-gray-50"
+      href="/CloudFlare-AI-Insight-Daily/daily/2025-11-07/"
+      
+    >
+      <span class="hx:min-w-0 [word-break:break-word]">AI洞察日报 2025/11/7</span>
+    </a>
+  </div></li>
+          <li class=""><div class="hextra-sidebar-item hx:group hx:relative hx:flex hx:items-center" data-active="false">
+    <a
+      class="hx:flex hx:items-center hx:justify-between hx:gap-2 hx:grow hx:cursor-pointer hx:rounded-sm hx:px-2 hx:py-1.5 hx:text-sm hx:transition-colors [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none]
+      hx:hextra-focus-visible-inset
+        hx:text-gray-500 hx:hover:bg-gray-100 hx:hover:text-gray-900 hx:contrast-more:border hx:contrast-more:border-transparent hx:contrast-more:text-gray-900 hx:contrast-more:hover:border-gray-900 hx:dark:text-neutral-400 hx:dark:hover:bg-primary-100/5 hx:dark:hover:text-gray-50 hx:contrast-more:dark:text-gray-50 hx:contrast-more:dark:hover:border-gray-50"
+      href="/CloudFlare-AI-Insight-Daily/daily/2025-11-06/"
+      
+    >
+      <span class="hx:min-w-0 [word-break:break-word]">AI洞察日报 2025/11/6</span>
+    </a>
+  </div></li>
+          <li class=""><div class="hextra-sidebar-item hx:group hx:relative hx:flex hx:items-center" data-active="false">
+    <a
+      class="hx:flex hx:items-center hx:justify-between hx:gap-2 hx:grow hx:cursor-pointer hx:rounded-sm hx:px-2 hx:py-1.5 hx:text-sm hx:transition-colors [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none]
+      hx:hextra-focus-visible-inset
+        hx:text-gray-500 hx:hover:bg-gray-100 hx:hover:text-gray-900 hx:contrast-more:border hx:contrast-more:border-transparent hx:contrast-more:text-gray-900 hx:contrast-more:hover:border-gray-900 hx:dark:text-neutral-400 hx:dark:hover:bg-primary-100/5 hx:dark:hover:text-gray-50 hx:contrast-more:dark:text-gray-50 hx:contrast-more:dark:hover:border-gray-50"
+      href="/CloudFlare-AI-Insight-Daily/daily/2025-11-05/"
+      
+    >
+      <span class="hx:min-w-0 [word-break:break-word]">AI洞察日报 2025/11/5</span>
+    </a>
+  </div></li>
+          <li class=""><div class="hextra-sidebar-item hx:group hx:relative hx:flex hx:items-center" data-active="false">
+    <a
+      class="hx:flex hx:items-center hx:justify-between hx:gap-2 hx:grow hx:cursor-pointer hx:rounded-sm hx:px-2 hx:py-1.5 hx:text-sm hx:transition-colors [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none]
+      hx:hextra-focus-visible-inset
+        hx:text-gray-500 hx:hover:bg-gray-100 hx:hover:text-gray-900 hx:contrast-more:border hx:contrast-more:border-transparent hx:contrast-more:text-gray-900 hx:contrast-more:hover:border-gray-900 hx:dark:text-neutral-400 hx:dark:hover:bg-primary-100/5 hx:dark:hover:text-gray-50 hx:contrast-more:dark:text-gray-50 hx:contrast-more:dark:hover:border-gray-50"
+      href="/CloudFlare-AI-Insight-Daily/daily/2025-11-04/"
+      
+    >
+      <span class="hx:min-w-0 [word-break:break-word]">AI洞察日报 2025/11/4</span>
+    </a>
+  </div></li>
+          <li class=""><div class="hextra-sidebar-item hx:group hx:relative hx:flex hx:items-center" data-active="false">
+    <a
+      class="hx:flex hx:items-center hx:justify-between hx:gap-2 hx:grow hx:cursor-pointer hx:rounded-sm hx:px-2 hx:py-1.5 hx:text-sm hx:transition-colors [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none]
+      hx:hextra-focus-visible-inset
+        hx:text-gray-500 hx:hover:bg-gray-100 hx:hover:text-gray-900 hx:contrast-more:border hx:contrast-more:border-transparent hx:contrast-more:text-gray-900 hx:contrast-more:hover:border-gray-900 hx:dark:text-neutral-400 hx:dark:hover:bg-primary-100/5 hx:dark:hover:text-gray-50 hx:contrast-more:dark:text-gray-50 hx:contrast-more:dark:hover:border-gray-50"
+      href="/CloudFlare-AI-Insight-Daily/daily/2025-11-03/"
+      
+    >
+      <span class="hx:min-w-0 [word-break:break-word]">AI洞察日报 2025/11/3</span>
+    </a>
+  </div></li>
+          <li class=""><div class="hextra-sidebar-item hx:group hx:relative hx:flex hx:items-center" data-active="false">
+    <a
+      class="hx:flex hx:items-center hx:justify-between hx:gap-2 hx:grow hx:cursor-pointer hx:rounded-sm hx:px-2 hx:py-1.5 hx:text-sm hx:transition-colors [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none]
+      hx:hextra-focus-visible-inset
+        hx:text-gray-500 hx:hover:bg-gray-100 hx:hover:text-gray-900 hx:contrast-more:border hx:contrast-more:border-transparent hx:contrast-more:text-gray-900 hx:contrast-more:hover:border-gray-900 hx:dark:text-neutral-400 hx:dark:hover:bg-primary-100/5 hx:dark:hover:text-gray-50 hx:contrast-more:dark:text-gray-50 hx:contrast-more:dark:hover:border-gray-50"
+      href="/CloudFlare-AI-Insight-Daily/daily/2025-11-02/"
+      
+    >
+      <span class="hx:min-w-0 [word-break:break-word]">AI洞察日报 2025/11/2</span>
+    </a>
+  </div></li>
+          <li class=""><div class="hextra-sidebar-item hx:group hx:relative hx:flex hx:items-center" data-active="false">
+    <a
+      class="hx:flex hx:items-center hx:justify-between hx:gap-2 hx:grow hx:cursor-pointer hx:rounded-sm hx:px-2 hx:py-1.5 hx:text-sm hx:transition-colors [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none]
+      hx:hextra-focus-visible-inset
+        hx:text-gray-500 hx:hover:bg-gray-100 hx:hover:text-gray-900 hx:contrast-more:border hx:contrast-more:border-transparent hx:contrast-more:text-gray-900 hx:contrast-more:hover:border-gray-900 hx:dark:text-neutral-400 hx:dark:hover:bg-primary-100/5 hx:dark:hover:text-gray-50 hx:contrast-more:dark:text-gray-50 hx:contrast-more:dark:hover:border-gray-50"
+      href="/CloudFlare-AI-Insight-Daily/daily/2025-11-01/"
+      
+    >
+      <span class="hx:min-w-0 [word-break:break-word]">AI洞察日报 2025/11/1</span>
+    </a>
+  </div></li>
+          <li class=""><div class="hextra-sidebar-item hx:group hx:relative hx:flex hx:items-center" data-active="false">
+    <a
+      class="hx:flex hx:items-center hx:justify-between hx:gap-2 hx:grow hx:cursor-pointer hx:rounded-sm hx:px-2 hx:py-1.5 hx:text-sm hx:transition-colors [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none]
+      hx:hextra-focus-visible-inset
+        hx:text-gray-500 hx:hover:bg-gray-100 hx:hover:text-gray-900 hx:contrast-more:border hx:contrast-more:border-transparent hx:contrast-more:text-gray-900 hx:contrast-more:hover:border-gray-900 hx:dark:text-neutral-400 hx:dark:hover:bg-primary-100/5 hx:dark:hover:text-gray-50 hx:contrast-more:dark:text-gray-50 hx:contrast-more:dark:hover:border-gray-50"
+      href="/CloudFlare-AI-Insight-Daily/daily/2025-10-31/"
+      
+    >
+      <span class="hx:min-w-0 [word-break:break-word]">AI洞察日报 2025/10/31</span>
+    </a>
+  </div></li>
+          <li class=""><div class="hextra-sidebar-item hx:group hx:relative hx:flex hx:items-center" data-active="false">
+    <a
+      class="hx:flex hx:items-center hx:justify-between hx:gap-2 hx:grow hx:cursor-pointer hx:rounded-sm hx:px-2 hx:py-1.5 hx:text-sm hx:transition-colors [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none]
+      hx:hextra-focus-visible-inset
+        hx:text-gray-500 hx:hover:bg-gray-100 hx:hover:text-gray-900 hx:contrast-more:border hx:contrast-more:border-transparent hx:contrast-more:text-gray-900 hx:contrast-more:hover:border-gray-900 hx:dark:text-neutral-400 hx:dark:hover:bg-primary-100/5 hx:dark:hover:text-gray-50 hx:contrast-more:dark:text-gray-50 hx:contrast-more:dark:hover:border-gray-50"
+      href="/CloudFlare-AI-Insight-Daily/daily/2025-10-30/"
+      
+    >
+      <span class="hx:min-w-0 [word-break:break-word]">AI洞察日报 2025/10/30</span>
+    </a>
+  </div></li>
+          <li class=""><div class="hextra-sidebar-item hx:group hx:relative hx:flex hx:items-center" data-active="false">
+    <a
+      class="hx:flex hx:items-center hx:justify-between hx:gap-2 hx:grow hx:cursor-pointer hx:rounded-sm hx:px-2 hx:py-1.5 hx:text-sm hx:transition-colors [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none]
+      hx:hextra-focus-visible-inset
+        hx:text-gray-500 hx:hover:bg-gray-100 hx:hover:text-gray-900 hx:contrast-more:border hx:contrast-more:border-transparent hx:contrast-more:text-gray-900 hx:contrast-more:hover:border-gray-900 hx:dark:text-neutral-400 hx:dark:hover:bg-primary-100/5 hx:dark:hover:text-gray-50 hx:contrast-more:dark:text-gray-50 hx:contrast-more:dark:hover:border-gray-50"
+      href="/CloudFlare-AI-Insight-Daily/daily/2025-10-29/"
+      
+    >
+      <span class="hx:min-w-0 [word-break:break-word]">AI洞察日报 2025/10/29</span>
+    </a>
+  </div></li>
+          <li class=""><div class="hextra-sidebar-item hx:group hx:relative hx:flex hx:items-center" data-active="false">
+    <a
+      class="hx:flex hx:items-center hx:justify-between hx:gap-2 hx:grow hx:cursor-pointer hx:rounded-sm hx:px-2 hx:py-1.5 hx:text-sm hx:transition-colors [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none]
+      hx:hextra-focus-visible-inset
+        hx:text-gray-500 hx:hover:bg-gray-100 hx:hover:text-gray-900 hx:contrast-more:border hx:contrast-more:border-transparent hx:contrast-more:text-gray-900 hx:contrast-more:hover:border-gray-900 hx:dark:text-neutral-400 hx:dark:hover:bg-primary-100/5 hx:dark:hover:text-gray-50 hx:contrast-more:dark:text-gray-50 hx:contrast-more:dark:hover:border-gray-50"
+      href="/CloudFlare-AI-Insight-Daily/daily/2025-10-28/"
+      
+    >
+      <span class="hx:min-w-0 [word-break:break-word]">AI洞察日报 2025/10/28</span>
+    </a>
+  </div></li>
+          <li class=""><div class="hextra-sidebar-item hx:group hx:relative hx:flex hx:items-center" data-active="false">
+    <a
+      class="hx:flex hx:items-center hx:justify-between hx:gap-2 hx:grow hx:cursor-pointer hx:rounded-sm hx:px-2 hx:py-1.5 hx:text-sm hx:transition-colors [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none]
+      hx:hextra-focus-visible-inset
+        hx:text-gray-500 hx:hover:bg-gray-100 hx:hover:text-gray-900 hx:contrast-more:border hx:contrast-more:border-transparent hx:contrast-more:text-gray-900 hx:contrast-more:hover:border-gray-900 hx:dark:text-neutral-400 hx:dark:hover:bg-primary-100/5 hx:dark:hover:text-gray-50 hx:contrast-more:dark:text-gray-50 hx:contrast-more:dark:hover:border-gray-50"
+      href="/CloudFlare-AI-Insight-Daily/daily/2025-10-27/"
+      
+    >
+      <span class="hx:min-w-0 [word-break:break-word]">AI洞察日报 2025/10/27</span>
+    </a>
+  </div></li>
+          <li class=""><div class="hextra-sidebar-item hx:group hx:relative hx:flex hx:items-center" data-active="false">
+    <a
+      class="hx:flex hx:items-center hx:justify-between hx:gap-2 hx:grow hx:cursor-pointer hx:rounded-sm hx:px-2 hx:py-1.5 hx:text-sm hx:transition-colors [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none]
+      hx:hextra-focus-visible-inset
+        hx:text-gray-500 hx:hover:bg-gray-100 hx:hover:text-gray-900 hx:contrast-more:border hx:contrast-more:border-transparent hx:contrast-more:text-gray-900 hx:contrast-more:hover:border-gray-900 hx:dark:text-neutral-400 hx:dark:hover:bg-primary-100/5 hx:dark:hover:text-gray-50 hx:contrast-more:dark:text-gray-50 hx:contrast-more:dark:hover:border-gray-50"
+      href="/CloudFlare-AI-Insight-Daily/daily/2025-10-25/"
+      
+    >
+      <span class="hx:min-w-0 [word-break:break-word]">AI洞察日报 2025/10/25</span>
+    </a>
+  </div></li>
+          <li class=""><div class="hextra-sidebar-item hx:group hx:relative hx:flex hx:items-center" data-active="false">
+    <a
+      class="hx:flex hx:items-center hx:justify-between hx:gap-2 hx:grow hx:cursor-pointer hx:rounded-sm hx:px-2 hx:py-1.5 hx:text-sm hx:transition-colors [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none]
+      hx:hextra-focus-visible-inset
+        hx:text-gray-500 hx:hover:bg-gray-100 hx:hover:text-gray-900 hx:contrast-more:border hx:contrast-more:border-transparent hx:contrast-more:text-gray-900 hx:contrast-more:hover:border-gray-900 hx:dark:text-neutral-400 hx:dark:hover:bg-primary-100/5 hx:dark:hover:text-gray-50 hx:contrast-more:dark:text-gray-50 hx:contrast-more:dark:hover:border-gray-50"
+      href="/CloudFlare-AI-Insight-Daily/daily/2025-10-21/"
+      
+    >
+      <span class="hx:min-w-0 [word-break:break-word]">AI洞察日报 2025/10/21</span>
+    </a>
+  </div></li>
+        
+      </ul>
+    </div>
+  
+  
+    <div class="  hx:sticky hx:bottom-0 hx:max-h-(--menu-height) hx:bg-white hx:dark:bg-dark hx:mx-4 hx:py-4 hx:shadow-[0_-12px_16px_#fff] hx:flex hx:items-center hx:gap-2 hx:border-gray-200 hx:dark:border-neutral-800 hx:dark:shadow-[0_-12px_16px_#111] hx:contrast-more:border-neutral-400 hx:contrast-more:shadow-none hx:contrast-more:dark:shadow-none hx:border-t" data-toggle-animation="show"><div class="hx:flex hx:grow hx:flex-col"><div class="hx:flex hx:justify-items-start hx:group" data-theme="light">
+  <button
+    title="切换主题"
+    data-state="closed"
+    data-location="bottom"
+    class="hextra-theme-toggle hx:cursor-pointer hx:rounded-md hx:text-left hx:font-medium hx:h-7 hx:px-2 hx:text-xs hx:hover:bg-gray-100 hx:hover:text-gray-900 hx:dark:hover:bg-primary-100/5 hx:dark:hover:text-gray-50 hx:font-medium hx:text-gray-600 hx:transition-colors hx:dark:text-gray-400 hx:grow"
+    type="button"
+    aria-label="切换主题"
+    aria-expanded="false"
+    aria-haspopup="menu"
+  >
+    <div class="hx:flex hx:items-center hx:gap-2 hx:capitalize"><svg height=12 class="hx:group-data-[theme=dark]:hidden hx:group-data-[theme=system]:hidden" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"/></svg><span class="hx:group-data-[theme=dark]:hidden hx:group-data-[theme=system]:hidden">浅色</span><svg height=12 class="hx:group-data-[theme=light]:hidden hx:group-data-[theme=system]:hidden" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"/></svg><span class="hx:group-data-[theme=light]:hidden hx:group-data-[theme=system]:hidden">深色</span><svg height=12 class="hx:group-data-[theme=dark]:hidden hx:group-data-[theme=light]:hidden" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"  fill="currentColor">
+  <path d="M 11.996094,2 C 6.4986225,2.0192368 2.03125,6.5024993 2.03125,12 c 0,5.497501 4.4673725,9.980763 9.964844,10 H 12 12.0039 c 5.497471,-0.01924 9.964844,-4.502499 9.964844,-10 0,-5.4975007 -4.467373,-9.9807632 -9.964844,-10 H 12 Z M 12,4 c 4.417218,0.017598 7.96875,3.5822356 7.96875,8 0,4.417764 -3.551532,7.982402 -7.96875,8 z" />
+</svg>
+<span class="hx:group-data-[theme=dark]:hidden hx:group-data-[theme=light]:hidden">跟随系统</span></div>
+  </button>
+  <ul
+    class="hextra-theme-toggle-options hx:hidden hx:z-20 hx:max-h-64 hx:overflow-auto hx:rounded-lg hx:border hx:border-gray-200 hx:bg-white hx:p-1 hx:text-sm hx:shadow-lg hx:dark:border-neutral-700 hx:dark:bg-neutral-900"
+    style="position: fixed; inset: auto auto 0px 0px; margin: 0px; min-width: 100px;"
+    data-theme="light"
+    role="menu"
+  >
+    <li role="none" class="hx:flex hx:flex-col">
+      <button
+        type="button"
+        role="menuitemradio"
+        aria-checked="true"
+        tabindex="-1"
+        data-item="light"
+        class="hx:text-gray-700 hx:dark:text-gray-300 hx:hover:bg-gray-100 hx:hover:text-gray-900 hx:dark:hover:bg-neutral-800 hx:dark:hover:text-gray-100 hx:relative hx:cursor-pointer hx:whitespace-nowrap hx:rounded-sm hx:py-1.5 hx:transition-colors hx:ltr:pl-3 hx:ltr:pr-9 hx:rtl:pr-3 hx:rtl:pl-9 hx:text-left hx:w-full hx:bg-transparent hx:border-0"
+      >
+        浅色
+         <span class="hx:absolute hx:inset-y-0 hx:flex hx:items-center hx:ltr:right-3 hx:rtl:left-3 hx:group-data-[theme=dark]:hidden hx:group-data-[theme=system]:hidden"><svg height=1em width=1em xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg></span>
+      </button>
+    </li>
+    <li role="none" class="hx:flex hx:flex-col">
+      <button
+        type="button"
+        role="menuitemradio"
+        aria-checked="false"
+        tabindex="-1"
+        data-item="dark"
+        class="hx:text-gray-700 hx:dark:text-gray-300 hx:hover:bg-gray-100 hx:hover:text-gray-900 hx:dark:hover:bg-neutral-800 hx:dark:hover:text-gray-100 hx:relative hx:cursor-pointer hx:whitespace-nowrap hx:rounded-sm hx:py-1.5 hx:transition-colors hx:ltr:pl-3 hx:ltr:pr-9 hx:rtl:pr-3 hx:rtl:pl-9 hx:text-left hx:w-full hx:bg-transparent hx:border-0"
+      >
+        深色
+         <span class="hx:absolute hx:inset-y-0 hx:flex hx:items-center hx:ltr:right-3 hx:rtl:left-3 hx:group-data-[theme=light]:hidden hx:group-data-[theme=system]:hidden"><svg height=1em width=1em xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg></span>
+      </button>
+    </li>
+    <li role="none" class="hx:flex hx:flex-col">
+      <button
+        type="button"
+        role="menuitemradio"
+        aria-checked="false"
+        tabindex="-1"
+        data-item="system"
+        class="hx:text-gray-700 hx:dark:text-gray-300 hx:hover:bg-gray-100 hx:hover:text-gray-900 hx:dark:hover:bg-neutral-800 hx:dark:hover:text-gray-100 hx:relative hx:cursor-pointer hx:whitespace-nowrap hx:rounded-sm hx:py-1.5 hx:transition-colors hx:ltr:pl-3 hx:ltr:pr-9 hx:rtl:pr-3 hx:rtl:pl-9 hx:text-left hx:w-full hx:bg-transparent hx:border-0"
+      >
+        跟随系统
+         <span class="hx:absolute hx:inset-y-0 hx:flex hx:items-center hx:ltr:right-3 hx:rtl:left-3 hx:group-data-[theme=dark]:hidden hx:group-data-[theme=light]:hidden"><svg height=1em width=1em xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg></span>
+      </button>
+    </li>
+  </ul>
+</div>
+</div></div></aside>
+    
+<nav class="hextra-toc hx:order-last hx:hidden hx:w-64 hx:shrink-0 hx:xl:block hx:print:hidden hx:px-4" aria-label="目录">
+    <div class="hextra-scrollbar hx:sticky hx:top-16 hx:overflow-y-auto hx:pr-4 hx:pt-6 hx:text-sm [hyphens:auto] hx:max-h-[calc(100vh-var(--navbar-height)-env(safe-area-inset-bottom))] hx:ltr:-mr-4 hx:rtl:-ml-4"><p class="hx:mb-4 hx:font-semibold hx:tracking-tight">此页上</p><ul>
+      <li class="hx:my-2 hx:scroll-my-6 hx:scroll-py-6">
+        <a class="hx:ltr:pl-4 hx:rtl:pr-4 hx:inline-block hx:rounded-sm hx:text-gray-500 hx:hover:text-gray-900 hx:dark:text-gray-400 hx:dark:hover:text-gray-300 hx:contrast-more:text-gray-900 hx:contrast-more:underline hx:contrast-more:dark:text-gray-50 hx:w-full hx:wrap-break-word hx:hextra-focus-visible-inset" href="#%e4%bb%8a%e6%97%a5%e6%91%98%e8%a6%81">今日摘要
+        </a>
+      </li></ul>
+      <div class="hx:mt-8 hx:border-t hx:bg-white hx:pt-8 hx:shadow-[0_-12px_16px_white] hx:dark:bg-dark hx:dark:shadow-[0_-12px_16px_#111] hx:sticky hx:bottom-0 hx:flex hx:flex-col hx:items-start hx:gap-2 hx:pb-8 hx:border-gray-200 hx:dark:border-neutral-800 hx:contrast-more:border-t hx:contrast-more:border-neutral-400 hx:contrast-more:shadow-none hx:contrast-more:dark:border-neutral-400">
+        <button id="backToTop" tabindex="-1" onClick="scrollUp();" class="hx:cursor-pointer hx:transition-all hx:duration-75 hx:opacity-0 hx:text-xs hx:font-medium hx:text-gray-500 hx:hover:text-gray-900 hx:dark:text-gray-400 hx:dark:hover:text-gray-100 hx:contrast-more:text-gray-800 hx:contrast-more:dark:text-gray-50">
+          <span>返回顶部</span>
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true" focusable="false" class="hx:inline hx:ltr:ml-1 hx:rtl:mr-1 hx:h-3.5 hx:w-3.5 hx:rounded-full hx:border hx:border-gray-500 hx:hover:border-gray-900 hx:dark:border-gray-400 hx:dark:hover:border-gray-100 hx:contrast-more:border-gray-800 hx:contrast-more:dark:border-gray-50">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 15.75l7.5-7.5 7.5 7.5" />
+          </svg>
+        </button>
+      </div>
+    </div>
+  </nav>
+
+
+    <article class="hx:w-full hx:break-words hx:flex hx:min-h-[calc(100vh-var(--navbar-height))] hx:min-w-0 hx:justify-center hx:pb-8 hx:pr-[calc(env(safe-area-inset-right)-1.5rem)]">
+      <main id="content" class="hx:w-full hx:min-w-0 hextra-max-content-width hx:px-6 hx:pt-4 hx:md:px-12">
+        <div class="hx:mt-1.5 hx:flex hx:items-center hx:gap-1 hx:overflow-hidden hx:text-sm hx:text-gray-500 hx:dark:text-gray-400 hx:contrast-more:text-current">
+        <div class="hx:whitespace-nowrap hx:transition-colors hx:min-w-[24px] hx:overflow-hidden hx:text-ellipsis hx:hover:text-gray-900 hx:dark:hover:text-gray-100">
+          <a href="/CloudFlare-AI-Insight-Daily/daily/" class="hx:inline-block hx:rounded-sm hx:hextra-focus-visible-inset">历史日报</a>
+        </div><svg class="hx:w-3.5 hx:shrink-0 hx:rtl:-rotate-180" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/></svg><div class="hx:whitespace-nowrap hx:transition-colors hx:font-medium hx:text-gray-700 hx:contrast-more:font-bold hx:contrast-more:text-current hx:dark:text-gray-100 hx:contrast-more:dark:text-current">AI洞察日报 2025/12/11</div>
+  </div>
+
+        <div class="content">
+          
+          <div class="hx:flex hx:flex-col hx:sm:flex-row hx:items-start hx:sm:items-center hx:sm:justify-between hx:gap-4 hx:mb-4">
+            <h1 class="hx:mb-0">AI洞察日报 2025/12/11</h1>
+            
+          </div>
+          
+          <blockquote>
+  <p><code>AI 日报</code></p>
+
+</blockquote>
+<h3>今日摘要<span class="hx:absolute hx:-mt-20" id="今日摘要"></span>
+    <a href="#%e4%bb%8a%e6%97%a5%e6%91%98%e8%a6%81" class="subheading-anchor" aria-label="此章节的永久链接"></a></h3><p>【1】claude-mem
+一款Claude Code插件，能够自动捕获Claude在编码会话中的所有操作，通过AI（使用Claude的agent-sdk）进行压缩，并将相关上下文注入未来的会话中。</p>
+<p>【2】kaiju
+使用Go（golang）和Vulkan构建的通用3D与2D游戏引擎，内置编辑器</p>
+<p>【3】agents.md
+AGENTS.md —— 一个用于指导编码智能体的简单、开放的格式</p>
+<p>【4】open-notebook
+Notebook LM的开源实现，具有更高的灵活性和更多功能</p>
+<p>【5】dyad
+免费、本地、开源的AI应用构建器 ✨ v0 / lovable / Bolt替代品 🌟 喜欢就点个星吧！</p>
+<p>【6】hello-agents
+📚 《从零开始构建智能体》——从零开始的智能体原理与实践教程</p>
+<p>【7】对话式逆向工程剖析 ChatGPT 记忆系统 ❌ 完全没有向量数据库和 RAG ✅ 而是一种分层、高效的四级上下文结构 核心发现：比想象中更简洁 ChatGPT 的&quot;记忆”并非&hellip;
+对话式逆向工程剖析 ChatGPT 记忆系统 ❌ 完全没有向量数据库和 RAG ✅ 而是一种分层、高效的四级上下文结构 核心发现：比想象中更简洁 ChatGPT 的&quot;记忆”并非在一个巨大的数据库中搜寻你过去说过的每一句话。相反，它通过巧妙地拼接不同层级的信息，在个性化和响应速度/成本之间取得了平衡。 ChatGPT 上下文的四层结构 1. 会话元数据 · 环境感知：包含你的设备类型、大致位置、时间、订阅等级以及近期的使用习惯（如活跃频率）。 · 作用：让回复适应你的当前环境（如深色模式、地理位置）。临时仅限当前会话，不保存。 2. 用户记忆库 · 长期核心事实：存储你的姓名、职业、偏好、长期目标等关键信息（作者示例中存了33条）。 · 来源：你明确要求&quot;记住这个”，或系统自动识别的重要事实。持久跨会话存在，直到被删除。 3. 近期对话摘要 · 短期兴趣地图：这是最令人意外的部分。它不是完整的历史记录，而是最近约 15 个对话的轻量级摘要（包含时间戳、标题和用户消息片段）。 · 作用：提供一种&quot;连贯感”，让 AI 知道你最近在关注什么，而无需加载全部历史。近期随时间推移更新。 4. 当前会话窗口 · 即时上下文：当前对话的完整记录。采用&quot;滑动窗口”机制，当对话过长超出 Token 限制时，最早的消息会被&quot;挤出”。 · 作用：保证当前对话逻辑的严密和连贯。当前随会话结束或超长而滚动。 为什么这种设计很聪明？ · 效率至上：传统的 RAG 需要对每一次查询都在海量历史中进行搜索，计算成本高且延迟大。 · 抓大放小：ChatGPT 的策略是——&ldquo;记住重要事实（层级2），了解近期话题概况（层级3），专注当前对话细节（层级4）”。 · 工程哲学的体现：这是一种实用主义的工程设计。它牺牲了对过去每一个微小细节的完美回忆，换取了极其流畅、快速且看似&quot;懂你”的交互体验。 总结 ChatGPT 让你感觉它&quot;记性很好”，并不是因为它真的记得你两年前说的某个琐碎细节，而是因为它始终随身携带一份关于你的&quot;核心档案”（长期记忆）和一份&quot;近期动态简报”（对话摘要）。这是一种极为高效的&quot;伪全知”体验。 阅读原文（作者 @manthanguptaa） <a href="https://manthanguptaa.in/posts/chatgpt_memory/"target="_blank" rel="noopener">https://manthanguptaa.in/posts/chatgpt_memory/</a> [图片: https://pbs.twimg.com/media/G72dWfLaMAYDe7P?format=jpg&amp;name=orig] Manthan Gupta: I spent the last few days prompting ChatGPT to understand how its memory system actually works. Spoiler alert: There is no RAG used <a href="https://manthanguptaa.in/posts/chatgpt_memory/"target="_blank" rel="noopener">https://manthanguptaa.in/posts/chatgpt_memory/</a> [图片: https://pbs.twimg.com/media/G7x-vjXakAArpzJ?format=png&amp;name=orig]</p>
+<p>【8】Claude Code CLI现在支持异步子代理，对监控日志或构建长时任务场景比较实用 可以启动一个或多个子代理，后台独立运行，即使主代理完成后，它们仍会在后台继续执&hellip;
+Claude Code CLI现在支持异步子代理，对监控日志或构建长时任务场景比较实用 可以启动一个或多个子代理，后台独立运行，即使主代理完成后，它们仍会在后台继续执行任务 比如说，监控服务器日志文件，一旦子代现发现特定错误信息就自动触发警报或执行某个操作，无需人工一直盯 当一个耗时很长的构建任务，可以让子代理去等待构建完成，构建完成后让它邮件或消息通知等 #AI编程 #ClaudeCode [视频: https://video.twimg.com/amplify_video/1998923735378874368/vid/avc1/964x720/_m3GFu53tYoQrdRq.mp4?tag=21] Claude: We&rsquo;re releasing more upgrades to Claude Code CLI: - Async subagents - Instant compact - Customer session names - Usage stats [图片: https://pbs.twimg.com/media/G71Eo2ba4AAjlsG?format=png&amp;name=orig]</p>
+<p>【9】Andrej Karpathy 分享「回顾性 Hacker News 讨论自动评分」 Andrej Karpathy 做了一个有趣的 AI 实验：使用 GPT-5.1 Thinking API 对 2015.12 Hacker News（HN）&hellip;
+Andrej Karpathy 分享「回顾性 Hacker News 讨论自动评分」 Andrej Karpathy 做了一个有趣的 AI 实验：使用 GPT-5.1 Thinking API 对 2015.12 Hacker News（HN）首页上的 930 篇热门文章及其讨论进行&quot;事后分析”。他评估了这些旧帖子的预见性，以识别出最具洞察力和最不准确的观点。项目花了约 3 小时编写代码、1 小时运行，总成本仅 60 美元。 核心内容与方法 · 灵感来源：Karpathy 提到，这个想法受前一天一篇 HN 文章启发，那篇文章让 Gemini 3 模型&quot;幻想到”未来 10 年后的 HN 首页。相比之下，他的项目是&quot;倒推”历史：用当今 AI 回顾过去，训练预测模型。 · 执行过程：AI 模型审阅了 2015 年 12 月的 HN 存档，从&quot;事后视角”打分。重点考察评论的准确性、深度和对未来的洞察，例如科技趋势、AI 发展或社会影响。 · 结果亮点：模型选出了当年 HN 评论中最具预见性的前 10 名用户，包括 pcwalton、tptacek、paulmd、cstross 等。 更广泛的含义 1. 预测训练的价值：这种回顾性分析能帮助人们校准对未来的判断。通过审视旧观点的成败，能更好地&quot;训练”个人预测模型。 2. 未来 AI 的隐忧：他幽默却严肃地提醒，&ldquo;善待网络内容，因为未来的超级 LLM 会更廉价、更快速地剖析一切”。这呼应了他早前的推文：&ldquo;Be good, future LLMs are watching”。本质上，互联网数据已成为&quot;免费”的永恒遗产，AI 将无情审计它——这既是工具，也是警示。 [图片: https://pbs.twimg.com/media/G72a6h7asAE8LGv?format=jpg&amp;name=orig] Andrej Karpathy: Quick new post: Auto-grading decade-old Hacker News discussions with hindsight I took all the 930 frontpage Hacker News article+discussion of December 2015 and asked the GPT 5.1 Thinking API to do an in-hindsight analysis to identify the most/least prescient comments. This took [图片: https://pbs.twimg.com/media/G70qI3baMAEwF78?format=jpg&amp;name=orig]</p>
+<p>【10】好了，五个平台都打通了 接下来优化下账号组和平台草稿 开始分发之旅
+好了，五个平台都打通了 接下来优化下账号组和平台草稿 开始分发之旅 [图片: https://pbs.twimg.com/media/G72ZzPwb0AA2JTw?format=jpg&amp;name=orig]</p>
+<p>【11】📢 Cursor 2.2 版本发布：调试模式、计划模式 和 多智能体协作方向重点发力 🔍 全新&quot;调试模式” (Debug Mode) 这是本次更新的重头戏。以往 AI 编程工具往往&hellip;
+📢 Cursor 2.2 版本发布：调试模式、计划模式 和 多智能体协作方向重点发力 🔍 全新&quot;调试模式” (Debug Mode) 这是本次更新的重头戏。以往 AI 编程工具往往只负责&quot;写代码”，而不管&quot;修 Bug”。 · 功能：Cursor 现在可以主动帮助你复现和修复棘手的 Bug。 · 原理：它通过在应用运行时植入日志来追踪问题，从而找到报错的根本原因。 · 适用性：支持多种技术栈、编程语言和模型。 · 意义：这标志着 AI 从单纯的&quot;代码生成者”向&quot;全栈维护者”迈进了一大步，能显著减少开发者排查疑难杂症的时间。 🧠 &ldquo;计划模式”升级 (Plan Mode Improvements) &ldquo;计划模式”用于让 AI 在写代码前先生成通过步骤。本次升级使其更加可视化和灵活。 · 可视化流程图：支持内嵌 Mermaid 图表。Agent 可以自动生成并流式传输流程图或架构图，让你直观地看到 AI 的解题思路。 · 更强的控制力：你现在可以手动选择计划中的某些&quot;待办事项”，并将它们派发给新的 Agent 去执行。这意味着你可以更精细地指挥 AI 分工协作。 ⚖️ 多智能体&quot;裁判”机制 (Multi-Agent Judging) 在 Cursor 2.0 推出的&quot;多智能体并行”功能基础上，2.2 版本引入了&quot;裁判”。 · 痛点：以前如果你让多个 Agent 并行写代码，你需要自己去判断哪个结果最好。 · 解决方案：现在，当多个 Agent 完成任务后，Cursor 会自动评估所有结果，并推荐最佳方案。 · 透明度：被选中的方案会附带一条评论，解释为什么它是最好的。这大大降低了用户在多个 AI 生成结果中做选择的决策成本。 📌 聊天置顶 (Pinned Chats) · 功能：现在可以在 Agent 侧边栏中置顶重要的对话。 · 场景：适用于那些长期进行的任务或包含重要上下文信息的对话，方便随时回溯。 更新日志 <a href="https://cursor.com/changelog/2-2"target="_blank" rel="noopener">https://cursor.com/changelog/2-2</a> [图片: https://pbs.twimg.com/media/G72ZlXgaMAEKt8z?format=jpg&amp;name=orig] Cursor: Cursor can now fix your hardest bugs. Debug Mode instruments your code, spins up a server to capture logs, and streams runtime data to the agent. Also in 2.2: Plan Mode improvements, multi-agent judging, and more. [视频: https://video.twimg.com/amplify_video/1998819362564673536/vid/avc1/1920x1080/2WocJObjd4NhBSKq.mp4?tag=21]</p>
+<p>【12】This Changed how I see AI
+This Changed How I See AI&hellip; I just watched this clip from DOAC w/ Steven Bartlett and honestly, it might be one of the most important conversations about AI you’ll see this year. If you care about where AI is taking us, real risks, timelines, and what insiders are actually warning us about (not the usual hype), this will hit hard. It made me rethink a lot of assumptions I had and I think more people should be talking about this. Watch or listen to it here: <a href="https://doac-perks.com/listen/bZLGE-d-kB?e=BFU1OCkhBwo"target="_blank" rel="noopener">https://doac-perks.com/listen/bZLGE-d-kB?e=BFU1OCkhBwo</a> Comment below what you think after watching! Curious how others are seeing this too.. submitted by /u/No_Mortgage339 [link] [comments]</p>
+<p>【13】我的人生电影亮相海南岛国际电影节，MiniMax×猿动力打造电影级AI漫剧
+第七届海南岛国际电影节·联想AI电影季在三亚开幕。MiniMax旗下「海螺AI」特别单元「我的人生电影」完成展映，评审会主席、导演陆川现场宣布，其创办的猿动力影视已与MiniMax达成AIGC技术合作，双方将共同开发具备电影质感的AI漫剧项目，并计划将合作延伸至院线电影与精品剧集制作。 [图片: 动漫美女 插画 二次元 https://pic.chinaz.com/picmap/202406051700522267_0.jpg] 展映亮点:AI生成短片登陆国际A类电影节 - 展映作品均由「海螺AI」平台生成，涵盖剧情、纪录与实验短片 - 陆川点评:「AI已能完成镜头级别的情绪表达，为青年创作者提供低成本试错空间」 合作框架:全流程AI技术赋能 - 技术供应:MiniMax及海螺AI提供视频生成、语音克隆、角色驱动等全流程工具链 - 内容开发:猿动力负责剧本、美术与后期精修，双方共同打磨「电影级」画面质感 - 商业路径:首批AI漫剧计划2025年Q2上线;后续将合作院线电影与精品剧集 产业意义:电影节为AI内容「开绿灯」 - 海南岛国际电影节专设「联想AI电影季」，为AIGC短片提供国际A类展映平台 - 主办方表示，未来三年将持续扩大AI竞赛单元，并设立百万级创作基金 下一步:青年导演孵化+院线长片 - 青年导演招募:双方将于2025年启动「AI青年导演计划」，面向全球征集AI剧本 - 长片计划:2026年合作推出90分钟AI漫剧电影，目标登陆国内院线与流媒体 编辑结语 当生成式AI从「工具」升级为「制片方」，电影节成为验证其叙事能力的 最佳 舞台。MiniMax×猿动力的合作显示:AI不再只是降本工具，而是可直接参与故事构建与视觉呈现的新生产力。AIbase将持续跟踪该项目的院线落地与青年导演招募进展。</p>
+<p>【14】Qwen3-TTS 升级：多样化声音让语音合成更自然
+近日，Qwen3-TTS 语音合成模型迎来了全面升级，凭借其出色的表现，成为了语音合成领域的一颗新星。此版本不仅支持多音色、多语种和多方言，还提升了语音生成的自然性和稳定性，用户可以通过 Qwen API 轻松访问这一强大功能。 [图片: image.png https://upload.chinaz.com/2025/1211/6390104141605599931137824.png] Qwen3-TTS 的音色支持数量大幅增加，现提供超过49种高品质音色，覆盖了不同性别、年龄和地域特征，让用户在不同场景中都能找到合适的声音。例如，有撒娇搞怪的茉兔，陪伴感满满的小野杏，或是严厉的墨讲师等多种角色可供选择。这种丰富的音色选择使得合成的语音更具表现力，能够更好地传递情感。 此外，Qwen3-TTS 在多语种和方言的支持上也取得了显著进展。该模型支持包括中文、英文、德语、法语等在内的十种主要语言，且在多语言测试中的平均词错误率（WER）表现优于许多同类产品。同时，Qwen3-TTS 也支持多种方言的音色生成，如普通话、粤语、闽南语等，能够真实还原地方口音和语言的韵味，满足更广泛用户的需求。 在语音的自然度方面，Qwen3-TTS 的自适应调节能力得到了大幅提升，能够根据文本内容灵活调整语速和韵律，拟人化的程度接近于真人语音。这意味着用户在使用 Qwen3-TTS 进行语音合成时，能够获得更自然流畅的听觉体验。 用户体验方面，Qwen3-TTS 还提供了简单易用的 API 接口，方便开发者快速接入。通过一些简单的代码，用户即可轻松生成高质量的语音合成内容。这样的设计不仅降低了使用门槛，还让更多人能够享受到先进的语音合成技术。 Qwen3-TTS API文档 : <a href="https://help.aliyun.com/zh/model-studio/multi-round-conversation?spm=a2c4g.11186623.help-menu-2400256.d_0_1_1.49445002U6gJoz"target="_blank" rel="noopener">https://help.aliyun.com/zh/model-studio/multi-round-conversation?spm=a2c4g.11186623.help-menu-2400256.d_0_1_1.49445002U6gJoz</a> 划重点: 🌟 Qwen3-TTS 新增49种高品质音色，角色多样化满足不同需求。 🌍 支持10种主要语言和多种方言，真实还原地方口音特色。 🎤 语音自然度提升，拟人化程度接近真人，让用户体验更佳。</p>
+<p>【15】Meta&quot;Avocado”闭源模型定档2026春，Zuckerberg亲督战队
+Meta首席执行官马克·扎克伯格已接管公司AI商业化路线图，内部确认代号为「Avocado」的新一代大模型将于 2026 年春季以闭源形式发布，仅提供API及托管服务，不再开放权重。 Meta TBD Lab整合谷歌Gemma、OpenAI gpt-oss及阿里巴巴通义千问（Qwen）等第三方开源成果，用于Avocado的预训练与对齐，目标直指Frontier级别性能。公司新近与英伟达签署价值 50 亿美元的H100 订单， 专供 Avocado训练集群。 闭源策略意味着Meta将撕下「开源旗手」标签，转向API+广告+云三重变现：Meta AI API计划切换至Avocado底座，Facebook、Instagram、WhatsApp内置AI助手全面升舱，并通过AWS、Azure等托管节点向开发者输出能力。 业界分析认为，Avocado若按期落地，将成为背靠 30 亿月活的「 同级 别但不同商业模式」新对手，开发者社区与监管方已关注其透明度与审计进展。Meta将于 2026 年Q1 举行全球发布会，Zuckerberg将亲自演示多模态能力与广告场景案例，AIbase将持续跟踪其技术细节与合规动态。</p>
+<p>【16】英特尔计划收购 AI 芯片公司 SambaNova，加速数据中心布局
+英特尔与 AI 芯片初创企业 SambaNova Systems 已签署了一份收购意向书，但具体交易细节尚未公开。这份意向书为非约束性，意味着双方仍可在条件允许的情况下撤回，最终的并购协议尚未最终确定。 SambaNova 由谭立夫（Lip-Bu Tan）担任董事会主席，英特尔现任首席执行官，他对 SambaNova 的业务和技术有着深入了解。截至2025年初，SambaNova 已获得约11.4亿美元的融资，显示出市场对其技术的认可。该公司的核心产品是 &ldquo;可重构数据流单元”(RDU)，旨在满足大型模型推理的需求。 [图片: image.png https://upload.chinaz.com/2025/1211/6390104122759109833300941.png] SambaNova 的 最新 一代 RDU 芯片集成了1，040个核心，具备约653TeraFLOPS 的 BF16算力，搭配520MB 的片上缓存和64GB 的高带宽 HBM3显存，并通过外接的1.5TB DDR 内存池支持大规模语言模型。目前，SambaNova 仍是未上市的私人公司，具体销售数据未对外公布。 市场关注的焦点在于，如果收购完成，英特尔将如何将 SambaNova 融入其 AI 产品战略。英特尔过去几年通过收购多个公司，补充 AI 产品线，包括以 NPU 为主的 Movidius 和专注于数据中心训练与推理的 Habana Labs。Movidius 的 NPU 技术已经被整合进多代英特尔处理器，而 Habana 的 Gaudi 系列数据中心加速卡在市场上反响有限。 英特尔计划在下一代 AI 加速产品 &ldquo;Jaguar Shores” 中继续整合 Gaudi 的部分知识产权，面向训练与推理场景。SambaNova 的技术路线为英特尔提供了新的选择:可以将 RDU 及相关软件作为独立产品线，或者将其核心技术与现有数据中心平台相结合。 目前，英特尔尚未公开具体的整合计划，市场将密切关注这笔交易的最终结果，以及它是否能帮助英特尔在竞争激烈的 AI 加速芯片市场中提升地位。 划重点: 🌟 英特尔与 SambaNova 签署收购意向书，但交易细节尚未公开。 💡 SambaNova 的 RDU 芯片具备高算力，主要用于大型模型推理。 🔍 市场关注英特尔如何整合 SambaNova 以增强 AI 产品线。</p>
+<p>【17】Adobe 与 ChatGPT 联手推出全新图像与 PDF 编辑功能
+Adobe 近日宣布与 ChatGPT 达成深度合作，推出了一种全新的使用方式，让用户能够通过 ChatGPT 直接编辑 Photoshop、Acrobat 和 Adobe Express 等应用。用户只需在对话中输入相关应用的名称，并附上所需编辑的文件，然后用简单的日常语言描述需求，就可以轻松完成图片和 PDF 的设计与编辑，而不需要在不同软件间频繁切换。 [图片: image.png https://upload.chinaz.com/2025/1211/6390104111934606466588879.png] 例如，用户可以在聊天窗口中输入 &ldquo;Adobe Photoshop，帮我把这张照片的背景虚化”，系统会自动调用相应的 Adobe 应用进行操作。在整个对话过程中，用户无需每次都重复指明应用名称，这一改变大大简化了操作流程。根据不同指令，界面会提供多种结果供用户选择，用户还可以使用弹出控件来手动调整对比度、亮度等参数。 此次集成并不是将完整的桌面版 Photoshop 移植到 ChatGPT 中，而是提供了一些常用的核心功能。Adobe 表示，Photoshop 可以对图像的特定区域进行编辑，添加创意效果，并调整基础的亮度、对比度和曝光等参数。而 Acrobat 则允许用户在 ChatGPT 中直接编辑现有的 PDF 文件，压缩文件，转换其他格式为 PDF，提取文本或表格内容，以及将多个文件合并成一个 PDF。 此外，Adobe Express 为 ChatGPT 用户提供了一站式的图形设计入口，适用于生成和编辑海报、请柬以及社交媒体配图等各类视觉内容。用户可以在对话中轻松替换文字和图片、修改配色，甚至为某些元素添加动画，整个过程都无需离开 ChatGPT 界面。如果需要进行更细致的专业控制，用户也可以将从 ChatGPT 开始的项目一键转到 Adobe 的原生桌面应用中继续编辑。 这一举措意味着传统的创意工具正在向对话式界面转型，使得非专业用户也能通过自然语言直接操控专业级的编辑引擎，完成复杂的操作。同时，对 OpenAI 而言，这也是在 ChatGPT 生态系统中引入主流的创意和办公工作流，为聊天机器人增加实用场景，增强其作为 &ldquo;总控工作台” 的能力。 划重点: 🌟 Adobe 与 ChatGPT 合作，让用户通过对话直接编辑图片和 PDF。 🖼️ 用户只需描述需求，即可简化操作，提供多种编辑选项。 📑 该集成支持 Photoshop、Acrobat 和 Adobe Express，方便轻松处理各种设计任务。</p>
+<p>【18】Google 将 AI 搜索功能升级，增强来源链接和内容说明
+Google 近日宣布对其 AI 驱动的搜索功能 &ldquo;AI 模式”（AI Mode）进行重要更新，旨在提升用户的搜索体验。这次更新将为搜索结果增加更多的内嵌来源链接，同时由 AI 生成简短的说明，帮助用户更好地理解这些链接与他们的查询之间的关系。 在 Google 展示的更新示例中，用户在搜索诸如 &ldquo;如何用低预算打造复古家居风格” 的问题时，首先会看到一段概括性的总结。这段总结将提供文章中涉及的主要内容，比如二手货物建议、建筑细节改造的思路（例如线条和五金的更换）以及 DIY 项目等。总结之后，用户将看到相关网站的链接，这些链接将以轮播的形式呈现，便于浏览。 [图片: image.png https://upload.chinaz.com/2025/1211/6390104081727018728672084.png] Google 表示，在未来的 AI 模式回答中，用户还会看到更多带有超链接的词语或短语，并且每个链接旁边都会附带由 AI 生成的说明，以帮助用户理解这些链接的重要性。这一调整是在欧盟监管机构加大对生成式 AI 搜索的审查背景下进行的。几天前，欧盟委员会刚刚对 Google 展开了调查，评估其在使用网络出版商内容时是否违反了竞争规则，并未给予 &ldquo;适当补偿”。 此外，Google 也注意到，当 AI 生成的总结出现在搜索结果中时，用户点击传统链接的意愿可能会下降。对此，Google 曾表示，整体点击量仍保持 &ldquo;相对稳定”。为了缓解外界对其 &ldquo;截流” 网站流量的担忧，Google 还与多家媒体开始了试点合作，探索 AI 工具如何为新闻机构吸引更多的受众。 参与此次合作的出版方包括《卫报》《华盛顿邮报》和《华盛顿观察家报》等。Google 的一个实验是在其新闻平台中为文章添加 AI 撰写的概述摘要。此外，Google 还与美联社等机构合作，通过 Gemini 应用向用户推送实时资讯。为进一步提升用户体验，Google 将 &ldquo;偏好来源” 功能推广到全球英语用户，让用户在新闻和信息流中更容易找到自己喜欢的媒体来源。 划重点: 📌 Google 对其 AI 搜索功能进行更新，增加更多内嵌来源链接和 AI 生成的说明。 📌 更新旨在帮助用户理解搜索结果与查询内容的相关性，提升搜索体验。 📌 Google 与多家媒体合作，探索 AI 工具在新闻传播中的应用，同时推广 &ldquo;偏好来源” 功能。</p>
+
+        </div>
+        <div class="hx:mt-16"></div><div class="hx:mb-8 hx:flex hx:items-center hx:border-t hx:pt-8 hx:border-gray-200 hx:dark:border-neutral-800 hx:contrast-more:border-neutral-400 hx:dark:contrast-more:border-neutral-400 hx:print:hidden"><a
+        href="/CloudFlare-AI-Insight-Daily/daily/2025-12-12/"
+        title="AI洞察日报 2025/12/12"
+        class="hx:flex hx:max-w-[50%] hx:items-center hx:gap-1 hx:py-4 hx:text-base hx:font-medium hx:text-gray-600 hx:transition-colors [word-break:break-word] hx:hover:text-primary-600 hx:dark:text-gray-300 hx:md:text-lg hx:ltr:pr-4 hx:rtl:pl-4"
+      ><svg class="hx:inline hx:h-5 hx:shrink-0 hx:ltr:rotate-180" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/></svg>AI洞察日报 2025/12/12</a><a
+        href="/CloudFlare-AI-Insight-Daily/daily/2025-12-10/"
+        title="AI洞察日报 2025/12/10"
+        class="hx:flex hx:max-w-[50%] hx:items-center hx:gap-1 hx:py-4 hx:text-base hx:font-medium hx:text-gray-600 hx:transition-colors [word-break:break-word] hx:hover:text-primary-600 hx:dark:text-gray-300 hx:md:text-lg hx:ltr:ml-auto hx:ltr:pl-4 hx:ltr:text-right hx:rtl:mr-auto hx:rtl:pr-4 hx:rtl:text-left"
+      >AI洞察日报 2025/12/10<svg class="hx:inline hx:h-5 hx:shrink-0 hx:rtl:-rotate-180" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/></svg></a></div>
+      </main>
+    </article>
+  </div>
+
+      <footer class="hextra-footer hx:bg-gray-100 hx:pb-[env(safe-area-inset-bottom)] hx:dark:bg-neutral-900 hx:print:bg-transparent"><div class="hextra-custom-footer hextra-max-footer-width hx:pl-[max(env(safe-area-inset-left),1.5rem)] hx:pr-[max(env(safe-area-inset-right),1.5rem)] hx:text-gray-600 hx:dark:text-gray-400"></div><div
+      class="hextra-max-footer-width hx:mx-auto hx:flex hx:justify-center hx:py-12 hx:pl-[max(env(safe-area-inset-left),1.5rem)] hx:pr-[max(env(safe-area-inset-right),1.5rem)] hx:text-gray-600 hx:dark:text-gray-400 hx:md:justify-start"
+    >
+      <div class="hx:flex hx:w-full hx:flex-col hx:items-center hx:sm:items-start"><div class="hx:font-semibold"><a class="hx:flex hx:text-sm hx:items-center hx:gap-1 hx:text-current" target="_blank" rel="noopener noreferrer" title="Hextra GitHub Homepage" href="https://github.com/imfing/hextra">
+    <span>由 Hextra 驱动<svg height=1em class="hx:inline-block hx:ltr:ml-1 hx:rtl:mr-1 hx:align-[-2.5px]" viewBox="0 0 180 180" xmlns="http://www.w3.org/2000/svg" fill="currentColor"><path fill-rule="evenodd" clip-rule="evenodd" d="m 105.50024,22.224647 c -9.59169,-5.537563 -21.40871,-5.537563 -31.000093,0 L 39.054693,42.689119 C 29.463353,48.226675 23.55484,58.460531 23.55484,69.535642 v 40.928918 c 0,11.07542 5.908513,21.3092 15.499853,26.84652 l 35.445453,20.46446 c 9.591313,5.53732 21.408404,5.53732 31.000094,0 l 35.44507,-20.46446 c 9.59131,-5.53732 15.49985,-15.7711 15.49985,-26.84652 V 69.535642 c 0,-11.075111 -5.90854,-21.308967 -15.49985,-26.846523 z M 34.112797,85.737639 c -1.384445,2.397827 -1.384445,5.352099 0,7.749927 l 24.781554,42.922974 c 1.38437,2.39783 3.942853,3.87496 6.711592,3.87496 h 49.563107 c 2.76905,0 5.3273,-1.47713 6.71144,-3.87496 l 24.78194,-42.922974 c 1.38414,-2.397828 1.38414,-5.3521 0,-7.749927 L 121.88049,42.814746 c -1.38414,-2.397828 -3.94239,-3.874964 -6.71144,-3.874964 H 65.605944 c -2.768739,0 -5.327223,1.477059 -6.711592,3.874964 z" style="stroke-width:0.774993" /></svg></span>
+  </a></div></div>
+    </div></footer>
+    
+    <script defer src="/CloudFlare-AI-Insight-Daily/js/main.min.1d51a80545430abd5bf1ac8c65f37efa9234a865133e0579870bf2eadd377658.js" integrity="sha256-HVGoBUVDCr1b8ayMZfN&#43;&#43;pI0qGUTPgV5hwvy6t03dlg="></script>
+<script defer src="/CloudFlare-AI-Insight-Daily/js/flexsearch.433e941a8a573ebb9931fc16fc75266ab6b93f569ac2fb4f3dc66882e0416f4c.js" integrity="sha256-Qz6UGopXPruZMfwW/HUmara5P1aawvtPPcZoguBBb0w=" crossorigin="anonymous"></script>
+        <script defer src="/CloudFlare-AI-Insight-Daily/en.search.min.63379b3a7dfb6be2d8d6807c13ac9787241d3568837f5cdc217650689455ae62.js" integrity="sha256-YzebOn37a&#43;LY1oB8E6yXhyQdNWiDf1zcIXZQaJRVrmI="></script>
+  </body>
+</html>
